@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test
 
+// https://escape.codingame.com/games/12
 class FindingSherlockTheApartmentTest {
 
     @Test
