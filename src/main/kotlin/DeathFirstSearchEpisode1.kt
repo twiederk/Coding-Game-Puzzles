@@ -49,10 +49,19 @@ data class DeathFirstSearchEpisode1(
     val edges: Set<Edge>,
     val gateways: Set<Node>
 ) {
-    fun severLink(agent: Node): Edge {
-        return Edge(0, 1)
+
+    init {
+        System.err.println("nodes = ${nodes}")
+        System.err.println("edges = ${edges}")
+        System.err.println("gateways = ${gateways}")
     }
 
+    fun severLink(agent: Node): Edge {
+        System.err.println("agent: $agent")
+        // find path from agent to gateway
+        // sever link contained in this path
+        return Edge(1, 2)
+    }
 
 }
 
