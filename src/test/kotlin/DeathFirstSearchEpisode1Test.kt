@@ -1,3 +1,4 @@
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 // https://www.codingame.com/ide/puzzle/death-first-search-episode-1
@@ -15,10 +16,10 @@ class DeathFirstSearchEpisode1Test {
         )
 
         // act
-        val result = deathFirstSearchEpisode1.graph()
-
+        val result = deathFirstSearchEpisode1.severLink(1)
 
         // assert
-
+        assertThat(result).isEqualTo(Edge(1, 2))
     }
+
 }
