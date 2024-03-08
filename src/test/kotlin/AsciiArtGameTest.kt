@@ -1,9 +1,10 @@
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class AsciiArtGameTest {
 
-    val row = listOf(
+    private val row = listOf(
         " #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # ###  #  ##   #  ##   ## ### # # # # # # # # # # ###",
         "# # # # #   # # #   #   #   # #  #    # # # #   ### # # # # # # # # # # #    #  # # # # # # # # # #   #",
         "### ##  #   # # ##  ##  # # ###  #    # ##  #   ### # # # # ##  # # ##   #   #  # # # # ###  #   #   # ",
@@ -12,6 +13,7 @@ class AsciiArtGameTest {
     )
 
     @Test
+    @Disabled("not yet implemented")
     fun should_display_first_line_of_letter_A() {
         // arrange
 

@@ -1,5 +1,5 @@
 class AsciiArtGame(
-    private val ROW: List<String>
+    private val row: List<String>
 ) {
 
     fun readLetter(letter: String): List<String> {
