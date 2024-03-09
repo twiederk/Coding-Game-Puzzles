@@ -1,7 +1,6 @@
 import java.util.*
 
-typealias Node = Int
-typealias Edge = Pair<Int, Int>
+typealias Edge = Pair<Node, Node>
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -16,15 +15,15 @@ fun main(args: Array<String>) {
     val nodes = mutableSetOf<Node>()
     val edges = mutableSetOf<Edge>()
     for (i in 0 until numberOfLinks) {
-        val node1 = input.nextInt() // N1 and N2 defines a link between these nodes
-        val node2 = input.nextInt()
+        val node1 = Node(input.nextInt()) // N1 and N2 defines a link between these nodes
+        val node2 = Node(input.nextInt())
         nodes.add(node1)
         nodes.add(node2)
         edges.add(Edge(node1, node2))
     }
     val gateways = mutableSetOf<Node>()
     for (i in 0 until numberOfExitGateways) {
-        val gateway = input.nextInt() // the index of a gateway node
+        val gateway = Node(input.nextInt()) // the index of a gateway node
         gateways.add(gateway)
     }
 
@@ -36,7 +35,7 @@ fun main(args: Array<String>) {
 
         // Write an action using println()
         // To debug: System.err.println("Debug messages...");
-        val severLink: Edge = deathFirstSearchEpisode1.severLink(agent)
+        val severLink: Edge = deathFirstSearchEpisode1.severLink(Node(agent))
 
 
         // Example: 0 1 are the indices of the nodes you wish to sever the link between
@@ -59,9 +58,60 @@ data class DeathFirstSearchEpisode1(
     fun severLink(agent: Node): Edge {
         System.err.println("agent: $agent")
         // find path from agent to gateway
+        val path = bfs(edges, agent, gateways)
         // sever link contained in this path
-        return Edge(1, 2)
+        if (path?.parent == null) {
+            return Edge(Node(0), Node(1))
+        }
+        return Edge(path, path.parent!!)
+    }
+
+    //    1  procedure BFS(G, root) is
+//    2      let Q be a queue
+//    3      label root as explored
+//    4      Q.enqueue(root)
+//    5      while Q is not empty do
+//    6          v := Q.dequeue()
+//    7          if v is the goal then
+//    8              return v
+//    9          for all edges from v to w in G.adjacentEdges(v) do
+//    10              if w is not labeled as explored then
+//    11                  label w as explored
+//    12                  w.parent := v
+//    13                  Q.enqueue(w)
+    private fun bfs(graph: Set<Edge>, root: Node, goal: Set<Node>): Node? {
+        val queue: Queue<Node> = LinkedList()
+        val seen: MutableSet<Node> = mutableSetOf()
+        queue.add(root)
+
+        while (queue.isNotEmpty()) {
+            val curr = queue.remove()
+            if (goal.contains(curr)) {
+                return curr
+            }
+            for (neighbor in neighbors(curr, graph)) {
+                if (!seen.contains(neighbor)) {
+                    seen.add(curr)
+                    neighbor.parent = curr
+                    queue.add(neighbor)
+                }
+            }
+        }
+        return null
+    }
+
+
+    fun neighbors(node: Node, graph: Set<Edge>): Set<Node> {
+        val neighbors = mutableSetOf<Node>()
+        neighbors.addAll(graph.filter { it.first == node }.map { it.second })
+        neighbors.addAll(graph.filter { it.second == node }.map { it.first })
+        return neighbors
     }
 
 }
 
+data class Node(
+    val date: Int
+) {
+    var parent: Node? = null
+}
