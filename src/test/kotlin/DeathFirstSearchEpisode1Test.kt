@@ -20,7 +20,7 @@ class DeathFirstSearchEpisode1Test {
         val result = test1.severLink(Node(1))
 
         // assert
-        assertThat(result).isEqualTo(Edge(Node(1), Node(2)))
+        assertThat(result).isEqualTo(Edge(Node(2), Node(1)))
     }
 
     // 0 - 1 - 2

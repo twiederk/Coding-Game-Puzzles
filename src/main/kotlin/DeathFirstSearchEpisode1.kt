@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
 
 
         // Example: 0 1 are the indices of the nodes you wish to sever the link between
-        println("${severLink.first} ${severLink.second}")
+        println("${severLink.first.data} ${severLink.second.data}")
     }
 }
 
@@ -111,7 +111,7 @@ data class DeathFirstSearchEpisode1(
 }
 
 data class Node(
-    val date: Int
+    val data: Int
 ) {
     var parent: Node? = null
 }
