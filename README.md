@@ -7,7 +7,8 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [ASCII ART]                        | [AsciiArtGame]                | Puzzle          | Easy   |
 | [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle          | Easy   |
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
-| [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   | 
+| [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
+| [FLOOD FILL EXAMPLE]               | [FloodFillExample]            | Puzzle          | Medium |
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
 | [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape          | Medium |
@@ -39,5 +40,7 @@ To Dos
 [MarsLanderEpisode1]: src/main/kotlin/MarsLanderEpisode1.kt
 
 [MAD POD RACING]: https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing
-
 [MadpodRacing]: src/main/kotlin/MadPodRacing.kt
+
+[FLOOD FILL EXAMPLE]: https://www.codingame.com/training/medium/flood-fill-example
+[FloodFillExample]:
