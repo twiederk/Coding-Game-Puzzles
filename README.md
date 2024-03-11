@@ -2,20 +2,20 @@
 
 Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 
-| Title                              | Solution                      | Type         | Level  |
-|:-----------------------------------|:------------------------------|:-------------|:-------| 
-| [ASCII ART]                        | [AsciiArtGame]                | Puzzle       | Easy   |
-| [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle       | Easy   |
-| [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle       | Medium |
-| [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle       | Easy   | 
-| [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization |        |
-| [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape       | Medium |
+| Title                              | Solution                      | Type            | Level  |
+|:-----------------------------------|:------------------------------|:----------------|:-------| 
+| [ASCII ART]                        | [AsciiArtGame]                | Puzzle          | Easy   |
+| [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle          | Easy   |
+| [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
+| [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   | 
+| [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
+| [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
+| [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape          | Medium |
 
 To Dos
 * Win 2nd code clash (Clash of Code)
-* [MAD POD RACING](https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing) (Bot Programming)
+* (Bot Programming)
 * Mars Lander
-  * [MARS LANDER - EPISODE 1](https://www.codingame.com/training/easy/mars-lander-episode-1) (Puzzle - Easy)
   * [MARS LANDER - EPISODE 2](https://www.codingame.com/training/easy/mars-lander-episode-2) (Puzzle - Medium)
   * [MARS LANDER - EPISODE 3](https://www.codingame.com/training/easy/mars-lander-episode-3) (Puzzle - Hard)
 * [DEATH FIRST SEARCH - EPISODE 2](https://www.codingame.com/training/hard/death-first-search-episode-2) (Puzzle - Hard)
@@ -36,5 +36,8 @@ To Dos
 [FindingSherlockTheApartment]: src/main/kotlin/FindingSherlockTheApartment.kt
 
 [MARS LANDER - EPISODE 1]: https://www.codingame.com/training/easy/mars-lander-episode-1
-
 [MarsLanderEpisode1]: src/main/kotlin/MarsLanderEpisode1.kt
+
+[MAD POD RACING]: https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing
+
+[MadpodRacing]: src/main/kotlin/MadPodRacing.kt
