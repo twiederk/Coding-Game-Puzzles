@@ -7,6 +7,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [ASCII ART]                        | [AsciiArtGame]                | Puzzle       | Easy   |
 | [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle       | Easy   |
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle       | Medium |
+| [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle       | Easy   | 
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization |        |
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape       | Medium |
 
@@ -34,3 +35,6 @@ To Dos
 [FINDING SHERLOCK - THE APARTMENT]: https://escape.codingame.com/games/12
 [FindingSherlockTheApartment]: src/main/kotlin/FindingSherlockTheApartment.kt
 
+[MARS LANDER - EPISODE 1]: https://www.codingame.com/training/easy/mars-lander-episode-1
+
+[MarsLanderEpisode1]: src/main/kotlin/MarsLanderEpisode1.kt
