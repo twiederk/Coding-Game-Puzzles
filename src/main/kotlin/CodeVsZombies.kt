@@ -1,10 +1,12 @@
 // https://www.codingame.com/ide/puzzle/code-vs-zombies
+import java.lang.Double.max
 import java.util.*
 import kotlin.math.sqrt
 
 
 const val SPEED_ASH = 1000.0
 const val SPEED_ZOMBIE = 400.0
+const val RIFLE_RANG = 2000.0
 
 /**
  * Save humans, destroy zombies!
@@ -61,6 +63,12 @@ class CodeVsZombies {
         val unreachableHumans = unreachableVectors.map { it.human }.toSet()
         val filteredVectors = allVectors.filter { !unreachableHumans.contains(it.human) }
 
+        if (filteredVectors.isEmpty()) {
+            return PriorityQueue<VectorHZ>().apply {
+                addAll(allVectors)
+            }
+        }
+
         return PriorityQueue<VectorHZ>().apply {
             addAll(filteredVectors)
         }
@@ -96,7 +104,7 @@ data class VectorHZ(
     }
 
     fun isReachable(ash: Point2D): Boolean {
-        val distanceAshToHuman = ash.distance(human.position)
+        val distanceAshToHuman = max(ash.distance(human.position) - RIFLE_RANG, 0.0)
         val stepsZombie = length / SPEED_ZOMBIE
         val stepsAsh = distanceAshToHuman / SPEED_ASH
         return stepsAsh < stepsZombie

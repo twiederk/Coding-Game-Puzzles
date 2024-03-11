@@ -81,7 +81,7 @@ class CodeVsZombiesTest {
         // arrange
         val vectorHZ = VectorHZ(
             Human(0, Point2D(1000, 1000)),
-            Zombie(0, Point2D(1200, 1000), Point2D(800, 1000)),
+            Zombie(0, Point2D(1600, 1000), Point2D(1200, 1000)),
         )
 
         // act
@@ -100,7 +100,7 @@ class CodeVsZombiesTest {
         )
 
         // act
-        val reachable = vectorHZ.isReachable(Point2D(2500, 1000))
+        val reachable = vectorHZ.isReachable(Point2D(5000, 1000))
 
         // assert
         assertThat(reachable).isFalse()
@@ -160,5 +160,6 @@ class CodeVsZombiesTest {
         val move = CodeVsZombies().move(ash, humans, zombies)
 
         // assert
+        assertThat(move).isEqualTo(Point2D(8250, 8599))
     }
 }
