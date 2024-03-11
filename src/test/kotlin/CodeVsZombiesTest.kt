@@ -37,7 +37,7 @@ class CodeVsZombiesTest {
         // arrange
         val humans = listOf(
             Human(0, Point2D(100, 200)),
-            Human(0, Point2D(200, 300)),
+            Human(1, Point2D(200, 300)),
         )
         val zombies = listOf(
             Zombie(0, Point2D(2000, 3000), Point2D(3000, 4000)),
@@ -45,7 +45,7 @@ class CodeVsZombiesTest {
         )
 
         // act
-        val priorityQueue = CodeVsZombies().priorityQueue(humans, zombies)
+        val priorityQueue = CodeVsZombies().priorityQueue(Point2D(0, 0), humans, zombies)
 
         // assert
         assertThat(priorityQueue).hasSize(4)
@@ -60,18 +60,68 @@ class CodeVsZombiesTest {
         // arrange
         val humans = listOf(
             Human(0, Point2D(100, 200)),
-            Human(0, Point2D(200, 300)),
+            Human(1, Point2D(200, 300)),
         )
         val zombies = listOf(
             Zombie(0, Point2D(2000, 3000), Point2D(3000, 4000)),
             Zombie(1, Point2D(3000, 4000), Point2D(4000, 5000)),
         )
+        val ash = Point2D(100, 200)
 
         // act
-        val move = CodeVsZombies().move(Point2D(0, 0), humans, zombies)
+        val move = CodeVsZombies().move(ash, humans, zombies)
 
         // assert
         assertThat(move).isEqualTo(Point2D(3000, 4000))
+    }
 
+    @Test
+    fun should_return_true_when_ash_can_reach_human_before_zombie() {
+        // arrange
+        val vectorHZ = VectorHZ(
+            Human(0, Point2D(1000, 1000)),
+            Zombie(0, Point2D(1200, 1000), Point2D(800, 1000)),
+        )
+
+        // act
+        val reachable = vectorHZ.isReachable(Point2D(2000, 1000))
+
+        // assert
+        assertThat(reachable).isTrue()
+    }
+
+    @Test
+    fun should_return_false_when_ash_cannot_reach_human_before_zombie() {
+        // arrange
+        val vectorHZ = VectorHZ(
+            Human(0, Point2D(1000, 1000)),
+            Zombie(0, Point2D(800, 1000), Point2D(400, 1000)),
+        )
+
+        // act
+        val reachable = vectorHZ.isReachable(Point2D(2500, 1000))
+
+        // assert
+        assertThat(reachable).isFalse()
+    }
+
+    @Test
+    fun should_filter_out_all_humans_which_cannot_be_reached_by_ash_anymore() {
+        // arrange
+        val humans = listOf(
+            Human(0, Point2D(1000, 1000)),
+            Human(1, Point2D(7000, 1000)),
+        )
+        val zombies = listOf(
+            Zombie(0, Point2D(200, 1000), Point2D(600, 1000)),
+            Zombie(1, Point2D(8600, 1000), Point2D(8200, 1000)),
+        )
+        val ash = Point2D(4000, 1000)
+
+        // act
+        val filteredVectors = CodeVsZombies().priorityQueue(ash, humans, zombies)
+
+        // assert
+        assertThat(filteredVectors).hasSize(2)
     }
 }

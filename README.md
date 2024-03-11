@@ -14,6 +14,7 @@ To Dos
 
 * [Code Vs Zombies](https://www.codingame.com/multiplayer/optimization/code-vs-zombies) (Optimization)
   * Solve tests: Split-second reflex, Cross, Unavoidable deaths
+  * run to nearest human and stay there until end of the game
 * Win 2nd code clash (Clash of Code)
 * [DEATH FIRST SEARCH - EPISODE 2](https://www.codingame.com/training/hard/death-first-search-episode-2) (Puzzle - Hard)
 * [MAD POD RACING](https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing) (Bot Programming)

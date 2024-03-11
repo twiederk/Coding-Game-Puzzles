@@ -2,6 +2,10 @@
 import java.util.*
 import kotlin.math.abs
 
+
+const val SPEED_ASH = 1000
+const val SPEED_ZOMBIE = 400
+
 /**
  * Save humans, destroy zombies!
  **/
@@ -43,14 +47,22 @@ fun main() {
 }
 
 class CodeVsZombies {
-    fun move(position: Point2D, humans: List<Human>, zombies: List<Zombie>): Point2D {
-        val priorityQueue = priorityQueue(humans, zombies)
+    fun move(ash: Point2D, humans: List<Human>, zombies: List<Zombie>): Point2D {
+        System.err.println("ash: $ash")
+        System.err.println("humans: $humans")
+        System.err.println("zombies: $zombies")
+        val priorityQueue = priorityQueue(ash, humans, zombies)
         return priorityQueue.peek().zombie.nextPosition
     }
 
-    fun priorityQueue(humans: List<Human>, zombies: List<Zombie>): PriorityQueue<VectorHZ> {
+    fun priorityQueue(ash: Point2D, humans: List<Human>, zombies: List<Zombie>): PriorityQueue<VectorHZ> {
+        val allVectors = humans.flatMap { it.vectors(zombies) }
+        val unreachableVectors = allVectors.filter { it.isReachable(ash) }
+        val unreachableHumans = unreachableVectors.map { it.human }.toSet()
+        val filteredVectors = allVectors.filter { !unreachableHumans.contains(it.human) }
+
         return PriorityQueue<VectorHZ>().apply {
-            addAll(humans.flatMap { it.vectors(zombies) })
+            addAll(filteredVectors)
         }
     }
 }
@@ -81,6 +93,11 @@ data class VectorHZ(
     val length = human.position.manhattenDistance(zombie.nextPosition)
     override fun compareTo(other: VectorHZ): Int {
         return this.length.compareTo(other.length)
+    }
+
+    fun isReachable(ash: Point2D): Boolean {
+        val distanceAshToHuman = ash.manhattenDistance(human.position)
+        return length / SPEED_ZOMBIE < distanceAshToHuman / SPEED_ASH
     }
 }
 
