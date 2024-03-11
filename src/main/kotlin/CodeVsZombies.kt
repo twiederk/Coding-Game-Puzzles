@@ -5,7 +5,7 @@ import kotlin.math.abs
 /**
  * Save humans, destroy zombies!
  **/
-fun main(args: Array<String>) {
+fun main() {
     val input = Scanner(System.`in`)
 
     val codeVsZombies = CodeVsZombies()
@@ -37,17 +37,21 @@ fun main(args: Array<String>) {
             zombies.add(Zombie(zombieId, Point2D(zombieX, zombieY), Point2D(zombieXNext, zombieYNext)))
         }
 
-        // Write an action using println()
-        // To debug: System.err.println("Debug messages...");
         val move = codeVsZombies.move(position, humans, zombies)
-
-        println("${move.x} ${move.y}") // Your destination coordinates
+        println("${move.x} ${move.y}")
     }
 }
 
 class CodeVsZombies {
     fun move(position: Point2D, humans: List<Human>, zombies: List<Zombie>): Point2D {
-        return Point2D(0, 0)
+        val priorityQueue = priorityQueue(humans, zombies)
+        return priorityQueue.peek().zombie.nextPosition
+    }
+
+    fun priorityQueue(humans: List<Human>, zombies: List<Zombie>): PriorityQueue<VectorHZ> {
+        return PriorityQueue<VectorHZ>().apply {
+            addAll(humans.flatMap { it.vectors(zombies) })
+        }
     }
 }
 
@@ -59,8 +63,26 @@ data class Zombie(
 
 data class Human(
     val humanId: Int,
-    val point2D: Point2D
-)
+    val position: Point2D
+) {
+    fun vector(zombie: Zombie): VectorHZ {
+        return VectorHZ(this, zombie)
+    }
+
+    fun vectors(zombies: List<Zombie>): List<VectorHZ> {
+        return zombies.map { vector(it) }
+    }
+}
+
+data class VectorHZ(
+    val human: Human,
+    val zombie: Zombie,
+) : Comparable<VectorHZ> {
+    val length = human.position.manhattenDistance(zombie.nextPosition)
+    override fun compareTo(other: VectorHZ): Int {
+        return this.length.compareTo(other.length)
+    }
+}
 
 data class Point2D(
     val x: Int,
