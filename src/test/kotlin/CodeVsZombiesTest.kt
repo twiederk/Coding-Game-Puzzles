@@ -1,4 +1,5 @@
 import org.assertj.core.api.Assertions.assertThat
+//import org.assertj.core.api.Assertions.within
 import org.junit.jupiter.api.Test
 
 class CodeVsZombiesTest {
@@ -13,7 +14,7 @@ class CodeVsZombiesTest {
         val vector = human.vector(zombie)
 
         // assert
-        assertThat(vector.length).isEqualTo(400)
+        assertThat(vector.length.toInt()).isEqualTo(282)
     }
 
     @Test
@@ -29,7 +30,7 @@ class CodeVsZombiesTest {
         val vectors = human.vectors(zombies)
 
         // assert
-        assertThat(vectors.map { it.length }).contains(400, 6700)
+        assertThat(vectors.map { it.length.toInt() }).contains(282, 4780)
     }
 
     @Test
@@ -49,10 +50,10 @@ class CodeVsZombiesTest {
 
         // assert
         assertThat(priorityQueue).hasSize(4)
-        assertThat(priorityQueue.remove().length).isEqualTo(6500)
-        assertThat(priorityQueue.remove().length).isEqualTo(6700)
-        assertThat(priorityQueue.remove().length).isEqualTo(8500)
-        assertThat(priorityQueue.remove().length).isEqualTo(8700)
+        assertThat(priorityQueue.remove().length.toInt()).isEqualTo(4640)
+        assertThat(priorityQueue.remove().length.toInt()).isEqualTo(4780)
+        assertThat(priorityQueue.remove().length.toInt()).isEqualTo(6044)
+        assertThat(priorityQueue.remove().length.toInt()).isEqualTo(6184)
     }
 
     @Test
@@ -123,5 +124,41 @@ class CodeVsZombiesTest {
 
         // assert
         assertThat(filteredVectors).hasSize(2)
+    }
+
+    @Test
+    fun should_return_true_when_the_human_is_reachable() {
+        // arrange
+        val vector = VectorHZ(
+            Human(humanId = 0, position = Point2D(x = 8250, y = 4500)),
+            Zombie(zombieId = 0, position = Point2D(x = 8250, y = 8999), nextPosition = Point2D(x = 8250, y = 8599))
+        )
+        val ash = Point2D(x = 0, y = 0)
+
+
+        // act
+        val reachable = vector.isReachable(ash)
+
+        // assert
+        assertThat(reachable).isTrue()
+    }
+
+    @Test
+    fun should_not_fail_with_NullPointerException() {
+        // arrange
+        val ash = Point2D(x = 0, y = 0)
+        val humans = listOf(Human(humanId = 0, position = Point2D(x = 8250, y = 4500)))
+        val zombies = listOf(
+            Zombie(
+                zombieId = 0,
+                position = Point2D(x = 8250, y = 8999),
+                nextPosition = Point2D(x = 8250, y = 8599)
+            )
+        )
+
+        // act
+        val move = CodeVsZombies().move(ash, humans, zombies)
+
+        // assert
     }
 }

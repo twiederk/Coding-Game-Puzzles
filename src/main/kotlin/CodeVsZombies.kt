@@ -1,10 +1,10 @@
 // https://www.codingame.com/ide/puzzle/code-vs-zombies
 import java.util.*
-import kotlin.math.abs
+import kotlin.math.sqrt
 
 
-const val SPEED_ASH = 1000
-const val SPEED_ZOMBIE = 400
+const val SPEED_ASH = 1000.0
+const val SPEED_ZOMBIE = 400.0
 
 /**
  * Save humans, destroy zombies!
@@ -57,7 +57,7 @@ class CodeVsZombies {
 
     fun priorityQueue(ash: Point2D, humans: List<Human>, zombies: List<Zombie>): PriorityQueue<VectorHZ> {
         val allVectors = humans.flatMap { it.vectors(zombies) }
-        val unreachableVectors = allVectors.filter { it.isReachable(ash) }
+        val unreachableVectors = allVectors.filter { !it.isReachable(ash) }
         val unreachableHumans = unreachableVectors.map { it.human }.toSet()
         val filteredVectors = allVectors.filter { !unreachableHumans.contains(it.human) }
 
@@ -90,14 +90,16 @@ data class VectorHZ(
     val human: Human,
     val zombie: Zombie,
 ) : Comparable<VectorHZ> {
-    val length = human.position.manhattenDistance(zombie.nextPosition)
+    val length = human.position.distance(zombie.nextPosition)
     override fun compareTo(other: VectorHZ): Int {
         return this.length.compareTo(other.length)
     }
 
     fun isReachable(ash: Point2D): Boolean {
-        val distanceAshToHuman = ash.manhattenDistance(human.position)
-        return length / SPEED_ZOMBIE < distanceAshToHuman / SPEED_ASH
+        val distanceAshToHuman = ash.distance(human.position)
+        val stepsZombie = length / SPEED_ZOMBIE
+        val stepsAsh = distanceAshToHuman / SPEED_ASH
+        return stepsAsh < stepsZombie
     }
 }
 
@@ -111,6 +113,6 @@ data class Point2D(
     operator fun plus(other: Point2D): Point2D =
         Point2D(x + other.x, y + other.y)
 
-    fun manhattenDistance(other: Point2D): Int =
-        abs(x - other.x) + abs(y - other.y)
+    fun distance(other: Point2D): Double =
+        sqrt((other.y - y).toDouble() * (other.y - y) + (other.x - x) * (other.x - x))
 }
