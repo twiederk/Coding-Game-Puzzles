@@ -11,17 +11,13 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape       | Medium |
 
 To Dos
-
-* [Code Vs Zombies](https://www.codingame.com/multiplayer/optimization/code-vs-zombies) (Optimization)
-  * Solve tests: Split-second reflex, Cross, Unavoidable deaths
-  * run to nearest human and stay there until end of the game
-  * Add test with data:
-    * ash: Point2D(x=0, y=0)
-    * humans: [Human(humanId=0, position=Point2D(x=8250, y=4500))]
-    * zombies: [Zombie(zombieId=0, position=Point2D(x=8250, y=8999), nextPosition=Point2D(x=8250, y=8599))]
 * Win 2nd code clash (Clash of Code)
-* [DEATH FIRST SEARCH - EPISODE 2](https://www.codingame.com/training/hard/death-first-search-episode-2) (Puzzle - Hard)
 * [MAD POD RACING](https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing) (Bot Programming)
+* Mars Lander
+  * [MARS LANDER - EPISODE 1](https://www.codingame.com/training/easy/mars-lander-episode-1) (Puzzle - Easy)
+  * [MARS LANDER - EPISODE 2](https://www.codingame.com/training/easy/mars-lander-episode-2) (Puzzle - Medium)
+  * [MARS LANDER - EPISODE 3](https://www.codingame.com/training/easy/mars-lander-episode-3) (Puzzle - Hard)
+* [DEATH FIRST SEARCH - EPISODE 2](https://www.codingame.com/training/hard/death-first-search-episode-2) (Puzzle - Hard)
 
 [ASCII ART]: https://www.codingame.com/training/easy/ascii-art
 [AsciiArtGame]: src/main/kotlin/AsciiArtGame.kt
