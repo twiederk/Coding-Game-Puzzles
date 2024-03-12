@@ -39,7 +39,7 @@ class FloodFillTest {
                 JJ#JJEDI#I
                 JJJJJ#DI#I
                 JJJJJ+DIII
-                JJJJJ+DIII                
+                JJJJJ+DIII
             """.trimIndent()
         )
     }
