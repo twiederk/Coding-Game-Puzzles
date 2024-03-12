@@ -1,4 +1,6 @@
-import org.assertj.core.api.Assertions
+import FloodFillExample.DefenceMap
+import FloodFillExample.Tower
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class FloodFillExampleKtTest {
@@ -52,7 +54,7 @@ class FloodFillExampleKtTest {
         val filledMap = FloodFillExample().fill(map, 1)
 
         // assert
-        Assertions.assertThat(filledMap).isEqualTo(
+        assertThat(filledMap).isEqualTo(
             listOf(
                 "A..#.",
                 "A#.B.",
@@ -62,4 +64,39 @@ class FloodFillExampleKtTest {
         )
     }
 
+    @Test
+    fun should_instantiate_defence_map() {
+        // arrange
+
+        // act
+        val defenceMap = DefenceMap(
+            listOf(
+                "....",
+                "A#..",
+                "....",
+            )
+        )
+
+        // assert
+        assertThat(defenceMap.width).isEqualTo(4)
+        assertThat(defenceMap.height).isEqualTo(3)
+    }
+
+    @Test
+    fun should_find_tower_on_map() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "A#.",
+                "...",
+            )
+        )
+
+        // act
+        val towers = defenceMap.towers()
+
+        // assert
+        assertThat(towers).containsExactly(Tower('A', 0, 1))
+    }
 }
