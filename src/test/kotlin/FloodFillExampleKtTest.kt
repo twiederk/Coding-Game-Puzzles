@@ -1,6 +1,5 @@
 import FloodFillExample.*
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class FloodFillExampleKtTest {
@@ -41,7 +40,6 @@ class FloodFillExampleKtTest {
 //
 //    This is what your program must output.
     @Test
-    @Disabled
     fun should_flood_example_1() {
         // arrange
         val defenceMap = DefenceMap(
@@ -54,10 +52,11 @@ class FloodFillExampleKtTest {
         )
 
         // act
-        val flood = FloodFillExample().flood(defenceMap, 1)
+        val flood = FloodFillExample().flood(defenceMap)
 
         // assert
-        assertThat(flood).hasSize(7)
+        println(FloodFillExample().render(defenceMap, flood))
+        assertThat(flood).hasSize(18)
     }
 
     @Test
@@ -251,5 +250,76 @@ class FloodFillExampleKtTest {
 
         // assert
         assertThat(visitable).isTrue()
+    }
+
+    @Test
+    fun should_bfs_min_map_with_step_1() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                ".A.",
+                "...",
+            )
+        )
+
+        // act
+        val flood = FloodFillExample().flood(defenceMap)
+
+        // assert
+        assertThat(flood).containsExactly(
+            Flood(x = 1, y = 1, id = 'A', steps = 0),
+            Flood(x = 1, y = 0, id = 'A', steps = 1),
+            Flood(x = 1, y = 2, id = 'A', steps = 1),
+            Flood(x = 0, y = 1, id = 'A', steps = 1),
+            Flood(x = 2, y = 1, id = 'A', steps = 1),
+            Flood(x = 0, y = 0, id = 'A', steps = 2),
+            Flood(x = 2, y = 0, id = 'A', steps = 2),
+            Flood(x = 0, y = 2, id = 'A', steps = 2),
+            Flood(x = 2, y = 2, id = 'A', steps = 2)
+        )
+    }
+
+    @Test
+    fun should_return_true_when_flood_with_this_coordinates_exists() {
+        // act
+        val result = FloodFillExample().contains(setOf(Flood(0, 0, 'B', 1)), Flood(0, 0, 'A', 0))
+
+        // assert
+        assertThat(result).isTrue()
+    }
+
+    @Test
+    fun should_return_false_when_flood_with_this_coordinates_is_missing() {
+        // act
+        val result = FloodFillExample().contains(setOf(Flood(0, 1, 'B', 1)), Flood(0, 0, 'A', 0))
+
+        // assert
+        assertThat(result).isFalse()
+    }
+
+    @Test
+    fun should_render_simple_map() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                ".A.",
+                "...",
+            )
+        )
+        val flood = FloodFillExample().flood(defenceMap)
+
+        // act
+        val output = FloodFillExample().render(defenceMap, flood)
+
+        // assert
+        assertThat(output).isEqualTo(
+            """
+            AAA
+            AAA
+            AAA
+        """.trimIndent()
+        )
     }
 }

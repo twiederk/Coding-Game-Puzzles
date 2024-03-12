@@ -23,14 +23,7 @@ fun main() {
 
 class FloodFillExample {
 
-    fun flood(defenceMap: DefenceMap, maxSteps: Int): Set<Flood> {
-        // flood fill from each tower
-        val flood = bfs(defenceMap, defenceMap.towers(), maxSteps)
-        // return list of flood
-        return flood
-    }
-
-    private fun bfs(defenceMap: DefenceMap, towers: List<Tower>, maxSteps: Int): Set<Flood> {
+    fun flood(defenceMap: DefenceMap, maxSteps: Int = Integer.MAX_VALUE): Set<Flood> {
         //    1  procedure BFS(G, root) is
 //    2      let Q be a queue
 //    3      label root as explored
@@ -44,22 +37,41 @@ class FloodFillExample {
 //    11                  label w as explored
 //    12                  w.parent := v
 //    13                  Q.enqueue(w)
+        val towers = defenceMap.towers()
         val queue = LinkedList<Flood>()
         queue.addAll(towers.map { Flood(it.x, it.y, it.id, 0) })
         val flood = mutableSetOf<Flood>()
 
-        while (queue.isNotEmpty()) {
+        var steps = 0
+        while (queue.isNotEmpty() && steps < maxSteps) {
             val curr = queue.remove()
             flood.add(curr)
             for (neighbor in curr.neighbors(defenceMap)) {
-                if (flood.contains(neighbor)) {
-                    // when steps are the same => change id to '+'
+                if (contains(flood, neighbor)) {
+                    val floodNeighbor = flood.first { it.x == neighbor.x && it.y == neighbor.y }
+                    if (floodNeighbor.steps == neighbor.steps) {
+                        flood.remove(floodNeighbor)
+                        flood.add(Flood(neighbor.x, neighbor.y, '+', neighbor.steps))
+                    }
                     continue
                 }
                 queue.add(neighbor)
             }
+            steps++
         }
         return flood
+    }
+
+    fun contains(flood: Set<Flood>, neighbor: Flood): Boolean {
+        return flood.map { Pair(it.x, it.y) }.contains(Pair(neighbor.x, neighbor.y))
+    }
+
+    fun render(defenceMap: DefenceMap, flood: Set<Flood>): String {
+        val map = defenceMap.map.toMutableList()
+        for (f in flood) {
+            map[f.y] = map[f.y].replaceRange(f.x, f.x + 1, f.id.toString())
+        }
+        return map.joinToString("\n")
     }
 
     data class Flood(
