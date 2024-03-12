@@ -15,7 +15,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 
 To Dos
 * Win 2nd code clash (Clash of Code)
-* (Bot Programming)
+* [MAD POD RACING] (Bot Programming)
 * Mars Lander
   * [MARS LANDER - EPISODE 2](https://www.codingame.com/training/easy/mars-lander-episode-2) (Puzzle - Medium)
   * [MARS LANDER - EPISODE 3](https://www.codingame.com/training/easy/mars-lander-episode-3) (Puzzle - Hard)
