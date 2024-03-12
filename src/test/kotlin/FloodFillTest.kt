@@ -354,12 +354,12 @@ class FloodFillTest {
         )
 
         // act
-        val neighbors = Flood(0, 0, 'A', 0).neighbors(defenceMap)
+        val neighbors = Flood(1, 'A', 0, 0, 0).neighbors(defenceMap)
 
         // assert
         assertThat(neighbors).containsExactly(
-            Flood(0, 1, 'A', 1),
-            Flood(1, 0, 'A', 1),
+            Flood(1, 'A', 0, 1, 1),
+            Flood(1, 'A', 1, 0, 1),
         )
     }
 
@@ -375,12 +375,12 @@ class FloodFillTest {
         )
 
         // act
-        val neighbors = Flood(2, 0, 'A', 1).neighbors(defenceMap)
+        val neighbors = Flood(2, 'A', 2, 0, 1).neighbors(defenceMap)
 
         // assert
         assertThat(neighbors).containsExactly(
-            Flood(2, 1, 'A', 2),
-            Flood(1, 0, 'A', 2),
+            Flood(2, 'A', 2, 1, 2),
+            Flood(2, 'A', 1, 0, 2),
         )
     }
 
@@ -396,12 +396,12 @@ class FloodFillTest {
         )
 
         // act
-        val neighbors = Flood(0, 2, 'A', 2).neighbors(defenceMap)
+        val neighbors = Flood(4, 'A', 0, 2, 2).neighbors(defenceMap)
 
         // assert
         assertThat(neighbors).containsExactly(
-            Flood(0, 1, 'A', 3),
-            Flood(1, 2, 'A', 3),
+            Flood(4, 'A', 0, 1, 3),
+            Flood(4, 'A', 1, 2, 3),
         )
     }
 
@@ -417,12 +417,12 @@ class FloodFillTest {
         )
 
         // act
-        val neighbors = Flood(2, 2, 'A', 4).neighbors(defenceMap)
+        val neighbors = Flood(6, 'A', 2, 2, 4).neighbors(defenceMap)
 
         // assert
         assertThat(neighbors).containsExactly(
-            Flood(2, 1, 'A', 5),
-            Flood(1, 2, 'A', 5),
+            Flood(6, 'A', 2, 1, 5),
+            Flood(6, 'A', 1, 2, 5),
         )
     }
 
@@ -438,14 +438,14 @@ class FloodFillTest {
         )
 
         // act
-        val neighbors = Flood(1, 1, 'A', 5).neighbors(defenceMap)
+        val neighbors = Flood(7, 'A', 1, 1, 5).neighbors(defenceMap)
 
         // assert
         assertThat(neighbors).containsExactly(
-            Flood(1, 0, 'A', 6),
-            Flood(1, 2, 'A', 6),
-            Flood(0, 1, 'A', 6),
-            Flood(2, 1, 'A', 6),
+            Flood(7, 'A', 1, 0, 6),
+            Flood(7, 'A', 1, 2, 6),
+            Flood(7, 'A', 0, 1, 6),
+            Flood(7, 'A', 2, 1, 6),
         )
     }
 
@@ -461,12 +461,12 @@ class FloodFillTest {
         )
 
         // act
-        val neighbors = Flood(1, 1, 'A', 5).neighbors(defenceMap)
+        val neighbors = Flood(6, 'A', 1, 1, 5).neighbors(defenceMap)
 
         // assert
         assertThat(neighbors).containsExactly(
-            Flood(1, 0, 'A', 6),
-            Flood(2, 1, 'A', 6),
+            Flood(6, 'A', 1, 0, 6),
+            Flood(6, 'A', 2, 1, 6),
         )
     }
 
@@ -527,7 +527,7 @@ class FloodFillTest {
     @Test
     fun should_return_true_when_flood_with_this_coordinates_exists() {
         // act
-        val result = floodFill.contains(setOf(Flood(0, 0, 'B', 1)), Flood(0, 0, 'A', 0))
+        val result = floodFill.contains(setOf(Flood(0, 'B', 0, 0, 1)), Flood(1, 'A', 0, 0, 0))
 
         // assert
         assertThat(result).isTrue()
@@ -536,7 +536,7 @@ class FloodFillTest {
     @Test
     fun should_return_false_when_flood_with_this_coordinates_is_missing() {
         // act
-        val result = floodFill.contains(setOf(Flood(0, 1, 'B', 1)), Flood(0, 0, 'A', 0))
+        val result = floodFill.contains(setOf(Flood(0, 'B', 0, 1, 1)), Flood(1, 'A', 0, 0, 0))
 
         // assert
         assertThat(result).isFalse()

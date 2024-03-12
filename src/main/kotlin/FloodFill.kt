@@ -42,7 +42,7 @@ class FloodFill {
         */
         val towers = defenceMap.towers()
         val queue = LinkedList<Flood>()
-        queue.addAll(towers.map { Flood(it.x, it.y, it.displayId, 0) })
+        queue.addAll(towers.map { Flood(it.id, it.displayId, it.x, it.y, 0) })
         val flood = mutableSetOf<Flood>()
 
         var steps = 0
@@ -125,28 +125,29 @@ class FloodFill {
     )
 
     data class Flood(
+        val id: Int,
+        var displayId: Char,
         val x: Int,
         val y: Int,
-        var displayId: Char,
         val steps: Int,
     ) {
         fun neighbors(defenceMap: DefenceMap): Set<Flood> {
             val neighbors = mutableSetOf<Flood>()
             // north
             if (y - 1 >= 0 && defenceMap.isVisitable(x, y - 1)) {
-                neighbors.add(Flood(x, y - 1, displayId, steps + 1))
+                neighbors.add(this.copy(y = y - 1, steps = steps + 1))
             }
             // south
             if (y + 1 < defenceMap.height && defenceMap.isVisitable(x, y + 1)) {
-                neighbors.add(Flood(x, y + 1, displayId, steps + 1))
+                neighbors.add(this.copy(y = y + 1, steps = steps + 1))
             }
             // west
             if (x - 1 >= 0 && defenceMap.isVisitable(x - 1, y)) {
-                neighbors.add(Flood(x - 1, y, displayId, steps + 1))
+                neighbors.add(this.copy(x = x - 1, steps = steps + 1))
             }
             // east
             if (x + 1 < defenceMap.width && defenceMap.isVisitable(x + 1, y)) {
-                neighbors.add(Flood(x + 1, y, displayId, steps + 1))
+                neighbors.add(this.copy(x = x + 1, steps = steps + 1))
             }
             return neighbors
         }
