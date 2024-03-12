@@ -20,6 +20,7 @@ To Dos
   * [MARS LANDER - EPISODE 2](https://www.codingame.com/training/easy/mars-lander-episode-2) (Puzzle - Medium)
   * [MARS LANDER - EPISODE 3](https://www.codingame.com/training/easy/mars-lander-episode-3) (Puzzle - Hard)
 * [DEATH FIRST SEARCH - EPISODE 2](https://www.codingame.com/training/hard/death-first-search-episode-2) (Puzzle - Hard)
+* Add category column
 
 [ASCII ART]: https://www.codingame.com/training/easy/ascii-art
 [AsciiArtGame]: src/main/kotlin/AsciiArtGame.kt

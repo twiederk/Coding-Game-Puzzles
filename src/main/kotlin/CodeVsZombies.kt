@@ -1,4 +1,5 @@
 // https://www.codingame.com/ide/puzzle/code-vs-zombies
+import CodeVsZombies.*
 import java.lang.Double.max
 import java.util.*
 import kotlin.math.sqrt
@@ -73,54 +74,56 @@ class CodeVsZombies {
             addAll(filteredVectors)
         }
     }
-}
 
-data class Zombie(
-    val zombieId: Int,
-    val position: Point2D,
-    val nextPosition: Point2D
-)
+    data class Zombie(
+        val zombieId: Int,
+        val position: Point2D,
+        val nextPosition: Point2D
+    )
 
-data class Human(
-    val humanId: Int,
-    val position: Point2D
-) {
-    fun vector(zombie: Zombie): VectorHZ {
-        return VectorHZ(this, zombie)
+    data class Human(
+        val humanId: Int,
+        val position: Point2D
+    ) {
+        fun vector(zombie: Zombie): VectorHZ {
+            return VectorHZ(this, zombie)
+        }
+
+        fun vectors(zombies: List<Zombie>): List<VectorHZ> {
+            return zombies.map { vector(it) }
+        }
     }
 
-    fun vectors(zombies: List<Zombie>): List<VectorHZ> {
-        return zombies.map { vector(it) }
+    data class VectorHZ(
+        val human: Human,
+        val zombie: Zombie,
+    ) : Comparable<VectorHZ> {
+        val length = human.position.distance(zombie.nextPosition)
+        override fun compareTo(other: VectorHZ): Int {
+            return this.length.compareTo(other.length)
+        }
+
+        fun isReachable(ash: Point2D): Boolean {
+            val distanceAshToHuman = max(ash.distance(human.position) - RIFLE_RANG, 0.0)
+            val stepsZombie = length / SPEED_ZOMBIE
+            val stepsAsh = distanceAshToHuman / SPEED_ASH
+            return stepsAsh < stepsZombie
+        }
     }
+
+    data class Point2D(
+        val x: Int,
+        val y: Int
+    ) {
+        operator fun minus(other: Point2D): Point2D =
+            Point2D(x - other.x, y - other.y)
+
+        operator fun plus(other: Point2D): Point2D =
+            Point2D(x + other.x, y + other.y)
+
+        fun distance(other: Point2D): Double =
+            sqrt((other.y - y).toDouble() * (other.y - y) + (other.x - x) * (other.x - x))
+    }
+
 }
 
-data class VectorHZ(
-    val human: Human,
-    val zombie: Zombie,
-) : Comparable<VectorHZ> {
-    val length = human.position.distance(zombie.nextPosition)
-    override fun compareTo(other: VectorHZ): Int {
-        return this.length.compareTo(other.length)
-    }
-
-    fun isReachable(ash: Point2D): Boolean {
-        val distanceAshToHuman = max(ash.distance(human.position) - RIFLE_RANG, 0.0)
-        val stepsZombie = length / SPEED_ZOMBIE
-        val stepsAsh = distanceAshToHuman / SPEED_ASH
-        return stepsAsh < stepsZombie
-    }
-}
-
-data class Point2D(
-    val x: Int,
-    val y: Int
-) {
-    operator fun minus(other: Point2D): Point2D =
-        Point2D(x - other.x, y - other.y)
-
-    operator fun plus(other: Point2D): Point2D =
-        Point2D(x + other.x, y + other.y)
-
-    fun distance(other: Point2D): Double =
-        sqrt((other.y - y).toDouble() * (other.y - y) + (other.x - x) * (other.x - x))
-}
