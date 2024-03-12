@@ -11,48 +11,46 @@ fun main() {
     if (input.hasNextLine()) {
         input.nextLine()
     }
+
+    val map = mutableListOf<String>()
     for (i in 0 until numberOfRows) {
-        val line = input.nextLine()
+        map.add(input.nextLine())
     }
 
-    // Write an answer using println()
-    // To debug: System.err.println("Debug messages...");
-
-    println("answer")
+    val defenceMap = FloodFill.DefenceMap(map)
+    val flood = FloodFill().flood(defenceMap)
+    println(FloodFill().render(defenceMap, flood))
 }
 
-class FloodFillExample {
+class FloodFill {
 
     fun flood(defenceMap: DefenceMap, maxSteps: Int = Integer.MAX_VALUE): Set<Flood> {
-        //    1  procedure BFS(G, root) is
-//    2      let Q be a queue
-//    3      label root as explored
-//    4      Q.enqueue(root)
-//    5      while Q is not empty do
-//    6          v := Q.dequeue()
-//    7          if v is the goal then
-//    8              return v
-//    9          for all edges from v to w in G.adjacentEdges(v) do
-//    10              if w is not labeled as explored then
-//    11                  label w as explored
-//    12                  w.parent := v
-//    13                  Q.enqueue(w)
+        /* BSF algorithm
+        procedure BFS(G, root) is
+            let Q be a queue
+            label root as explored
+            Q.enqueue(root)
+            while Q is not empty do
+                v := Q.dequeue()
+                if v is the goal then
+                    return v
+                for all edges from v to w in G.adjacentEdges(v) do
+                     if w is not labeled as explored then
+                         label w as explored
+                         w.parent := v
+                         Q.enqueue(w)
+        */
         val towers = defenceMap.towers()
         val queue = LinkedList<Flood>()
         queue.addAll(towers.map { Flood(it.x, it.y, it.id, 0) })
         val flood = mutableSetOf<Flood>()
 
         var steps = 0
-        while (queue.isNotEmpty() && steps < maxSteps) {
-            val curr = queue.remove()
-            flood.add(curr)
-            for (neighbor in curr.neighbors(defenceMap)) {
+        while (queue.isNotEmpty() && steps <= maxSteps) {
+            val current = queue.remove()
+            addFlood(flood, current)
+            for (neighbor in current.neighbors(defenceMap)) {
                 if (contains(flood, neighbor)) {
-                    val floodNeighbor = flood.first { it.x == neighbor.x && it.y == neighbor.y }
-                    if (floodNeighbor.steps == neighbor.steps) {
-                        flood.remove(floodNeighbor)
-                        flood.add(Flood(neighbor.x, neighbor.y, '+', neighbor.steps))
-                    }
                     continue
                 }
                 queue.add(neighbor)
@@ -62,14 +60,32 @@ class FloodFillExample {
         return flood
     }
 
+    private fun addFlood(flood: MutableSet<Flood>, current: Flood) {
+        if (contains(flood, current)) {
+            updateFlood(flood, current)
+        } else {
+            flood.add(current)
+        }
+    }
+
+    private fun updateFlood(flood: MutableSet<Flood>, current: Flood) {
+        val existing = flood.first { it.x == current.x && it.y == current.y }
+        if (existing.steps == current.steps && existing.id != current.id) {
+            flood.remove(existing)
+            flood.add(existing.copy(id = '+'))
+        }
+    }
+
     fun contains(flood: Set<Flood>, neighbor: Flood): Boolean {
         return flood.map { Pair(it.x, it.y) }.contains(Pair(neighbor.x, neighbor.y))
     }
 
-    fun render(defenceMap: DefenceMap, flood: Set<Flood>): String {
+    fun render(defenceMap: DefenceMap, flood: Set<Flood>, step: Int = Int.MAX_VALUE): String {
         val map = defenceMap.map.toMutableList()
         for (f in flood) {
-            map[f.y] = map[f.y].replaceRange(f.x, f.x + 1, f.id.toString())
+            if (f.steps <= step) {
+                map[f.y] = map[f.y].replaceRange(f.x, f.x + 1, f.id.toString())
+            }
         }
         return map.joinToString("\n")
     }
@@ -77,7 +93,7 @@ class FloodFillExample {
     data class Flood(
         val x: Int,
         val y: Int,
-        val id: Char,
+        var id: Char,
         val steps: Int,
     ) {
         fun neighbors(defenceMap: DefenceMap): Set<Flood> {
