@@ -222,15 +222,10 @@ class FloodFillTest {
         )
 
         // act
-        val flood = FloodFill().flood(defenceMap)
+        val flood = floodFill.flood(defenceMap)
 
         // assert
-        println(FloodFill().render(defenceMap, flood))
-        assertThat(flood).containsExactly(
-            Flood(x = 0, y = 0, id = 'A', steps = 0),
-            Flood(x = 2, y = 0, id = 'A', steps = 0),
-            Flood(x = 1, y = 0, id = '+', steps = 1)
-        )
+        assertThat(floodFill.render(defenceMap, flood)).isEqualTo("A+A")
     }
 
     //    Example:
@@ -280,10 +275,10 @@ class FloodFillTest {
         )
 
         // act
-        val flood = FloodFill().flood(defenceMap)
+        val flood = floodFill.flood(defenceMap)
 
         // assert
-        assertThat(FloodFill().render(defenceMap, flood)).isEqualTo(
+        assertThat(floodFill.render(defenceMap, flood)).isEqualTo(
             """
             AA+#B
             A#BBB
@@ -516,10 +511,10 @@ class FloodFillTest {
         )
 
         // act
-        val flood = FloodFill().flood(defenceMap)
+        val flood = floodFill.flood(defenceMap)
 
         // assert
-        assertThat(FloodFill().render(defenceMap, flood, 1)).isEqualTo(
+        assertThat(floodFill.render(defenceMap, flood, 1)).isEqualTo(
             """
             .A.
             AAA
@@ -532,7 +527,7 @@ class FloodFillTest {
     @Test
     fun should_return_true_when_flood_with_this_coordinates_exists() {
         // act
-        val result = FloodFill().contains(setOf(Flood(0, 0, 'B', 1)), Flood(0, 0, 'A', 0))
+        val result = floodFill.contains(setOf(Flood(0, 0, 'B', 1)), Flood(0, 0, 'A', 0))
 
         // assert
         assertThat(result).isTrue()
@@ -541,7 +536,7 @@ class FloodFillTest {
     @Test
     fun should_return_false_when_flood_with_this_coordinates_is_missing() {
         // act
-        val result = FloodFill().contains(setOf(Flood(0, 1, 'B', 1)), Flood(0, 0, 'A', 0))
+        val result = floodFill.contains(setOf(Flood(0, 1, 'B', 1)), Flood(0, 0, 'A', 0))
 
         // assert
         assertThat(result).isFalse()
@@ -557,10 +552,10 @@ class FloodFillTest {
                 "...",
             )
         )
-        val flood = FloodFill().flood(defenceMap)
+        val flood = floodFill.flood(defenceMap)
 
         // act
-        val output = FloodFill().render(defenceMap, flood)
+        val output = floodFill.render(defenceMap, flood)
 
         // assert
         assertThat(output).isEqualTo(
