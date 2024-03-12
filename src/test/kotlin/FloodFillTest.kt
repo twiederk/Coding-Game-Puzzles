@@ -321,7 +321,7 @@ class FloodFillTest {
         val towers = defenceMap.towers()
 
         // assert
-        assertThat(towers).containsExactly(Tower('A', 0, 1))
+        assertThat(towers).containsExactly(Tower(0, 'A', 0, 1))
     }
 
     @Test
@@ -339,7 +339,7 @@ class FloodFillTest {
         val towers = defenceMap.towers()
 
         // assert
-        assertThat(towers).containsExactly(Tower('1', 0, 1))
+        assertThat(towers).containsExactly(Tower(0, '1', 0, 1))
     }
 
     @Test

@@ -101,7 +101,7 @@ class FloodFill {
             for (y in 0 until height) {
                 for (x in 0 until width) {
                     if (!(map[y][x] == '.' || map[y][x] == '#')) {
-                        towers.add(Tower(map[y][x], x, y))
+                        towers.add(Tower(towers.size, map[y][x], x, y))
                     }
                 }
             }
@@ -118,6 +118,7 @@ class FloodFill {
     }
 
     data class Tower(
+        val id: Int,
         val displayId: Char,
         val x: Int,
         val y: Int
