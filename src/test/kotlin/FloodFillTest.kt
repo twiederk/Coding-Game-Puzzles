@@ -312,7 +312,7 @@ class FloodFillTest {
     }
 
     @Test
-    fun should_find_tower_on_map() {
+    fun should_find_tower_as_letter_on_map() {
         // arrange
         val defenceMap = DefenceMap(
             listOf(
@@ -327,6 +327,24 @@ class FloodFillTest {
 
         // assert
         assertThat(towers).containsExactly(Tower('A', 0, 1))
+    }
+
+    @Test
+    fun should_find_tower_with_digit_as_id_on_map() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "1#.",
+                "...",
+            )
+        )
+
+        // act
+        val towers = defenceMap.towers()
+
+        // assert
+        assertThat(towers).containsExactly(Tower('1', 0, 1))
     }
 
     @Test

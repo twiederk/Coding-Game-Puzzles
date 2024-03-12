@@ -128,7 +128,7 @@ class FloodFill {
             val towers = mutableListOf<Tower>()
             for (y in 0 until height) {
                 for (x in 0 until width) {
-                    if (map[y][x] in 'A'..'Z') {
+                    if (!(map[y][x] == '.' || map[y][x] == '#')) {
                         towers.add(Tower(map[y][x], x, y))
                     }
                 }
