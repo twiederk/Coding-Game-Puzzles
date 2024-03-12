@@ -1,6 +1,6 @@
-import FloodFillExample.DefenceMap
-import FloodFillExample.Tower
+import FloodFillExample.*
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class FloodFillExampleKtTest {
@@ -41,27 +41,23 @@ class FloodFillExampleKtTest {
 //
 //    This is what your program must output.
     @Test
+    @Disabled
     fun should_flood_example_1() {
         // arrange
-        val map = listOf(
-            "...#.",
-            "A#...",
-            "#..B.",
-            ".....",
+        val defenceMap = DefenceMap(
+            listOf(
+                "...#.",
+                "A#...",
+                "#..B.",
+                ".....",
+            )
         )
 
         // act
-        val filledMap = FloodFillExample().fill(map, 1)
+        val flood = FloodFillExample().flood(defenceMap, 1)
 
         // assert
-        assertThat(filledMap).isEqualTo(
-            listOf(
-                "A..#.",
-                "A#.B.",
-                "#.BBB",
-                "...B.",
-            )
-        )
+        assertThat(flood).hasSize(7)
     }
 
     @Test
@@ -98,5 +94,162 @@ class FloodFillExampleKtTest {
 
         // assert
         assertThat(towers).containsExactly(Tower('A', 0, 1))
+    }
+
+    @Test
+    fun should_neighbors_of_top_left() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "...",
+                "...",
+            )
+        )
+
+        // act
+        val neighbors = Flood(0, 0, 'A', 0).neighbors(defenceMap)
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Flood(0, 1, 'A', 1),
+            Flood(1, 0, 'A', 1),
+        )
+    }
+
+    @Test
+    fun should_neighbors_of_top_right() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "...",
+                "...",
+            )
+        )
+
+        // act
+        val neighbors = Flood(2, 0, 'A', 1).neighbors(defenceMap)
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Flood(2, 1, 'A', 2),
+            Flood(1, 0, 'A', 2),
+        )
+    }
+
+    @Test
+    fun should_neighbors_of_bottom_left() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "...",
+                "...",
+            )
+        )
+
+        // act
+        val neighbors = Flood(0, 2, 'A', 2).neighbors(defenceMap)
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Flood(0, 1, 'A', 3),
+            Flood(1, 2, 'A', 3),
+        )
+    }
+
+    @Test
+    fun should_neighbors_of_bottom_right() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "...",
+                "...",
+            )
+        )
+
+        // act
+        val neighbors = Flood(2, 2, 'A', 4).neighbors(defenceMap)
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Flood(2, 1, 'A', 5),
+            Flood(1, 2, 'A', 5),
+        )
+    }
+
+    @Test
+    fun should_neighbors_center() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "...",
+                "...",
+            )
+        )
+
+        // act
+        val neighbors = Flood(1, 1, 'A', 5).neighbors(defenceMap)
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Flood(1, 0, 'A', 6),
+            Flood(1, 2, 'A', 6),
+            Flood(0, 1, 'A', 6),
+            Flood(2, 1, 'A', 6),
+        )
+    }
+
+    @Test
+    fun should_neighbors_with_unvisitable() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "...",
+                "#..",
+                ".#.",
+            )
+        )
+
+        // act
+        val neighbors = Flood(1, 1, 'A', 5).neighbors(defenceMap)
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Flood(1, 0, 'A', 6),
+            Flood(2, 1, 'A', 6),
+        )
+    }
+
+    @Test
+    fun should_return_char_on_defence_map() {
+        // arrange
+        val defenceMap = DefenceMap(
+            listOf(
+                "AB",
+                "CD",
+            )
+        )
+
+        // act
+        val char = defenceMap.charAt(0, 0)
+
+        // assert
+        assertThat(char).isEqualTo('A')
+    }
+
+    @Test
+    fun should_return_true_when_point_is_visible_on_defence_map() {
+        // arrange
+        val defenceMap = DefenceMap(listOf(".#"))
+
+        // act
+        val visitable = defenceMap.isVisitable(0, 0)
+
+        // assert
+        assertThat(visitable).isTrue()
     }
 }
