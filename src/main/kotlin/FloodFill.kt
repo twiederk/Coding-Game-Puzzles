@@ -70,7 +70,7 @@ class FloodFill {
 
     private fun updateFlood(flood: MutableSet<Flood>, current: Flood) {
         val existing = flood.first { it.x == current.x && it.y == current.y }
-        if (existing.steps == current.steps && existing.displayId != current.displayId) {
+        if (existing.steps == current.steps && existing.id != current.id) {
             flood.remove(existing)
             flood.add(existing.copy(displayId = '+'))
         }
