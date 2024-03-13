@@ -23,6 +23,8 @@ To Dos
 * Add category column
 * Add The Lost Files
 * Add Fall-Challenge
+* Learn more about [BFS](https://www.codingame.com/learn/BFS)
+
 
 [ASCII ART]: https://www.codingame.com/training/easy/ascii-art
 [AsciiArtGame]: src/main/kotlin/AsciiArtGame.kt
