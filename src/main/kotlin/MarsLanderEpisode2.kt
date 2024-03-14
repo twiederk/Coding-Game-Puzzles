@@ -16,6 +16,8 @@ fun main() {
         points.add(MarsLanderEpisode2.Point2D(landX, landY))
     }
 
+    val marsLanderEpisode2 = MarsLanderEpisode2(MarsLanderEpisode2.Surface(points))
+
     // game loop
     while (true) {
         val x = input.nextInt()
@@ -36,8 +38,7 @@ fun main() {
             power = power
         )
 
-        val marsLanderEpisode2 = MarsLanderEpisode2(MarsLanderEpisode2.Surface(points))
-        val (angle, thrust) = marsLanderEpisode2.move()
+        val (angle, thrust) = marsLanderEpisode2.move(turnData)
 
         // R P. R is the desired rotation angle. P is the desired thrust power.
         println("$angle $thrust")
@@ -46,11 +47,17 @@ fun main() {
 
 class MarsLanderEpisode2(private val surface: Surface) {
 
-    fun move(): Pair<Int, Int> {
+    init {
+        System.err.println("surface: $surface")
+    }
+
+    fun move(turnData: TurnData): Pair<Int, Int> {
+        System.err.println("turnData: $turnData")
         return Pair(20, 3)
     }
 
     data class Surface(val points: List<Point2D>) {
+
         fun landingArea(): Pair<Point2D, Point2D> {
             val landingArea = points.zipWithNext().first { (p1, p2) -> p1.y == p2.y }
             return Pair(landingArea.first, landingArea.second)
