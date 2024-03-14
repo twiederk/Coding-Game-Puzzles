@@ -1,25 +1,25 @@
 import java.util.*
 
-typealias Edge = Pair<Node, Node>
+typealias Link = Pair<Node, Node>
 
 /**
  * Auto-generated code below aims at helping you parse
  * the standard input according to the problem statement.
  **/
-fun main(args: Array<String>) {
+fun main() {
     val input = Scanner(System.`in`)
     val numberOfNodes = input.nextInt() // the total number of nodes in the level, including the gateways
     val numberOfLinks = input.nextInt() // the number of links
     val numberOfExitGateways = input.nextInt() // the number of exit gateways
 
     val nodes = mutableSetOf<Node>()
-    val edges = mutableSetOf<Edge>()
+    val edges = mutableSetOf<Link>()
     for (i in 0 until numberOfLinks) {
         val node1 = Node(input.nextInt()) // N1 and N2 defines a link between these nodes
         val node2 = Node(input.nextInt())
         nodes.add(node1)
         nodes.add(node2)
-        edges.add(Edge(node1, node2))
+        edges.add(Link(node1, node2))
     }
     val gateways = mutableSetOf<Node>()
     for (i in 0 until numberOfExitGateways) {
@@ -35,7 +35,7 @@ fun main(args: Array<String>) {
 
         // Write an action using println()
         // To debug: System.err.println("Debug messages...");
-        val severLink: Edge = deathFirstSearchEpisode1.severLink(Node(agent))
+        val severLink: Link = deathFirstSearchEpisode1.severLink(Node(agent))
 
 
         // Example: 0 1 are the indices of the nodes you wish to sever the link between
@@ -45,7 +45,7 @@ fun main(args: Array<String>) {
 
 data class DeathFirstSearchEpisode1(
     val nodes: Set<Node>,
-    val edges: Set<Edge>,
+    val edges: Set<Link>,
     val gateways: Set<Node>
 ) {
 
@@ -55,15 +55,15 @@ data class DeathFirstSearchEpisode1(
         System.err.println("gateways = ${gateways}")
     }
 
-    fun severLink(agent: Node): Edge {
+    fun severLink(agent: Node): Link {
         System.err.println("agent: $agent")
         // find path from agent to gateway
         val path = bfs(edges, agent, gateways)
         // sever link contained in this path
         if (path?.parent == null) {
-            return Edge(Node(0), Node(1))
+            return Link(Node(0), Node(1))
         }
-        return Edge(path, path.parent!!)
+        return Link(path, path.parent!!)
     }
 
     //    1  procedure BFS(G, root) is
@@ -79,7 +79,7 @@ data class DeathFirstSearchEpisode1(
 //    11                  label w as explored
 //    12                  w.parent := v
 //    13                  Q.enqueue(w)
-    private fun bfs(graph: Set<Edge>, root: Node, goal: Set<Node>): Node? {
+    private fun bfs(graph: Set<Link>, root: Node, goal: Set<Node>): Node? {
         val queue: Queue<Node> = LinkedList()
         val seen: MutableSet<Node> = mutableSetOf()
         queue.add(root)
@@ -101,7 +101,7 @@ data class DeathFirstSearchEpisode1(
     }
 
 
-    fun neighbors(node: Node, graph: Set<Edge>): Set<Node> {
+    fun neighbors(node: Node, graph: Set<Link>): Set<Node> {
         val neighbors = mutableSetOf<Node>()
         neighbors.addAll(graph.filter { it.first == node }.map { it.second })
         neighbors.addAll(graph.filter { it.second == node }.map { it.first })

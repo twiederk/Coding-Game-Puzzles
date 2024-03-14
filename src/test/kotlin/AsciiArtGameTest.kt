@@ -15,7 +15,6 @@ class AsciiArtGameTest {
     @Test
     @Disabled("not yet implemented")
     fun should_display_first_line_of_letter_A() {
-        // arrange
 
         // act
         val output = AsciiArtGame(row).readLetter("A")
