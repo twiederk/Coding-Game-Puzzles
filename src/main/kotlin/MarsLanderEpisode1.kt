@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
         val rotate = input.nextInt() // the rotation angle in degrees (-90 to 90).
         val power = input.nextInt() // the thrust power (0 to 4).
 
-        val turnData = TurnData(
+        val turnData = MarsLanderEpisode1.TurnData(
             x = x,
             y = y,
             hSpeed = hSpeed,
@@ -46,15 +46,6 @@ fun main(args: Array<String>) {
 
 }
 
-data class TurnData(
-    val x: Int,
-    val y: Int,
-    val hSpeed: Int,
-    val vSpeed: Int,
-    val fuel: Int,
-    val rotate: Int,
-    val power: Int
-)
 
 class MarsLanderEpisode1 {
 
@@ -65,6 +56,16 @@ class MarsLanderEpisode1 {
         }
         return Pair(0, power)
     }
+
+    data class TurnData(
+        val x: Int,
+        val y: Int,
+        val hSpeed: Int,
+        val vSpeed: Int,
+        val fuel: Int,
+        val rotate: Int,
+        val power: Int
+    )
 
 }
 
