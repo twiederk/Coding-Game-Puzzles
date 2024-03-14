@@ -16,14 +16,11 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 
 To Dos
 * Win 2nd code clash (Clash of Code)
-* [MAD POD RACING] (Bot Programming)
 * Mars Lander
   * [MARS LANDER - EPISODE 2](https://www.codingame.com/training/easy/mars-lander-episode-2) (Puzzle - Medium)
   * [MARS LANDER - EPISODE 3](https://www.codingame.com/training/easy/mars-lander-episode-3) (Puzzle - Hard)
 * [DEATH FIRST SEARCH - EPISODE 2](https://www.codingame.com/training/hard/death-first-search-episode-2) (Puzzle - Hard)
 * Add category column
-* Add The Lost Files
-* Add Fall-Challenge
 * Learn more about [BFS](https://www.codingame.com/learn/BFS)
 
 
@@ -49,9 +46,7 @@ To Dos
 [MadpodRacing]: src/main/kotlin/MadPodRacing.kt
 
 [FLOOD FILL EXAMPLE]: https://www.codingame.com/training/medium/flood-fill-example
-
 [FloodFillExample]: src/main/kotlin/FloodFill.kt
 
 [THE LOST FILES]: https://www.codingame.com/training/medium/the-lost-files
-
 [TheLostFiles]: src/main/kotlin/TheLostFiles.kt
