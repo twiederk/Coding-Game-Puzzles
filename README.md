@@ -9,6 +9,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
 | [FLOOD FILL EXAMPLE]               | [FloodFillExample]            | Puzzle          | Medium |
+| [THE LOST FILES]                   | [TheLostFiles]                | Puzzle          | Medium |  
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
 | [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape          | Medium |
@@ -48,4 +49,9 @@ To Dos
 [MadpodRacing]: src/main/kotlin/MadPodRacing.kt
 
 [FLOOD FILL EXAMPLE]: https://www.codingame.com/training/medium/flood-fill-example
-[FloodFillExample]:
+
+[FloodFillExample]: src/main/kotlin/FloodFill.kt
+
+[THE LOST FILES]: https://www.codingame.com/training/medium/the-lost-files
+
+[TheLostFiles]: src/main/kotlin/TheLostFiles.kt
