@@ -53,7 +53,13 @@ class MarsLanderEpisode2(private val surface: Surface) {
 
     fun move(turnData: TurnData): Pair<Int, Int> {
         System.err.println("turnData: $turnData")
-        return Pair(20, 3)
+        if (turnData.x < surface.landingArea().first.x) {
+            return Pair(-45, 3)
+        }
+        if (turnData.x > surface.landingArea().second.x) {
+            return Pair(45, 3)
+        }
+        return Pair(0, 3)
     }
 
     data class Surface(val points: List<Point2D>) {
