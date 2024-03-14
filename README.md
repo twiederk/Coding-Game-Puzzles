@@ -6,8 +6,9 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 |:-----------------------------------|:------------------------------|:----------------|:-------| 
 | [ASCII ART]                        | [AsciiArtGame]                | Puzzle          | Easy   |
 | [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle          | Easy   |
-| [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
+| [MARS LANDER - EPISODE 2]          | [MarsLanderEpisode2]          | Puzzle          | Easy   |
+| [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
 | [FLOOD FILL EXAMPLE]               | [FloodFillExample]            | Puzzle          | Medium |
 | [THE LOST FILES]                   | [TheLostFiles]                | Puzzle          | Medium |  
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
@@ -17,10 +18,8 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 To Dos
 * Win 2nd code clash (Clash of Code)
 * Mars Lander
-  * [MARS LANDER - EPISODE 2](https://www.codingame.com/training/easy/mars-lander-episode-2) (Puzzle - Medium)
   * [MARS LANDER - EPISODE 3](https://www.codingame.com/training/easy/mars-lander-episode-3) (Puzzle - Hard)
 * [DEATH FIRST SEARCH - EPISODE 2](https://www.codingame.com/training/hard/death-first-search-episode-2) (Puzzle - Hard)
-* Add category column
 * Learn more about [BFS](https://www.codingame.com/learn/BFS)
 
 
@@ -41,6 +40,10 @@ To Dos
 
 [MARS LANDER - EPISODE 1]: https://www.codingame.com/training/easy/mars-lander-episode-1
 [MarsLanderEpisode1]: src/main/kotlin/MarsLanderEpisode1.kt
+
+[MARS LANDER - EPISODE 2]: https://www.codingame.com/training/easy/mars-lander-episode-2
+
+[MarsLanderEpisode2]: src/main/kotlin/MarsLanderEpisode2.kt
 
 [MAD POD RACING]: https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing
 [MadpodRacing]: src/main/kotlin/MadPodRacing.kt
