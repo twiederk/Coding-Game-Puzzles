@@ -54,12 +54,32 @@ class MarsLanderEpisode2(private val surface: Surface) {
     fun move(turnData: TurnData): Pair<Int, Int> {
         System.err.println("turnData: $turnData")
         if (turnData.x < surface.landingArea().first.x) {
-            return Pair(-45, 3)
+            val distanceToLandingArea = surface.landingArea().first.x - turnData.x
+            val thrust = getThrust(distanceToLandingArea)
+            return Pair(-45, thrust)
         }
         if (turnData.x > surface.landingArea().second.x) {
+            val distanceToLandingArea = turnData.x - surface.landingArea().second.x
+            val thrust = getThrust(distanceToLandingArea)
+            return Pair(45, thrust)
+        }
+        if (turnData.hSpeed > 20) {
             return Pair(45, 3)
         }
+        if (turnData.hSpeed < -20) {
+            return Pair(-45, 3)
+        }
         return Pair(0, 3)
+    }
+
+    private fun getThrust(distanceToLandingArea: Int): Int {
+        System.err.println("distanceToLandingArea: $distanceToLandingArea")
+        return when (distanceToLandingArea) {
+            in 0..250 -> 1
+            in 250..500 -> 2
+            in 500..750 -> 3
+            else -> 4
+        }
     }
 
     data class Surface(val points: List<Point2D>) {
