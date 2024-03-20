@@ -1,6 +1,6 @@
+import DeathFirstSearchEpisode1.Link
+import DeathFirstSearchEpisode1.Node
 import java.util.*
-
-typealias Link = Pair<Node, Node>
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -108,10 +108,16 @@ data class DeathFirstSearchEpisode1(
         return neighbors
     }
 
-}
+    data class Node(
+        val data: Int
+    ) {
+        var parent: Node? = null
+    }
 
-data class Node(
-    val data: Int
-) {
-    var parent: Node? = null
+    data class Link(
+        val first: Node,
+        val second: Node
+    )
+
+
 }
