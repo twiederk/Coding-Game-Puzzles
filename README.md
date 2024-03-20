@@ -9,6 +9,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 2]          | [MarsLanderEpisode2]          | Puzzle          | Easy   |
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
+| [DEATH FIRST SEARCH - EPISODE 2]   | [DeathFirstSearchEpisode2]    | Puzzle          | Medium |
 | [FLOOD FILL EXAMPLE]               | [FloodFillExample]            | Puzzle          | Medium |
 | [THE LOST FILES]                   | [TheLostFiles]                | Puzzle          | Medium |  
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
@@ -31,6 +32,10 @@ To Dos
 
 [DEATH FIRST SEARCH - EPISODE 1]: https://www.codingame.com/training/medium/death-first-search-episode-1
 [DeathFirstSearchEpisode1]: src/main/kotlin/DeathFirstSearchEpisode1.kt
+
+[DEATH FIRST SEARCH - EPISODE 1]: https://www.codingame.com/training/medium/death-first-search-episode-2
+
+[DeathFirstSearchEpisode1]: src/main/kotlin/DeathFirstSearchEpisode2.kt
 
 [CODE VS ZOMBIES]: https://www.codingame.com/multiplayer/optimization/code-vs-zombies
 [CodeVsZombies]: src/main/kotlin/DeathFirstSearchEpisode1.kt
