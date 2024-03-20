@@ -63,10 +63,8 @@ data class DeathFirstSearchEpisode2(
         if (path?.parent == null) {
             return Link(Node(0), Node(1))
         }
-        System.err.println("edges before: ${edges.size}")
         edges.remove(Link(path, path.parent!!))
         edges.remove(Link(path.parent!!, path))
-        System.err.println("edges after: ${edges.size}")
         return Link(path, path.parent!!)
     }
 
