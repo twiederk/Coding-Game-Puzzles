@@ -8,7 +8,7 @@ import java.util.*
  **/
 fun main() {
     val input = Scanner(System.`in`)
-    val numberOfNodes = input.nextInt() // the total number of nodes in the level, including the gateways
+    /* val numberOfNodes = */ input.nextInt() // the total number of nodes in the level, including the gateways
     val numberOfLinks = input.nextInt() // the number of links
     val numberOfExitGateways = input.nextInt() // the number of exit gateways
 
@@ -113,6 +113,13 @@ data class DeathFirstSearchEpisode2(
     data class Node(
         val data: Int
     ) {
+        fun firstLink(): Link {
+            // build a list of all parents
+            // reverse the list
+            // create link of first and second element
+            TODO("Not yet implemented")
+        }
+
         var parent: Node? = null
     }
 
