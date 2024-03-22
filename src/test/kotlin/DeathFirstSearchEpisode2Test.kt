@@ -55,4 +55,40 @@ class DeathFirstSearchEpisode2Test {
         assertThat(neighbors).containsExactlyInAnyOrder(Node(1))
     }
 
+    @Test
+    fun should_select_path_which_runs_via_same_node() {
+        // arrange
+        // 4 -> 1 -> 9 (agent)
+        // 5 -> 2 -> 9 (agent)
+        // 6 -> 2 -> 9 (agent)
+        val path1 = Node(4).apply { parent = Node(1).apply { parent = Node(9) } }
+        val path2 = Node(5).apply { parent = Node(2).apply { parent = Node(9) } }
+        val path3 = Node(6).apply { parent = Node(2).apply { parent = Node(9) } }
+
+        // act
+        val finalPath = test1.finalPath(listOf(path1, path2, path3))
+
+        // assert
+        assertThat(finalPath).isEqualTo(path2)
+    }
+
+    @Test
+    fun should_filter_all_paths_with_shortest_list_of_parents() {
+        // arrange
+        val path1 = Node(4).apply { parent = Node(1).apply { parent = Node(9) } }
+        val path2 = Node(5).apply { parent = Node(2) }
+        val path3 = Node(6).apply { parent = Node(2) }
+        val path4 = Node(6).apply { parent = Node(2).apply { parent = Node(9).apply { parent = Node(10) } } }
+        val path5 = Node(6).apply { parent = Node(2).apply { parent = Node(9).apply { parent = Node(10) } } }
+        val path6 = Node(6).apply {
+            parent = Node(2).apply { parent = Node(9).apply { parent = Node(10).apply { parent = Node(11) } } }
+        }
+
+        // act
+        val shortestPaths = test1.shortestPaths(listOf(path1, path2, path3, path4, path5, path6))
+
+        // assert
+        assertThat(shortestPaths).contains(path2, path3)
+
+    }
 }

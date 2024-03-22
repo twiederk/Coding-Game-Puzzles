@@ -61,15 +61,17 @@ data class DeathFirstSearchEpisode2(
         val paths = gateways.mapNotNull { dijkstra(edges, agent, it) }
         System.err.println("number of paths: ${paths.size}")
         paths.forEach { System.err.println("$it ${it.parents().size} ${it.parents()}") }
-        val path = paths.minBy { it.parents().size }
+
+        val shortestPaths = shortestPaths(paths)
+        val finalPath = finalPath(shortestPaths)
 
         // sever link contained in this path
-        if (path.parent == null) {
+        if (finalPath.parent == null) {
             return Link(Node(0), Node(1))
         }
-        edges.remove(Link(path, path.parent!!))
-        edges.remove(Link(path.parent!!, path))
-        return Link(path, path.parent!!)
+        edges.remove(Link(finalPath, finalPath.parent!!))
+        edges.remove(Link(finalPath.parent!!, finalPath))
+        return Link(finalPath, finalPath.parent!!)
     }
 
     private fun dijkstra(graph: Set<Link>, root: Node, goal: Node): Node? {
@@ -101,6 +103,36 @@ data class DeathFirstSearchEpisode2(
         neighbors.addAll(graph.filter { it.first == node }.map { it.second })
         neighbors.addAll(graph.filter { it.second == node }.map { it.first })
         return neighbors
+    }
+
+    fun shortestPaths(paths: List<Node>): List<Node> {
+        val minParents = paths.minOfOrNull { it.parents().size }
+        return paths.filter { it.parents().size == minParents }
+    }
+
+    fun finalPath(paths: List<Node>): Node {
+        // 4 -> 1 -> 9 (agent)
+        // 5 -> 2 -> 9 (agent)
+        // 6 -> 2 -> 9 (agent)
+        if (paths.size == 1) {
+            return paths[0]
+        }
+        var parents = paths.map { it.parents().reversed() }
+        // 9 -> 1 -> 4 (agent)
+        // 9 -> 2 -> 5 (agent)
+        // 9 -> 2 -> 6 (agent)
+        for (index in 1 until parents[0].size) {
+//            println("parents.size = ${parents.size}")
+            val allNodes = parents.map { it[index] }.groupBy { it.data }
+//            println("allNodes = $allNodes")
+            val maxData = allNodes.maxByOrNull { it.value.size }?.key
+//            println("maxData = ${maxData}")
+            parents = parents.filter { it[index].data == maxData }
+            if (parents.size == 1) {
+                return parents[0].last()
+            }
+        }
+        return parents[0].last()
     }
 
     data class Node(
