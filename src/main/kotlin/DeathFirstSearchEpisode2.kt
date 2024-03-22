@@ -72,36 +72,25 @@ data class DeathFirstSearchEpisode2(
         return Link(path, path.parent!!)
     }
 
-    //    1  procedure BFS(G, root) is
-//    2      let Q be a queue
-//    3      label root as explored
-//    4      Q.enqueue(root)
-//    5      while Q is not empty do
-//    6          v := Q.dequeue()
-//    7          if v is the goal then
-//    8              return v
-//    9          for all edges from v to w in G.adjacentEdges(v) do
-//    10              if w is not labeled as explored then
-//    11                  label w as explored
-//    12                  w.parent := v
-//    13                  Q.enqueue(w)
     private fun dijkstra(graph: Set<Link>, root: Node, goal: Node): Node? {
-        val queue: PriorityQueue<Work> = PriorityQueue()
         val seen: MutableSet<Work> = mutableSetOf()
+        val queue: PriorityQueue<Work> = PriorityQueue()
         queue.add(Work(root, 0))
 
         while (queue.isNotEmpty()) {
-            val curr = queue.remove()
-            if (goal == curr.node) {
-                return curr.node
+            val (currNode, distance) = queue.poll()
+            if (currNode == goal) {
+                return currNode
             }
-            for (neighbor in neighbors(curr.node, graph)) {
-                if (!seen.any { neighbor == it.node }) {
-                    seen.add(curr)
-                    neighbor.parent = curr.node
-                    queue.add(Work(neighbor, curr.distance + 1))
+
+            neighbors(currNode, graph)
+                .filterNot { neighbor -> neighbor in seen.map { it.node } }
+                .forEach { neighbor ->
+                    neighbor.parent = currNode
+                    val work = Work(neighbor, distance + 1)
+                    queue.add(work)
+                    seen.add(work)
                 }
-            }
         }
         return null
     }
