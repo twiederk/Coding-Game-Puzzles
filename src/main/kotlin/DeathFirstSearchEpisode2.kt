@@ -58,7 +58,7 @@ data class DeathFirstSearchEpisode2(
     fun severLink(agent: Node): Link {
         System.err.println("agent: $agent")
         // find path from agent to gateway
-        val path = bfs(edges, agent, gateways)
+        val path = dijkstra(edges, agent, gateways)
         // sever link contained in this path
         if (path?.parent == null) {
             return Link(Node(0), Node(1))
@@ -81,21 +81,21 @@ data class DeathFirstSearchEpisode2(
 //    11                  label w as explored
 //    12                  w.parent := v
 //    13                  Q.enqueue(w)
-    private fun bfs(graph: Set<Link>, root: Node, goal: Set<Node>): Node? {
-        val queue: Queue<Node> = LinkedList()
-        val seen: MutableSet<Node> = mutableSetOf()
-        queue.add(root)
+    private fun dijkstra(graph: Set<Link>, root: Node, goal: Set<Node>): Node? {
+        val queue: PriorityQueue<Work> = PriorityQueue()
+        val seen: MutableSet<Work> = mutableSetOf()
+        queue.add(Work(root, 0))
 
         while (queue.isNotEmpty()) {
             val curr = queue.remove()
-            if (goal.contains(curr)) {
-                return curr
+            if (goal.contains(curr.node)) {
+                return curr.node
             }
-            for (neighbor in neighbors(curr, graph)) {
-                if (!seen.contains(neighbor)) {
+            for (neighbor in neighbors(curr.node, graph)) {
+                if (!seen.any { neighbor == it.node }) {
                     seen.add(curr)
-                    neighbor.parent = curr
-                    queue.add(neighbor)
+                    neighbor.parent = curr.node
+                    queue.add(Work(neighbor, curr.distance + 1))
                 }
             }
         }
@@ -113,14 +113,14 @@ data class DeathFirstSearchEpisode2(
     data class Node(
         val data: Int
     ) {
-        fun firstLink(): Link {
-            // build a list of all parents
-            // reverse the list
-            // create link of first and second element
-            TODO("Not yet implemented")
-        }
-
         var parent: Node? = null
+    }
+
+    data class Work(
+        val node: Node,
+        val distance: Int
+    ) : Comparable<Work> {
+        override fun compareTo(other: Work): Int = distance.compareTo(other.distance)
     }
 
     data class Link(

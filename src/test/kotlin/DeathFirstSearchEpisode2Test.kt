@@ -55,18 +55,4 @@ class DeathFirstSearchEpisode2Test {
         assertThat(neighbors).containsExactlyInAnyOrder(Node(1))
     }
 
-    @Test
-    fun should_return_first_link_of_path() {
-        // arrange
-        val node1 = Node(1)
-        val node2 = Node(2).apply { parent = node1 }
-        val node3 = Node(3).apply { parent = node2 }
-        val node4 = Node(4).apply { parent = node3 }
-
-        // act
-        val firstLink = node4.firstLink()
-
-        // assert
-        assertThat(firstLink).isEqualTo(Link(node1, node2))
-    }
 }
