@@ -50,17 +50,21 @@ data class DeathFirstSearchEpisode2(
 ) {
 
     init {
-        System.err.println("nodes = ${nodes}")
-        System.err.println("edges = ${edges}")
-        System.err.println("gateways = ${gateways}")
+        System.err.println("nodes = $nodes")
+        System.err.println("edges = $edges")
+        System.err.println("gateways = $gateways")
     }
 
     fun severLink(agent: Node): Link {
         System.err.println("agent: $agent")
         // find path from agent to gateway
-        val path = dijkstra(edges, agent, gateways)
+        val paths = gateways.mapNotNull { dijkstra(edges, agent, it) }
+        System.err.println("number of paths: ${paths.size}")
+        paths.forEach { System.err.println("$it ${it.parents().size} ${it.parents()}") }
+        val path = paths.minBy { it.parents().size }
+
         // sever link contained in this path
-        if (path?.parent == null) {
+        if (path.parent == null) {
             return Link(Node(0), Node(1))
         }
         edges.remove(Link(path, path.parent!!))
@@ -81,14 +85,14 @@ data class DeathFirstSearchEpisode2(
 //    11                  label w as explored
 //    12                  w.parent := v
 //    13                  Q.enqueue(w)
-    private fun dijkstra(graph: Set<Link>, root: Node, goal: Set<Node>): Node? {
+    private fun dijkstra(graph: Set<Link>, root: Node, goal: Node): Node? {
         val queue: PriorityQueue<Work> = PriorityQueue()
         val seen: MutableSet<Work> = mutableSetOf()
         queue.add(Work(root, 0))
 
         while (queue.isNotEmpty()) {
             val curr = queue.remove()
-            if (goal.contains(curr.node)) {
+            if (goal == curr.node) {
                 return curr.node
             }
             for (neighbor in neighbors(curr.node, graph)) {
@@ -114,6 +118,16 @@ data class DeathFirstSearchEpisode2(
         val data: Int
     ) {
         var parent: Node? = null
+
+        fun parents(): List<Node> {
+            val parents = mutableListOf(this)
+            var parent = this.parent
+            while (parent != null) {
+                parents.add(parent)
+                parent = parent.parent
+            }
+            return parents
+        }
     }
 
     data class Work(
