@@ -126,7 +126,11 @@ data class DeathFirstSearchEpisode2(
     data class Link(
         val first: Node,
         val second: Node
-    )
+    ) {
+        override fun toString(): String {
+            return "${first.data} -> ${second.data}"
+        }
+    }
 
 
 }
