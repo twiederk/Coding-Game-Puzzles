@@ -1,4 +1,5 @@
 import DeathFirstSearchEpisode2.Link
+import DeathFirstSearchEpisode2.Links
 import DeathFirstSearchEpisode2.Node
 import java.util.*
 
@@ -27,7 +28,7 @@ fun main() {
         gateways.add(gateway)
     }
 
-    val deathFirstSearchEpisode2 = DeathFirstSearchEpisode2(nodes, edges, gateways)
+    val deathFirstSearchEpisode2 = DeathFirstSearchEpisode2(nodes, Links(edges), gateways)
 
     // game loop
     while (true) {
@@ -45,20 +46,20 @@ fun main() {
 
 data class DeathFirstSearchEpisode2(
     val nodes: Set<Node>,
-    val edges: MutableSet<Link>,
+    val links: Links,
     val gateways: Set<Node>
 ) {
 
     init {
         System.err.println("nodes = $nodes")
-        System.err.println("edges = $edges")
+        System.err.println("edges = $links")
         System.err.println("gateways = $gateways")
     }
 
     fun severLink(agent: Node): Link {
         System.err.println("agent: $agent")
         // find path from agent to gateway
-        val paths = gateways.mapNotNull { dijkstra(edges, agent, it) }.map { Path(it.parents().reversed()) }
+        val paths = gateways.mapNotNull { dijkstra(links.edges, agent, it) }.map { Path(it.parents().reversed()) }
         System.err.println("number of paths: ${paths.size}")
         paths.forEach(System.err::println)
 
@@ -66,8 +67,7 @@ data class DeathFirstSearchEpisode2(
         val finalPath = finalPath(shortestPaths)
 
         // sever link contained in this path
-        edges.remove(finalPath.link)
-        edges.remove(finalPath.reverseLink)
+        links.remove(finalPath.link)
         return finalPath.link
     }
 
@@ -124,7 +124,7 @@ data class DeathFirstSearchEpisode2(
 
     private fun gatewayWithMostConnections(): Node {
         val gatewayWithMostConnections = gateways.map { gateway ->
-            val connections = edges.filter { it.first == gateway || it.second == gateway }
+            val connections = links.edges.filter { it.first == gateway || it.second == gateway }
             gateway to connections.size
         }.maxByOrNull { it.second }?.first
         return gatewayWithMostConnections!!
@@ -168,7 +168,15 @@ data class DeathFirstSearchEpisode2(
         val size = path.size
         val gateway = path.last()
         val link = Link(path[path.size - 2], path[path.size - 1])
-        val reverseLink = Link(path[path.size - 1], path[path.size - 2])
+    }
+
+    data class Links(
+        val edges: MutableSet<Link>
+    ) {
+        fun remove(link: Link) {
+            edges.remove(Link(link.first, link.second))
+            edges.remove(Link(link.second, link.first))
+        }
     }
 
 
