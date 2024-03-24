@@ -58,20 +58,17 @@ data class DeathFirstSearchEpisode2(
     fun severLink(agent: Node): Link {
         System.err.println("agent: $agent")
         // find path from agent to gateway
-        val paths = gateways.mapNotNull { dijkstra(edges, agent, it) }
+        val paths = gateways.mapNotNull { dijkstra(edges, agent, it) }.map { Path(it.parents().reversed()) }
         System.err.println("number of paths: ${paths.size}")
-        paths.forEach { System.err.println("$it ${it.parents().size} ${it.parents()}") }
+        paths.forEach(System.err::println)
 
         val shortestPaths = shortestPaths(paths)
         val finalPath = finalPath(shortestPaths)
 
         // sever link contained in this path
-        if (finalPath.parent == null) {
-            return Link(Node(0), Node(1))
-        }
-        edges.remove(Link(finalPath, finalPath.parent!!))
-        edges.remove(Link(finalPath.parent!!, finalPath))
-        return Link(finalPath, finalPath.parent!!)
+        edges.remove(finalPath.link)
+        edges.remove(finalPath.reverseLink)
+        return finalPath.link
     }
 
     private fun dijkstra(graph: Set<Link>, root: Node, goal: Node): Node? {
@@ -105,34 +102,32 @@ data class DeathFirstSearchEpisode2(
         return neighbors
     }
 
-    fun shortestPaths(paths: List<Node>): List<Node> {
-        val minParents = paths.minOfOrNull { it.parents().size }
-        return paths.filter { it.parents().size == minParents }
+    fun shortestPaths(paths: List<Path>): List<Path> {
+        val minParents = paths.minOfOrNull { it.size }
+        return paths.filter { it.size == minParents }
     }
 
-    fun finalPath(paths: List<Node>): Node {
-        // 4 -> 1 -> 9 (agent)
-        // 5 -> 2 -> 9 (agent)
-        // 6 -> 2 -> 9 (agent)
+    fun finalPath(paths: List<Path>): Path {
         if (paths.size == 1) {
-            return paths[0]
+            return paths.first()
         }
-        var parents = paths.map { it.parents().reversed() }
-        // 9 -> 1 -> 4 (agent)
-        // 9 -> 2 -> 5 (agent)
-        // 9 -> 2 -> 6 (agent)
-        for (index in 1 until parents[0].size) {
-//            println("parents.size = ${parents.size}")
-            val allNodes = parents.map { it[index] }.groupBy { it.data }
-//            println("allNodes = $allNodes")
-            val maxData = allNodes.maxByOrNull { it.value.size }?.key
-//            println("maxData = ${maxData}")
-            parents = parents.filter { it[index].data == maxData }
-            if (parents.size == 1) {
-                return parents[0].last()
-            }
+        // paths should be sorted by size
+        val sortedPaths = paths.sortedBy { it.size }
+        // path with only on step MUST be selected
+        if (sortedPaths.first().size == 2) {
+            return sortedPaths.first()
         }
-        return parents[0].last()
+        // when we have more steps, we select path to gateway with most connections
+        val gatewayWithMostConnections = gatewayWithMostConnections()
+        return sortedPaths.first { it.gateway == gatewayWithMostConnections }
+    }
+
+    private fun gatewayWithMostConnections(): Node {
+        val gatewayWithMostConnections = gateways.map { gateway ->
+            val connections = edges.filter { it.first == gateway || it.second == gateway }
+            gateway to connections.size
+        }.maxByOrNull { it.second }?.first
+        return gatewayWithMostConnections!!
     }
 
     data class Node(
@@ -165,6 +160,15 @@ data class DeathFirstSearchEpisode2(
         override fun toString(): String {
             return "${first.data} -> ${second.data}"
         }
+    }
+
+    data class Path(
+        val path: List<Node>,
+    ) {
+        val size = path.size
+        val gateway = path.last()
+        val link = Link(path[path.size - 2], path[path.size - 1])
+        val reverseLink = Link(path[path.size - 1], path[path.size - 2])
     }
 
 
