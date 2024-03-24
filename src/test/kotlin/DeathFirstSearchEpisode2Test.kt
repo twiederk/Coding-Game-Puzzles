@@ -100,6 +100,7 @@ class DeathFirstSearchEpisode2Test {
         val path1 = Path(listOf(Node(9), Node(1), Node(4)))
         val path2 = Path(listOf(Node(9), Node(2), Node(5)))
         val path3 = Path(listOf(Node(9), Node(2), Node(6)))
+        test2.links.remove(Link(Node(1), Node(3)))
 
         // act
         val finalPath = test2.finalPath(listOf(path1, path2, path3))
