@@ -1,6 +1,4 @@
-import DeathFirstSearchEpisode2.Link
-import DeathFirstSearchEpisode2.Links
-import DeathFirstSearchEpisode2.Node
+import DeathFirstSearchEpisode2.*
 import java.util.*
 
 /**
@@ -60,11 +58,8 @@ data class DeathFirstSearchEpisode2(
         System.err.println("agent: $agent")
         // find path from agent to gateway
         val paths = gateways.mapNotNull { dijkstra(links.edges, agent, it) }.map { Path(it.parents().reversed()) }
-        System.err.println("number of paths: ${paths.size}")
-        paths.forEach(System.err::println)
 
-        val shortestPaths = shortestPaths(paths)
-        val finalPath = finalPath(shortestPaths)
+        val finalPath = finalPath(paths)
 
         // sever link contained in this path
         links.remove(finalPath.link)
@@ -108,18 +103,32 @@ data class DeathFirstSearchEpisode2(
     }
 
     fun finalPath(paths: List<Path>): Path {
+        System.err.println("number of paths: ${paths.size}")
+        paths.forEach(System.err::println)
+
+        // when we have only one path, we select it
         if (paths.size == 1) {
             return paths.first()
         }
-        // paths should be sorted by size
-        val sortedPaths = paths.sortedBy { it.size }
-        // path with only on step MUST be selected
-        if (sortedPaths.first().size == 2) {
-            return sortedPaths.first()
+
+        // when we have a path with only two nodes, we select it
+        if (paths.any { it.size == 2 }) {
+            return paths.first { it.size == 2 }
         }
-        // when we have more steps, we select path to gateway with most connections
-        val gatewayWithMostConnections = gatewayWithMostConnections()
-        return sortedPaths.first { it.gateway == gatewayWithMostConnections }
+
+        // the paths build a graph on its own
+        val shortestPaths = shortestPaths(paths)
+
+        val agentGraph = AgentGraph(shortestPaths)
+
+        // this graph is a tree with gateways as leaves
+        // nodes which leads to more gateways are more important
+        // the agent will move to the node with better position
+        // we need to select the path with the node with the best position and sever the link there
+
+        val maxLink = agentGraph.maxLink()
+        return agentGraph.paths(maxLink).first()
+
     }
 
     private fun gatewayWithMostConnections(): Node {
@@ -155,7 +164,8 @@ data class DeathFirstSearchEpisode2(
 
     data class Link(
         val first: Node,
-        val second: Node
+        val second: Node,
+        val weight: Int = 1
     ) {
         override fun toString(): String {
             return "${first.data} -> ${second.data}"
@@ -179,5 +189,27 @@ data class DeathFirstSearchEpisode2(
         }
     }
 
+    class AgentGraph(
+        val paths: List<Path>
+    ) {
+        val links: List<Link>
+
+        init {
+            val pairs = paths.flatMap { it.path.windowed(2) }.groupingBy { it }.eachCount()
+            links = pairs.map { (pair, count) ->
+                Link(pair.first(), pair.last(), weight = count)
+            }
+        }
+
+        fun maxLink(): Link {
+            return links.maxBy { it.weight }
+        }
+
+        fun paths(link: Link): List<Path> {
+            return paths.filter { it.path.contains(link.first) && it.path.contains(link.second) }
+        }
+
+    }
 
 }
+

@@ -1,7 +1,4 @@
-import DeathFirstSearchEpisode2.Link
-import DeathFirstSearchEpisode2.Links
-import DeathFirstSearchEpisode2.Node
-import DeathFirstSearchEpisode2.Path
+import DeathFirstSearchEpisode2.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -126,4 +123,48 @@ class DeathFirstSearchEpisode2Test {
         assertThat(shortestPaths).contains(path2, path3)
     }
 
+    @Test
+    fun should_create_agent_graph() {
+        // arrange
+        val path1 = Path(listOf(Node(9), Node(1), Node(4)))
+        val path2 = Path(listOf(Node(9), Node(2), Node(5)))
+        val path3 = Path(listOf(Node(9), Node(2), Node(6)))
+
+        // act
+        val agentGraph = AgentGraph(listOf(path1, path2, path3))
+
+        // assert
+        assertThat(agentGraph.paths).hasSize(3)
+        assertThat(agentGraph.links).hasSize(5)
+    }
+
+    @Test
+    fun should_return_link_with_highest_weight() {
+        // arrange
+        val path1 = Path(listOf(Node(9), Node(1), Node(4)))
+        val path2 = Path(listOf(Node(9), Node(2), Node(5)))
+        val path3 = Path(listOf(Node(9), Node(2), Node(6)))
+        val agentGraph = AgentGraph(listOf(path1, path2, path3))
+
+        // act
+        val result = agentGraph.maxLink()
+
+        // assert
+        assertThat(result).isEqualTo(Link(Node(9), Node(2), weight = 2))
+    }
+
+    @Test
+    fun should_return_paths_containing_link() {
+        // arrange
+        val path1 = Path(listOf(Node(9), Node(1), Node(4)))
+        val path2 = Path(listOf(Node(9), Node(2), Node(5)))
+        val path3 = Path(listOf(Node(9), Node(2), Node(6)))
+        val agentGraph = AgentGraph(listOf(path1, path2, path3))
+
+        // act
+        val paths = agentGraph.paths(Link(Node(9), Node(2)))
+
+        // assert
+        assertThat(paths).containsExactlyInAnyOrder(path2, path3)
+    }
 }
