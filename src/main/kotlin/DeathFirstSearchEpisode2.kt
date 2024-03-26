@@ -135,6 +135,11 @@ data class DeathFirstSearchEpisode2(
         return paths.minOf { it.size } - 1
     }
 
+    fun connectedGateways(node: Node): Int {
+        val edges = links.edges.filter { it.first == node || it.second == node }
+        return gateways.count { gateway -> edges.any { it.first == gateway || it.second == gateway } }
+    }
+
     data class Node(
         val data: Int
     ) {

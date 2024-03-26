@@ -257,4 +257,34 @@ class DeathFirstSearchEpisode2Test {
         // assert
         assertThat(steps).isEqualTo(0)
     }
+
+    @Test
+    fun should_return_number_of_connected_gateways_for_node_1() {
+
+        // act
+        val connectedGateways = test3.connectedGateways(Node(1))
+
+        // assert
+        assertThat(connectedGateways).isEqualTo(0)
+    }
+
+    @Test
+    fun should_return_number_of_connected_gateways_for_node_2() {
+
+        // act
+        val connectedGateways = test3.connectedGateways(Node(2))
+
+        // assert
+        assertThat(connectedGateways).isEqualTo(1)
+    }
+
+    @Test
+    fun should_return_number_of_connected_gateways_for_node_7() {
+
+        // act
+        val connectedGateways = test3.connectedGateways(Node(7))
+
+        // assert
+        assertThat(connectedGateways).isEqualTo(2)
+    }
 }
