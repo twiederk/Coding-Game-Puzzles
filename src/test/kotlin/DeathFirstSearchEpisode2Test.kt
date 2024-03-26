@@ -44,6 +44,49 @@ class DeathFirstSearchEpisode2Test {
         gateways = setOf(Node(data = 3), Node(data = 4), Node(data = 5), Node(data = 6))
     )
 
+    private val test3 = DeathFirstSearchEpisode2(
+        nodes = setOf(
+            Node(data = 0),
+            Node(data = 1),
+            Node(data = 2),
+            Node(data = 3),
+            Node(data = 4),
+            Node(data = 5),
+            Node(data = 6),
+            Node(data = 7),
+            Node(data = 8),
+            Node(data = 9),
+            Node(data = 10),
+            Node(data = 11),
+            Node(data = 12),
+            Node(data = 13),
+        ),
+        links = Links(
+            mutableSetOf(
+                Link(Node(0), Node(1)),
+                Link(Node(0), Node(5)),
+                Link(Node(1), Node(2)),
+                Link(Node(2), Node(3)),
+                Link(Node(2), Node(4)),
+                Link(Node(3), Node(4)),
+                Link(Node(4), Node(6)),
+                Link(Node(5), Node(9)),
+                Link(Node(5), Node(10)),
+                Link(Node(6), Node(11)),
+                Link(Node(6), Node(12)),
+                Link(Node(6), Node(13)),
+                Link(Node(6), Node(7)),
+                Link(Node(7), Node(8)),
+                Link(Node(7), Node(13)),
+                Link(Node(9), Node(10)),
+                Link(Node(10), Node(11)),
+                Link(Node(11), Node(12)),
+                Link(Node(12), Node(13)),
+            )
+        ),
+        gateways = setOf(Node(data = 3), Node(data = 6), Node(data = 8), Node(data = 9))
+    )
+
     // 0 - 1 - 2
     @Test
     fun should_return_link_to_sever_when_graph_is_test1() {
@@ -166,5 +209,16 @@ class DeathFirstSearchEpisode2Test {
 
         // assert
         assertThat(paths).containsExactlyInAnyOrder(path2, path3)
+    }
+
+    @Test
+    fun should_sever_link_with_lowest_weight() {
+        // arrange
+
+        // act
+        val severLink = test3.severLink(Node(0))
+
+        // assert
+        assertThat(severLink).isEqualTo(Link(Node(5), Node(9)))
     }
 }

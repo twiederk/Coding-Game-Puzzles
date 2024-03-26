@@ -1,9 +1,13 @@
 import DeathFirstSearchEpisode2.*
 import java.util.*
 
+//https://www.codingame.com/blog/dfs-agent-skynet/
 /**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
+The agent can reach its desired gateway by the following algorithm each turn:
+
+1. Try to reach a node from which more than 1 gateway is connected.
+2. If the node in (1) isn’t available, try to reach a node connected to at least 1 gateway.
+3. If the node in (2) isn’t available, try to reach a node from which a gateway is closest.
  **/
 fun main() {
     val input = Scanner(System.`in`)
@@ -32,10 +36,7 @@ fun main() {
     while (true) {
         val agent = input.nextInt() // The index of the node on which the Bobnet agent is positioned this turn
 
-        // Write an action using println()
-        // To debug: System.err.println("Debug messages...");
         val severLink: Link = deathFirstSearchEpisode2.severLink(Node(agent))
-
 
         // Example: 0 1 are the indices of the nodes you wish to sever the link between
         println("${severLink.first.data} ${severLink.second.data}")
@@ -111,11 +112,6 @@ data class DeathFirstSearchEpisode2(
             return paths.first()
         }
 
-        // when we have a path with only two nodes, we select it
-        if (paths.any { it.size == 2 }) {
-            return paths.first { it.size == 2 }
-        }
-
         // the paths build a graph on its own
         val shortestPaths = shortestPaths(paths)
 
@@ -129,14 +125,6 @@ data class DeathFirstSearchEpisode2(
         val maxLink = agentGraph.maxLink()
         return agentGraph.paths(maxLink).first()
 
-    }
-
-    private fun gatewayWithMostConnections(): Node {
-        val gatewayWithMostConnections = gateways.map { gateway ->
-            val connections = links.edges.filter { it.first == gateway || it.second == gateway }
-            gateway to connections.size
-        }.maxByOrNull { it.second }?.first
-        return gatewayWithMostConnections!!
     }
 
     data class Node(
@@ -176,7 +164,6 @@ data class DeathFirstSearchEpisode2(
         val path: List<Node>,
     ) {
         val size = path.size
-        val gateway = path.last()
         val link = Link(path[path.size - 2], path[path.size - 1])
     }
 
