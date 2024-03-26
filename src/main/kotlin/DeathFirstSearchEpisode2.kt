@@ -127,6 +127,14 @@ data class DeathFirstSearchEpisode2(
 
     }
 
+    fun stepsToNearestGateway(node: Node): Int {
+        if (gateways.contains(node)) {
+            return 0
+        }
+        val paths = gateways.map { gateway -> Path(dijkstra(links.edges, node, gateway)!!.parents()) }
+        return paths.minOf { it.size } - 1
+    }
+
     data class Node(
         val data: Int
     ) {

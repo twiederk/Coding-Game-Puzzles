@@ -221,4 +221,40 @@ class DeathFirstSearchEpisode2Test {
         // assert
         assertThat(severLink).isEqualTo(Link(Node(5), Node(9)))
     }
+
+    @Test
+    fun should_return_steps_to_nearest_gateway_for_node_0() {
+        // act
+        val steps = test3.stepsToNearestGateway(Node(0))
+
+        // assert
+        assertThat(steps).isEqualTo(2)
+    }
+
+    @Test
+    fun should_return_steps_to_nearest_gateway_for_node_1() {
+        // act
+        val steps = test3.stepsToNearestGateway(Node(1))
+
+        // assert
+        assertThat(steps).isEqualTo(2)
+    }
+
+    @Test
+    fun should_return_steps_to_nearest_gateway_for_node_2() {
+        // act
+        val steps = test3.stepsToNearestGateway(Node(2))
+
+        // assert
+        assertThat(steps).isEqualTo(1)
+    }
+
+    @Test
+    fun should_return_steps_to_nearest_gateway_for_node_3() {
+        // act
+        val steps = test3.stepsToNearestGateway(Node(3))
+
+        // assert
+        assertThat(steps).isEqualTo(0)
+    }
 }
