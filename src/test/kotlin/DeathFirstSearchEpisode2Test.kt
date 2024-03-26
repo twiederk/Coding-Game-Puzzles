@@ -287,4 +287,26 @@ class DeathFirstSearchEpisode2Test {
         // assert
         assertThat(connectedGateways).isEqualTo(2)
     }
+
+    @Test
+    fun should_create_connected_gw_array() {
+
+        // act
+        val connectedGateways = test3.connectedGateways()
+
+        // assert
+        assertThat(connectedGateways).hasSize(14)
+        assertThat(connectedGateways[Node(4)]).isEqualTo(2)
+        assertThat(connectedGateways[Node(7)]).isEqualTo(2)
+
+    }
+
+    //    @Test
+//    fun should_calculate_the_shortest_cost_to_get_the_player_under_pressure_for_node_0() {
+//        // act
+//        val cost = test3.getShortestTurnCost(Node(0), connected_gw, gateways)
+//
+//        // assert
+//        assertThat(cost).isEqualTo(2)
+//    }
 }

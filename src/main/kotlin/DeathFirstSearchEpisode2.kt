@@ -140,6 +140,11 @@ data class DeathFirstSearchEpisode2(
         return gateways.count { gateway -> edges.any { it.first == gateway || it.second == gateway } }
     }
 
+    fun connectedGateways(): Map<Node, Int> {
+        return nodes.associateWith { connectedGateways(it) }
+    }
+
+
     data class Node(
         val data: Int
     ) {
