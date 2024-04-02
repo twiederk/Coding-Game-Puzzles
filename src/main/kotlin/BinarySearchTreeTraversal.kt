@@ -12,7 +12,7 @@ fun main() {
         inputNumbers.add(input.nextInt())
     }
 
-    val tree = BinarySearchTreeTraversal().buildTree(inputNumbers)
+    val tree = BinarySearchTreeTraversal(inputNumbers).buildTree()
 
     println(tree.preOrder())
     println(tree.inOrder())
@@ -20,8 +20,10 @@ fun main() {
     println(tree.levelOrder())
 }
 
-class BinarySearchTreeTraversal {
-    fun buildTree(inputNumbers: List<Int>): Tree {
+class BinarySearchTreeTraversal(
+    private val inputNumbers: List<Int>
+) {
+    fun buildTree(): Tree {
         val tree = Tree(Node(inputNumbers[0]))
         for (number in inputNumbers.subList(1, inputNumbers.size)) {
             tree.add(Node(number))
@@ -49,8 +51,23 @@ class BinarySearchTreeTraversal {
         }
 
         fun levelOrder(): String {
-            return ""
+            return bfs().joinToString(" ")
         }
+
+        private fun bfs(): List<Int> {
+            val queue = LinkedList<Node>()
+            val output = mutableListOf<Int>()
+            queue.add(root)
+            while (queue.isNotEmpty()) {
+                val current = queue.poll()
+                output.add(current.key)
+                current.left?.let { queue.add(it) }
+                current.right?.let { queue.add(it) }
+            }
+            return output
+
+        }
+
 
         fun add(node: Node) {
             var current = root
