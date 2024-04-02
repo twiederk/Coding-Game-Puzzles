@@ -12,6 +12,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [DEATH FIRST SEARCH - EPISODE 2]   | [DeathFirstSearchEpisode2]    | Puzzle          | Medium |
 | [FLOOD FILL EXAMPLE]               | [FloodFillExample]            | Puzzle          | Medium |
 | [THE LOST FILES]                   | [TheLostFiles]                | Puzzle          | Medium |  
+| [Binary Search Tree Traversal]     | [BinarySearchTreeTraversal]   | Puzzle          | Medium |
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
 | [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape          | Medium |
@@ -58,3 +59,7 @@ To Dos
 
 [THE LOST FILES]: https://www.codingame.com/training/medium/the-lost-files
 [TheLostFiles]: src/main/kotlin/TheLostFiles.kt
+
+[BINARY SEARCH TREE TRAVERSAL]: https://www.codingame.com/ide/puzzle/binary-search-tree-traversal
+
+[BinarySearchTreeTraversal]: src/main/kotlin/BinarySearchTreeTraversal.kt
