@@ -34,15 +34,18 @@ class BinarySearchTreeTraversal {
     ) {
 
         fun preOrder(): String {
-            return ""
+            val output = mutableListOf<Int>()
+            return root.preOrder(output)
         }
 
         fun inOrder(): String {
-            return ""
+            val output = mutableListOf<Int>()
+            return root.inOrder(output)
         }
 
         fun postOrder(): String {
-            return ""
+            val output = mutableListOf<Int>()
+            return root.postOrder(output)
         }
 
         fun levelOrder(): String {
@@ -74,6 +77,27 @@ class BinarySearchTreeTraversal {
     data class Node(
         val key: Int
     ) {
+        fun preOrder(output: MutableList<Int>): String {
+            output.add(key)
+            left?.preOrder(output)
+            right?.preOrder(output)
+            return output.joinToString(" ")
+        }
+
+        fun inOrder(output: MutableList<Int>): String {
+            left?.inOrder(output)
+            output.add(key)
+            right?.inOrder(output)
+            return output.joinToString(" ")
+        }
+
+        fun postOrder(output: MutableList<Int>): String {
+            left?.postOrder(output)
+            right?.postOrder(output)
+            output.add(key)
+            return output.joinToString(" ")
+        }
+
         var left: Node? = null
         var right: Node? = null
     }

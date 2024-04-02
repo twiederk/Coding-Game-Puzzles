@@ -19,6 +19,30 @@ class BinarySearchTreeTraversalTest {
     }
 
     @Test
+    fun should_display_in_order_for_test1() {
+        // arrange
+        val tree = BinarySearchTreeTraversal().buildTree(listOf(8, 6, 13, 10, 5))
+
+        // act
+        val result = tree.inOrder()
+
+        // assert
+        assertThat(result).isEqualTo("5 6 8 10 13")
+    }
+
+    @Test
+    fun should_display_post_order_for_test1() {
+        // arrange
+        val tree = BinarySearchTreeTraversal().buildTree(listOf(8, 6, 13, 10, 5))
+
+        // act
+        val result = tree.postOrder()
+
+        // assert
+        assertThat(result).isEqualTo("5 6 10 13 8")
+    }
+
+    @Test
     fun should_build_tree_with_root_node() {
 
         // act
