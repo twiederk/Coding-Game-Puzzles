@@ -22,10 +22,17 @@ fun main() {
 
 class BinarySearchTreeTraversal {
     fun buildTree(inputNumbers: List<Int>): Tree {
-        return Tree()
+        val tree = Tree(Node(inputNumbers[0]))
+        for (number in inputNumbers.subList(1, inputNumbers.size)) {
+            tree.add(Node(number))
+        }
+        return tree
     }
 
-    class Tree {
+    class Tree(
+        val root: Node
+    ) {
+
         fun preOrder(): String {
             return ""
         }
@@ -41,13 +48,34 @@ class BinarySearchTreeTraversal {
         fun levelOrder(): String {
             return ""
         }
+
+        fun add(node: Node) {
+            var current = root
+            while (true) {
+                if (node.key < current.key) {
+                    if (current.left == null) {
+                        current.left = node
+                        return
+                    } else {
+                        current = current.left!!
+                    }
+                } else {
+                    if (current.right == null) {
+                        current.right = node
+                        return
+                    } else {
+                        current = current.right!!
+                    }
+                }
+            }
+        }
     }
 
-    class Node(
-        var key: Int,
-        var left: Node? = null,
-        var right: Node? = null
+    data class Node(
+        val key: Int
     ) {
+        var left: Node? = null
+        var right: Node? = null
     }
 
 }
