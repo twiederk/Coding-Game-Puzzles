@@ -16,6 +16,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
 | [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape          | Medium |
+| [CLASH OF CODE]                    | [ClashOfCode]                 | Clash of Code   |        |
 
 To Dos
 * Win 2nd code clash (Clash of Code)
@@ -61,5 +62,8 @@ To Dos
 [TheLostFiles]: src/main/kotlin/TheLostFiles.kt
 
 [BINARY SEARCH TREE TRAVERSAL]: https://www.codingame.com/ide/puzzle/binary-search-tree-traversal
-
 [BinarySearchTreeTraversal]: src/main/kotlin/BinarySearchTreeTraversal.kt
+
+[CLASH OF CODE]: https://www.codingame.com/multiplayer/clashofcode
+
+[ClashOfCode]: src/main/kotlin/ClashOfCode.kt
