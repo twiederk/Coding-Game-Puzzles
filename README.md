@@ -5,6 +5,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | Title                              | Solution                      | Type            | Level  |
 |:-----------------------------------|:------------------------------|:----------------|:-------| 
 | [ASCII ART]                        | [AsciiArtGame]                | Puzzle          | Easy   |
+| [MOVES IN MAZE]                    | [MovesInMaze]                 | Puzzle          | Easy   |
 | [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 2]          | [MarsLanderEpisode2]          | Puzzle          | Easy   |
@@ -65,5 +66,10 @@ To Dos
 [BinarySearchTreeTraversal]: src/main/kotlin/BinarySearchTreeTraversal.kt
 
 [CLASH OF CODE]: https://www.codingame.com/multiplayer/clashofcode
-
 [ClashOfCode]: src/main/kotlin/ClashOfCode.kt
+
+[MOVES IN MAZE]: https://www.codingame.com/training/easy/moves-in-maze
+
+[MovesInMaze]: src/main/kotlin/MovesInMaze.kt
+
+```
