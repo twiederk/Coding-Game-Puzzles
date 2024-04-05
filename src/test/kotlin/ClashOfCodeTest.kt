@@ -28,4 +28,14 @@ class ClashOfCodeTest {
         // assert
         assertThat(result).isEqualTo(25)
     }
+
+    @Test
+    fun should_calculate_trapezoid() {
+//        val input = Scanner(System.`in`)
+        val a = 1
+        val b = 2
+        val h = 3
+
+        println((a + b) * h / 2)
+    }
 }
