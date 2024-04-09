@@ -59,6 +59,24 @@ class MovesInMaze {
         return seen
     }
 
+    fun render(maze: List<String>, flood: Set<Flood>): String {
+        val floodedMaze = Array(maze.size) { CharArray(maze[0].length) { 'a' } }
+        for (y in maze.indices) {
+            for (x in maze[y].indices) {
+                if (Point2D(x, y) in flood.map { it.coords }) {
+                    floodedMaze[y][x] = stepSign(flood.first { it.coords == Point2D(x, y) }.steps)
+                } else {
+                    floodedMaze[y][x] = maze[y][x]
+                }
+            }
+        }
+        return floodedMaze.joinToString(separator = "\n") { it.joinToString(separator = "") }
+    }
+
+    fun stepSign(steps: Int): Char {
+        return "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"[steps]
+    }
+
     data class Point2D(
         val x: Int,
         val y: Int
