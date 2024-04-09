@@ -95,22 +95,35 @@ class MovesInMaze {
 
         fun neighbors(point: Point2D): List<Point2D> {
             val neighbors = mutableListOf<Point2D>()
-            if (data[point.y][point.x - 1] == '.') {
-                neighbors.add(Point2D(point.x - 1, point.y))
+            if (data[point.y][getSafeX(point.x - 1)] == '.') {
+                neighbors.add(Point2D(getSafeX(point.x - 1), point.y))
             }
-            if (data[point.y][point.x + 1] == '.') {
-                neighbors.add(Point2D(point.x + 1, point.y))
+            if (data[point.y][getSafeX(point.x + 1)] == '.') {
+                neighbors.add(Point2D(getSafeX(point.x + 1), point.y))
             }
-            if (data[point.y - 1][point.x] == '.') {
-                neighbors.add(Point2D(point.x, point.y - 1))
+            if (data[getSafeY(point.y - 1)][point.x] == '.') {
+                neighbors.add(Point2D(point.x, getSafeY(point.y - 1)))
             }
-            if (data[point.y + 1][point.x] == '.') {
-                neighbors.add(Point2D(point.x, point.y + 1))
+            if (data[getSafeY(point.y + 1)][point.x] == '.') {
+                neighbors.add(Point2D(point.x, getSafeY(point.y + 1)))
             }
             return neighbors
         }
 
         fun get(x: Int, y: Int): Char = data[y][x]
+
+        fun getSafeX(x: Int): Int = when {
+            x < 0 -> width + x
+            x >= width -> x - width
+            else -> x
+        }
+
+        fun getSafeY(y: Int): Int = when {
+            y < 0 -> height + y
+            y >= height -> y - height
+            else -> y
+        }
+
     }
 
 }

@@ -181,4 +181,72 @@ class MovesInMazeTest {
         // assert
         assertThat(stepSign).isEqualTo('Z')
     }
+
+    @Test
+    fun should_norm_x_when_too_large() {
+        // arrange
+
+        // act
+        val result = test1.getSafeX(10)
+
+        // assert
+        assertThat(result).isEqualTo(0)
+    }
+
+    @Test
+    fun should_norm_x_when_too_small() {
+        // arrange
+
+        // act
+        val result = test1.getSafeX(-1)
+
+        // assert
+        assertThat(result).isEqualTo(9)
+    }
+
+    @Test
+    fun should_keep_x_when_on_maze() {
+        // arrange
+
+        // act
+        val result = test1.getSafeX(5)
+
+        // assert
+        assertThat(result).isEqualTo(5)
+    }
+
+    @Test
+    fun should_norm_y_when_too_large() {
+        // arrange
+
+        // act
+        val result = test1.getSafeY(5)
+
+        // assert
+        assertThat(result).isEqualTo(0)
+    }
+
+
+    @Test
+    fun should_norm_y_when_too_small() {
+        // arrange
+
+        // act
+        val result = test1.getSafeY(-1)
+
+        // assert
+        assertThat(result).isEqualTo(4)
+    }
+
+    @Test
+    fun should_keep_y_when_on_maze() {
+        // arrange
+
+        // act
+        val result = test1.getSafeY(3)
+
+        // assert
+        assertThat(result).isEqualTo(3)
+    }
+
 }
