@@ -55,7 +55,7 @@ class MovesInMaze {
                 if (Point2D(x, y) in flood.map { it.coords }) {
                     floodedMaze[y][x] = stepSign(flood.first { it.coords == Point2D(x, y) }.steps)
                 } else {
-                    floodedMaze[y][x] = maze.maze[y][x]
+                    floodedMaze[y][x] = maze.get(x, y)
                 }
             }
         }
@@ -77,15 +77,15 @@ class MovesInMaze {
     )
 
     data class Maze(
-        val maze: List<String>,
-        val width: Int = maze[0].length,
-        val height: Int = maze.size
+        private val data: List<String>,
+        val width: Int = data[0].length,
+        val height: Int = data.size
     ) {
 
         fun start(): Point2D {
-            for (y in maze.indices) {
-                for (x in maze[y].indices) {
-                    if (maze[y][x] == 'S') {
+            for (y in data.indices) {
+                for (x in data[y].indices) {
+                    if (data[y][x] == 'S') {
                         return Point2D(x, y)
                     }
                 }
@@ -95,20 +95,22 @@ class MovesInMaze {
 
         fun neighbors(point: Point2D): List<Point2D> {
             val neighbors = mutableListOf<Point2D>()
-            if (maze[point.y][point.x - 1] == '.') {
+            if (data[point.y][point.x - 1] == '.') {
                 neighbors.add(Point2D(point.x - 1, point.y))
             }
-            if (maze[point.y][point.x + 1] == '.') {
+            if (data[point.y][point.x + 1] == '.') {
                 neighbors.add(Point2D(point.x + 1, point.y))
             }
-            if (maze[point.y - 1][point.x] == '.') {
+            if (data[point.y - 1][point.x] == '.') {
                 neighbors.add(Point2D(point.x, point.y - 1))
             }
-            if (maze[point.y + 1][point.x] == '.') {
+            if (data[point.y + 1][point.x] == '.') {
                 neighbors.add(Point2D(point.x, point.y + 1))
             }
             return neighbors
         }
+
+        fun get(x: Int, y: Int): Char = data[y][x]
     }
 
 }
