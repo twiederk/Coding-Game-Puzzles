@@ -1,16 +1,17 @@
-import MovesInMaze.Flood
-import MovesInMaze.Point2D
+import MovesInMaze.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class MovesInMazeTest {
 
-    private val test1 = listOf(
-        "##########",
-        "#S.......#",
-        "##.#####.#",
-        "##.#.....#",
-        "##########"
+    private val test1 = Maze(
+        listOf(
+            "##########",
+            "#S.......#",
+            "##.#####.#",
+            "##.#.....#",
+            "##########"
+        )
     )
     private val flood1 = setOf(
         Flood(Point2D(1, 1), 0),
@@ -31,6 +32,34 @@ class MovesInMazeTest {
         Flood(Point2D(4, 3), 13),
     )
 
+    private val test3 = Maze(
+        listOf(
+            "#.########",
+            "#.##..####",
+            "..##..#...",
+            "####..#S##",
+            "#....#####",
+        )
+    )
+
+
+    @Test
+    fun should_solve_test_3() {
+
+        // act
+        val result = MovesInMaze().solve(test3)
+
+        // assert
+        assertThat(result).isEqualTo(
+            """
+            #7########
+            #6##EF####
+            45##DE#123
+            ####CD#0##
+            #89AB#####
+        """.trimIndent()
+        )
+    }
 
     @Test
     fun should_solve_test_1() {
@@ -54,7 +83,7 @@ class MovesInMazeTest {
     fun should_find_start_position() {
 
         // act
-        val start = MovesInMaze().start(test1)
+        val start = test1.start()
 
         // assert
         assertThat(start).isEqualTo(Point2D(1, 1))
@@ -97,7 +126,7 @@ class MovesInMazeTest {
     fun should_return_neighbors_of_pos_1_1() {
 
         // act
-        val neighbors = Point2D(1, 1).neighbors(test1)
+        val neighbors = test1.neighbors(Point2D(1, 1))
 
         // assert
         assertThat(neighbors).containsExactly(

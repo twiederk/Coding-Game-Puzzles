@@ -15,29 +15,19 @@ fun main() {
     for (i in 0 until h) {
         maze.add(input.nextLine())
     }
-    println(MovesInMaze().solve(maze))
+    println(MovesInMaze().solve(MovesInMaze.Maze(maze)))
 }
 
 class MovesInMaze {
 
-    fun solve(maze: List<String>): String {
-        val start = start(maze)
+    fun solve(maze: Maze): String {
+        val start = maze.start()
         val flood = floodfill(maze, start)
         return render(maze, flood)
     }
 
-    fun start(maze: List<String>): Point2D {
-        for (y in maze.indices) {
-            for (x in maze[y].indices) {
-                if (maze[y][x] == 'S') {
-                    return Point2D(x, y)
-                }
-            }
-        }
-        throw IllegalStateException("No start found")
-    }
 
-    fun floodfill(maze: List<String>, start: Point2D): Set<Flood> {
+    fun floodfill(maze: Maze, start: Point2D): Set<Flood> {
         val queue = LinkedList<Flood>()
         val seen = mutableSetOf<Flood>()
 
@@ -50,7 +40,7 @@ class MovesInMaze {
             }
 
             seen.add(curr)
-            curr.coords.neighbors(maze).forEach { neighbor ->
+            maze.neighbors(curr.coords).forEach { neighbor ->
                 queue.add(Flood(neighbor, curr.steps + 1))
             }
         }
@@ -58,14 +48,14 @@ class MovesInMaze {
         return seen
     }
 
-    fun render(maze: List<String>, flood: Set<Flood>): String {
-        val floodedMaze = Array(maze.size) { CharArray(maze[0].length) { 'a' } }
-        for (y in maze.indices) {
-            for (x in maze[y].indices) {
+    fun render(maze: Maze, flood: Set<Flood>): String {
+        val floodedMaze = Array(maze.maze.size) { CharArray(maze.maze[0].length) { 'a' } }
+        for (y in maze.maze.indices) {
+            for (x in maze.maze[y].indices) {
                 if (Point2D(x, y) in flood.map { it.coords }) {
                     floodedMaze[y][x] = stepSign(flood.first { it.coords == Point2D(x, y) }.steps)
                 } else {
-                    floodedMaze[y][x] = maze[y][x]
+                    floodedMaze[y][x] = maze.maze[y][x]
                 }
             }
         }
@@ -102,5 +92,38 @@ class MovesInMaze {
         val coords: Point2D,
         val steps: Int
     )
+
+    data class Maze(
+        val maze: List<String>
+    ) {
+
+        fun start(): Point2D {
+            for (y in maze.indices) {
+                for (x in maze[y].indices) {
+                    if (maze[y][x] == 'S') {
+                        return Point2D(x, y)
+                    }
+                }
+            }
+            throw IllegalStateException("No start found")
+        }
+
+        fun neighbors(point: Point2D): List<Point2D> {
+            val neighbors = mutableListOf<Point2D>()
+            if (maze[point.y][point.x - 1] == '.') {
+                neighbors.add(Point2D(point.x - 1, point.y))
+            }
+            if (maze[point.y][point.x + 1] == '.') {
+                neighbors.add(Point2D(point.x + 1, point.y))
+            }
+            if (maze[point.y - 1][point.x] == '.') {
+                neighbors.add(Point2D(point.x, point.y - 1))
+            }
+            if (maze[point.y + 1][point.x] == '.') {
+                neighbors.add(Point2D(point.x, point.y + 1))
+            }
+            return neighbors
+        }
+    }
 
 }
