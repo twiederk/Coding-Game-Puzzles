@@ -22,9 +22,8 @@ class MovesInMaze {
 
     fun solve(maze: List<String>): String {
         val start = start(maze)
-        floodfill(maze, start)
-        // create filled maze
-        return maze.joinToString("\n")
+        val flood = floodfill(maze, start)
+        return render(maze, flood)
     }
 
     fun start(maze: List<String>): Point2D {
