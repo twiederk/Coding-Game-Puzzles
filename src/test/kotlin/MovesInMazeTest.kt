@@ -49,32 +49,33 @@ class MovesInMazeTest {
         val flood = MovesInMaze().floodfill(test1, Point2D(1, 1))
 
         // assert
-//        ##########
-//        #01234567#
-//        ##2#####8#
-//        ##3#DCBA9#
-//        ##########
-        assertThat(flood).containsExactly(
+        // ##########
+        // #01234567#
+        // ##2#####8#
+        // ##3#DCBA9#
+        // ##########
+        assertThat(flood).containsExactlyInAnyOrder(
             Flood(Point2D(1, 1), 0),
             Flood(Point2D(2, 1), 1),
             Flood(Point2D(3, 1), 2),
+            Flood(Point2D(2, 2), 2),
+            Flood(Point2D(2, 3), 3),
             Flood(Point2D(4, 1), 3),
             Flood(Point2D(5, 1), 4),
             Flood(Point2D(6, 1), 5),
             Flood(Point2D(7, 1), 6),
-//            Flood(Point2D(1, 2), 2),
-//            Flood(Point2D(1, 3), 3),
+            Flood(Point2D(8, 1), 7),
+            Flood(Point2D(8, 2), 8),
+            Flood(Point2D(8, 3), 9),
+            Flood(Point2D(7, 3), 10),
+            Flood(Point2D(6, 3), 11),
+            Flood(Point2D(5, 3), 12),
+            Flood(Point2D(4, 3), 13),
         )
     }
 
-    //    "##########",
-//    "#S.......#",
-//    "##.#####.#",
-//    "##.#.....#",
-//    "##########"
     @Test
     fun should_return_neighbors_of_pos_1_1() {
-        // arrange
 
         // act
         val neighbors = Point2D(1, 1).neighbors(test1)
