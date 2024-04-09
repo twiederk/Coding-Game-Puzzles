@@ -49,9 +49,9 @@ class MovesInMaze {
     }
 
     fun render(maze: Maze, flood: Set<Flood>): String {
-        val floodedMaze = Array(maze.maze.size) { CharArray(maze.maze[0].length) { 'a' } }
-        for (y in maze.maze.indices) {
-            for (x in maze.maze[y].indices) {
+        val floodedMaze = Array(maze.height) { CharArray(maze.width) { 'a' } }
+        for (y in 0 until maze.height) {
+            for (x in 0 until maze.width) {
                 if (Point2D(x, y) in flood.map { it.coords }) {
                     floodedMaze[y][x] = stepSign(flood.first { it.coords == Point2D(x, y) }.steps)
                 } else {
@@ -69,24 +69,7 @@ class MovesInMaze {
     data class Point2D(
         val x: Int,
         val y: Int
-    ) {
-        fun neighbors(maze: List<String>): List<Point2D> {
-            val neighbors = mutableListOf<Point2D>()
-            if (maze[y][x - 1] == '.') {
-                neighbors.add(Point2D(x - 1, y))
-            }
-            if (maze[y][x + 1] == '.') {
-                neighbors.add(Point2D(x + 1, y))
-            }
-            if (maze[y - 1][x] == '.') {
-                neighbors.add(Point2D(x, y - 1))
-            }
-            if (maze[y + 1][x] == '.') {
-                neighbors.add(Point2D(x, y + 1))
-            }
-            return neighbors
-        }
-    }
+    )
 
     data class Flood(
         val coords: Point2D,
@@ -94,7 +77,9 @@ class MovesInMaze {
     )
 
     data class Maze(
-        val maze: List<String>
+        val maze: List<String>,
+        val width: Int = maze[0].length,
+        val height: Int = maze.size
     ) {
 
         fun start(): Point2D {
