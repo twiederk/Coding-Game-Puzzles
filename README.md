@@ -7,6 +7,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [ASCII ART]                        | [AsciiArtGame]                | Puzzle          | Easy   |
 | [MOVES IN MAZE]                    | [MovesInMaze]                 | Puzzle          | Easy   |
 | [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle          | Easy   |
+| [ALPHABET]                         | [Alphabet]                    | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 2]          | [MarsLanderEpisode2]          | Puzzle          | Easy   |
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
@@ -37,7 +38,6 @@ To Dos
 [DeathFirstSearchEpisode1]: src/main/kotlin/DeathFirstSearchEpisode1.kt
 
 [DEATH FIRST SEARCH - EPISODE 1]: https://www.codingame.com/training/medium/death-first-search-episode-2
-
 [DeathFirstSearchEpisode1]: src/main/kotlin/DeathFirstSearchEpisode2.kt
 
 [CODE VS ZOMBIES]: https://www.codingame.com/multiplayer/optimization/code-vs-zombies
@@ -50,7 +50,6 @@ To Dos
 [MarsLanderEpisode1]: src/main/kotlin/MarsLanderEpisode1.kt
 
 [MARS LANDER - EPISODE 2]: https://www.codingame.com/training/easy/mars-lander-episode-2
-
 [MarsLanderEpisode2]: src/main/kotlin/MarsLanderEpisode2.kt
 
 [MAD POD RACING]: https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing
@@ -69,7 +68,8 @@ To Dos
 [ClashOfCode]: src/main/kotlin/ClashOfCode.kt
 
 [MOVES IN MAZE]: https://www.codingame.com/training/easy/moves-in-maze
-
 [MovesInMaze]: src/main/kotlin/MovesInMaze.kt
 
-```
+[ALPHABET]: https://www.codingame.com/training/easy/alphabet
+
+[Alphabet]: src/main/kotlin/Alphabet.kt
