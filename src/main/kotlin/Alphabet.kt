@@ -18,4 +18,7 @@ fun main() {
 }
 
 class Alphabet {
+    fun solve(maze: List<String>): String {
+        return maze.joinToString("\n")
+    }
 }
