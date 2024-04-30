@@ -15,6 +15,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [FLOOD FILL EXAMPLE]               | [FloodFillExample]            | Puzzle          | Medium |
 | [THE LOST FILES]                   | [TheLostFiles]                | Puzzle          | Medium |  
 | [Binary Search Tree Traversal]     | [BinarySearchTreeTraversal]   | Puzzle          | Medium |
+| [PAPER LABYRINTH]                  | [PaperLabyrinth]              | Puzzle          | Medium |
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
 | [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape          | Medium |
@@ -71,5 +72,10 @@ To Dos
 [MovesInMaze]: src/main/kotlin/MovesInMaze.kt
 
 [ALPHABET]: https://www.codingame.com/training/easy/alphabet
-
 [Alphabet]: src/main/kotlin/Alphabet.kt
+
+[PAPER LABYRINTH]: https://www.codingame.com/training/medium/paper-labyrinth
+
+[PaperLabyrinth]: src/main/kotlin/PaperLabyrinth.kt
+
+```
