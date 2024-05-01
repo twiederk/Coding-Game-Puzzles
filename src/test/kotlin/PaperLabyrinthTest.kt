@@ -121,4 +121,142 @@ class PaperLabyrinthTest {
         )
     }
 
+    @Test
+    fun should_find_neighbors_of_7() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('7')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.RIGHT,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_8() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('8')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.LEFT,
+            point + Point2D.DOWN,
+            point + Point2D.TOP,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_9() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('9')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.LEFT,
+            point + Point2D.TOP,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_a() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('a')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.DOWN,
+            point + Point2D.TOP,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_b() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('b')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.TOP,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_c() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('c')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.LEFT,
+            point + Point2D.DOWN,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_d() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('d')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.LEFT,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_e() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('e')
+
+        // assert
+        assertThat(neighbors).containsExactlyInAnyOrder(
+            point + Point2D.DOWN,
+        )
+    }
+
+    @Test
+    fun should_find_neighbors_of_f() {
+
+        // arrange
+        val point = Point2D(1, 1)
+
+        // act
+        val neighbors = point.neighbors('f')
+
+        // assert
+        assertThat(neighbors).isEmpty()
+    }
+
 }
