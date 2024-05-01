@@ -31,7 +31,7 @@ fun main() {
 class PaperLabyrinth(
     val start: Point2D,
     val rabbit: Point2D,
-    val labyrinth: MutableList<String>
+    val labyrinth: List<String>
 ) {
     fun solve(): Pair<Int, Int> {
         System.err.println("start: $start")
@@ -41,6 +41,10 @@ class PaperLabyrinth(
 
 
         return Pair(0, 0)
+    }
+
+    fun wall(point: Point): Char {
+        return labyrinth[point.y][point.x]
     }
 
     data class Point2D(
@@ -66,8 +70,8 @@ class PaperLabyrinth(
             'f' to emptyList(),
         )
 
-        fun neighbors(cell: Char): List<Point2D> {
-            return neighbors[cell]!!.map { this + it }
+        fun neighbors(wall: Char): List<Point2D> {
+            return neighbors[wall]!!.map { this + it }
         }
 
         operator fun minus(other: Point2D): Point2D =

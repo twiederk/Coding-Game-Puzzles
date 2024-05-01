@@ -4,6 +4,12 @@ import org.junit.jupiter.api.Test
 
 class PaperLabyrinthTest {
 
+    private val test1 = PaperLabyrinth(
+        start = Point2D(0, 0),
+        rabbit = Point2D(1, 1),
+        labyrinth = listOf("75555d")
+    )
+
     @Test
     fun should_find_neighbors_of_0() {
 
@@ -259,4 +265,12 @@ class PaperLabyrinthTest {
         assertThat(neighbors).isEmpty()
     }
 
+    @Test
+    fun should_return_wall_of_cell() {
+        // act
+        val wall = test1.wall(Point(0, 0))
+
+        // assert
+        assertThat(wall).isEqualTo('7')
+    }
 }
