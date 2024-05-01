@@ -71,11 +71,10 @@ To Dos
 [MOVES IN MAZE]: https://www.codingame.com/training/easy/moves-in-maze
 [MovesInMaze]: src/main/kotlin/MovesInMaze.kt
 
-[ALPHABET]: https://www.codingame.com/training/easy/alphabet
+[ALPHABET]: https://www.codingame.com/training/easy/abcdefghijklmnopqrstuvwxyz
 [Alphabet]: src/main/kotlin/Alphabet.kt
 
 [PAPER LABYRINTH]: https://www.codingame.com/training/medium/paper-labyrinth
-
 [PaperLabyrinth]: src/main/kotlin/PaperLabyrinth.kt
 
 ```
