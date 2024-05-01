@@ -6,7 +6,7 @@ class PaperLabyrinthTest {
 
     private val test1 = PaperLabyrinth(
         start = Point2D(0, 0),
-        rabbit = Point2D(1, 1),
+        rabbit = Point2D(5, 0),
         labyrinth = listOf("75555d")
     )
 
@@ -268,9 +268,42 @@ class PaperLabyrinthTest {
     @Test
     fun should_return_wall_of_cell() {
         // act
-        val wall = test1.wall(Point(0, 0))
+        val wall = test1.wall(Point2D(0, 0))
 
         // assert
         assertThat(wall).isEqualTo('7')
     }
+
+    @Test
+    fun should_find_steps_to_rabbit_for_test1() {
+
+        // act
+        val stepsToRabbit = test1.bfs(test1.start, test1.rabbit)
+
+        // assert
+        assertThat(stepsToRabbit).isEqualTo(5)
+
+    }
+
+    @Test
+    fun should_find_steps_to_exit_for_test1() {
+
+        // act
+        val stepsToRabbit = test1.bfs(test1.rabbit, test1.start)
+
+        // assert
+        assertThat(stepsToRabbit).isEqualTo(5)
+    }
+
+    @Test
+    fun should_solve_test1() {
+
+        // act
+        val (stepsToRabbit, stepsToExit) = test1.solve()
+
+        // assert
+        assertThat(stepsToRabbit).isEqualTo(5)
+        assertThat(stepsToExit).isEqualTo(5)
+    }
+
 }

@@ -38,14 +38,41 @@ class PaperLabyrinth(
         System.err.println("rabbit: $rabbit")
         System.err.println("labyrinth: $labyrinth")
 
+        val stepsToRabbit = bfs(start, rabbit)
+        val stepsToExit = bfs(rabbit, start)
 
-
-        return Pair(0, 0)
+        return Pair(stepsToRabbit, stepsToExit)
     }
 
-    fun wall(point: Point): Char {
+    fun bfs(start: Point2D, end: Point2D): Int {
+        val queue = LinkedList<Work>()
+        queue.add(Work(start, 0))
+        val visited = mutableSetOf<Point2D>()
+
+        while (queue.isNotEmpty()) {
+            val work = queue.poll()
+            if (work.point == end) {
+                return work.steps
+            }
+            visited.add(work.point)
+            val neighbors = work.point.neighbors(wall(work.point))
+            for (neighbor in neighbors) {
+                if (neighbor !in visited) {
+                    queue.add(Work(neighbor, work.steps + 1))
+                }
+            }
+        }
+        throw IllegalStateException("End not found")
+    }
+
+    fun wall(point: Point2D): Char {
         return labyrinth[point.y][point.x]
     }
+
+    data class Work(
+        val point: Point2D,
+        val steps: Int
+    )
 
     data class Point2D(
         val x: Int,
