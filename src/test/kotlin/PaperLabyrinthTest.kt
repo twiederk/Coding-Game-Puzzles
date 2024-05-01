@@ -10,6 +10,41 @@ class PaperLabyrinthTest {
         labyrinth = listOf("75555d")
     )
 
+    private val test2 = PaperLabyrinth(
+        start = Point2D(0, 0),
+        rabbit = Point2D(1, 1),
+        labyrinth = listOf(
+            "e65c",
+            "abea",
+            "2519",
+            "355d",
+        )
+    )
+
+    private val test3 = PaperLabyrinth(
+        start = Point2D(0, 0),
+        rabbit = Point2D(1, 3),
+        labyrinth = listOf(
+            "75ce",
+            "6598",
+            "2758",
+            "b759",
+        )
+    )
+
+    private val test4 = PaperLabyrinth(
+        start = Point2D(0, 0),
+        rabbit = Point2D(3, 5),
+        labyrinth = listOf(
+            "7554e",
+            "6459b",
+            "a3c2c",
+            "3caaa",
+            "6119a",
+            "35d39",
+        )
+    )
+
     @Test
     fun should_find_neighbors_of_0() {
 
@@ -304,6 +339,39 @@ class PaperLabyrinthTest {
         // assert
         assertThat(stepsToRabbit).isEqualTo(5)
         assertThat(stepsToExit).isEqualTo(5)
+    }
+
+    @Test
+    fun should_solve_test2() {
+
+        // act
+        val (stepsToRabbit, stepsToExit) = test2.solve()
+
+        // assert
+        assertThat(stepsToRabbit).isEqualTo(10)
+        assertThat(stepsToExit).isEqualTo(10)
+    }
+
+    @Test
+    fun should_solve_test3() {
+
+        // act
+        val (stepsToRabbit, stepsToExit) = test3.solve()
+
+        // assert
+        assertThat(stepsToRabbit).isEqualTo(12)
+        assertThat(stepsToExit).isEqualTo(8)
+    }
+
+    @Test
+    fun should_solve_test4() {
+
+        // act
+        val (stepsToRabbit, stepsToExit) = test4.solve()
+
+        // assert
+        assertThat(stepsToRabbit).isEqualTo(18)
+        assertThat(stepsToExit).isEqualTo(8)
     }
 
 }
