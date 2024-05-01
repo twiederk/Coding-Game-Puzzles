@@ -78,27 +78,27 @@ class PaperLabyrinth(
         val x: Int,
         val y: Int
     ) {
-        private val neighbors = mapOf(
-            '0' to listOf(LEFT, RIGHT, DOWN, TOP),
-            '1' to listOf(LEFT, RIGHT, TOP),
-            '2' to listOf(RIGHT, DOWN, TOP),
-            '3' to listOf(RIGHT, TOP),
-            '4' to listOf(LEFT, RIGHT, DOWN),
-            '5' to listOf(LEFT, RIGHT),
-            '6' to listOf(RIGHT, DOWN),
-            '7' to listOf(RIGHT),
-            '8' to listOf(LEFT, DOWN, TOP),
-            '9' to listOf(LEFT, TOP),
-            'a' to listOf(DOWN, TOP),
-            'b' to listOf(TOP),
-            'c' to listOf(LEFT, DOWN),
-            'd' to listOf(LEFT),
-            'e' to listOf(DOWN),
-            'f' to emptyList(),
+        private val walls = mapOf(
+            '0' to emptyList(),
+            '1' to listOf(DOWN),
+            '2' to listOf(LEFT),
+            '3' to listOf(LEFT, DOWN),
+            '4' to listOf(TOP),
+            '5' to listOf(TOP, DOWN),
+            '6' to listOf(LEFT, TOP),
+            '7' to listOf(LEFT, DOWN, TOP),
+            '8' to listOf(RIGHT),
+            '9' to listOf(RIGHT, DOWN),
+            'a' to listOf(LEFT, RIGHT),
+            'b' to listOf(LEFT, RIGHT, DOWN),
+            'c' to listOf(RIGHT, TOP),
+            'd' to listOf(RIGHT, TOP, DOWN),
+            'e' to listOf(LEFT, RIGHT, TOP),
+            'f' to listOf(LEFT, RIGHT, DOWN, TOP),
         )
 
         fun neighbors(wall: Char): List<Point2D> {
-            return neighbors[wall]!!.map { this + it }
+            return (ALL_WALLS - walls.getValue(wall)).map { this + it }
         }
 
         operator fun minus(other: Point2D): Point2D =
@@ -112,6 +112,8 @@ class PaperLabyrinth(
             val DOWN = Point2D(0, 1)
             val LEFT = Point2D(-1, 0)
             val RIGHT = Point2D(1, 0)
+
+            val ALL_WALLS = listOf(TOP, DOWN, LEFT, RIGHT)
         }
     }
 
