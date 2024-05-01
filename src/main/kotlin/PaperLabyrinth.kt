@@ -53,8 +53,8 @@ class PaperLabyrinth(
             '2' to listOf(RIGHT, DOWN, TOP),
             '3' to listOf(RIGHT, TOP),
             '4' to listOf(LEFT, RIGHT, DOWN),
-            '5' to listOf(LEFT, RIGHT, DOWN, TOP),
-            '6' to listOf(LEFT, RIGHT, DOWN, TOP),
+            '5' to listOf(LEFT, RIGHT),
+            '6' to listOf(RIGHT, DOWN),
             '7' to listOf(LEFT, RIGHT, DOWN, TOP),
             '8' to listOf(LEFT, RIGHT, DOWN, TOP),
             '9' to listOf(LEFT, RIGHT, DOWN, TOP),
@@ -66,7 +66,7 @@ class PaperLabyrinth(
             'f' to listOf(LEFT, RIGHT, DOWN, TOP),
         )
 
-        fun next(cell: Char): List<Point2D> {
+        fun neighbors(cell: Char): List<Point2D> {
             return neighbors[cell]!!.map { this + it }
         }
 
