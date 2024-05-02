@@ -8,6 +8,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [MOVES IN MAZE]                    | [MovesInMaze]                 | Puzzle          | Easy   |
 | [POWER OF THOR - EPISODE 1]        | [PowerOfThor]                 | Puzzle          | Easy   |
 | [ALPHABET]                         | [Alphabet]                    | Puzzle          | Easy   |
+| [DUNGEONS AND MAPS]                | [DungeonsAndMaps]             | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 2]          | [MarsLanderEpisode2]          | Puzzle          | Easy   |
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
@@ -76,5 +77,11 @@ To Dos
 
 [PAPER LABYRINTH]: https://www.codingame.com/training/medium/paper-labyrinth
 [PaperLabyrinth]: src/main/kotlin/PaperLabyrinth.kt
+
+[DUNGEONS AND MAPS]: https://www.codingame.com/training/easy/dungeons-and-maps
+
+[DungeonsAndMaps]: src/main/kotlin/DungeonsAndMaps.kt
+
+[]: # (end)
 
 ```
