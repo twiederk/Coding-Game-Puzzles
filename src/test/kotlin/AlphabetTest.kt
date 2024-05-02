@@ -1,3 +1,4 @@
+import Alphabet.Point2D
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -47,9 +48,20 @@ class AlphabetTest {
 
         // assert
         assertThat(startingPoints).containsExactly(
-            Alphabet.Point2D(0, 1),
-            Alphabet.Point2D(5, 9),
+            Point2D(0, 1),
+            Point2D(5, 9),
         )
+    }
+
+    @Test
+    fun should_find_b_after_a_when_test1_is_given() {
+        // arrange
+
+        // act
+        val neighbor = Point2D(0, 1).neighbor(test1, 'a')
+
+        // assert
+        assertThat(neighbor).isEqualTo(Point2D(1, 1))
 
     }
 }

@@ -29,5 +29,11 @@ class Alphabet {
         return startingPoints
     }
 
-    data class Point2D(val x: Int, val y: Int)
+
+    data class Point2D(val x: Int, val y: Int) {
+        fun neighbor(test1: List<String>, letter: Char): Point2D? {
+            return Point2D(0, 0)
+        }
+
+    }
 }
