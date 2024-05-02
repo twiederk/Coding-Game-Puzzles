@@ -1,4 +1,4 @@
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class AlphabetTest {
@@ -23,7 +23,7 @@ class AlphabetTest {
         val result = Alphabet().solve(test1)
 
         // assert
-        Assertions.assertThat(result).isEqualTo(
+        assertThat(result).isEqualTo(
             """
             ----------
             abc-------
@@ -39,4 +39,17 @@ class AlphabetTest {
         )
     }
 
+    @Test
+    fun should_find_all_occurrences_of_letter_when_maze_is_given() {
+
+        // act
+        val startingPoints = Alphabet().startingPoints(test1)
+
+        // assert
+        assertThat(startingPoints).containsExactly(
+            Alphabet.Point2D(0, 1),
+            Alphabet.Point2D(5, 9),
+        )
+
+    }
 }
