@@ -38,4 +38,10 @@ class ClashOfCodeTest {
 
         println((a + b) * h / 2)
     }
+
+    @Test
+    fun should_convert_minutes_to_hours_and_minutes() {
+        println("${100 / 60}h ${100 % 60}m")
+        println("${30 / 60}h ${30 % 60}m")
+    }
 }
