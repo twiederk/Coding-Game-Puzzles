@@ -51,6 +51,21 @@ class Alphabet {
         return emptyList()
     }
 
+    fun renderPath(grid: List<String>, path: List<Point2D>): String {
+        val output = StringBuilder()
+        grid.forEachIndexed { y, row ->
+            row.forEachIndexed { x, letter ->
+                if (path.contains(Point2D(x, y))) {
+                    output.append(letter)
+                } else {
+                    output.append("-")
+                }
+            }
+            output.append("\n")
+        }
+        return output.toString().trimEnd()
+    }
+
 
     data class Point2D(val x: Int, val y: Int) {
         fun neighbor(grid: List<String>, letter: Char): Point2D? {

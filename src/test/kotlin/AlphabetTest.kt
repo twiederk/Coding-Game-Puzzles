@@ -71,5 +71,59 @@ class AlphabetTest {
 
         // assert
         assertThat(path).hasSize(26)
+        path.forEach(::println)
     }
+
+    @Test
+    fun should_render_path_only_when_grid_and_path_is_given() {
+        // arrange
+        val path = listOf(
+            Point2D(x = 0, y = 1),
+            Point2D(x = 1, y = 1),
+            Point2D(x = 2, y = 1),
+            Point2D(x = 2, y = 2),
+            Point2D(x = 1, y = 2),
+            Point2D(x = 0, y = 2),
+            Point2D(x = 0, y = 3),
+            Point2D(x = 0, y = 4),
+            Point2D(x = 0, y = 5),
+            Point2D(x = 1, y = 5),
+            Point2D(x = 1, y = 4),
+            Point2D(x = 1, y = 3),
+            Point2D(x = 2, y = 3),
+            Point2D(x = 3, y = 3),
+            Point2D(x = 3, y = 2),
+            Point2D(x = 4, y = 2),
+            Point2D(x = 4, y = 3),
+            Point2D(x = 5, y = 3),
+            Point2D(x = 6, y = 3),
+            Point2D(x = 6, y = 4),
+            Point2D(x = 5, y = 4),
+            Point2D(x = 5, y = 5),
+            Point2D(x = 6, y = 5),
+            Point2D(x = 7, y = 5),
+            Point2D(x = 7, y = 4),
+            Point2D(x = 7, y = 3),
+        )
+
+        // act
+        val result = Alphabet().renderPath(test1, path)
+
+        // assert
+        assertThat(result).isEqualTo(
+            """
+            ----------
+            abc-------
+            fedop-----
+            glmnqrsz--
+            hk---uty--
+            ij---vwx--
+            ----------
+            ----------
+            ----------
+            ----------
+        """.trimIndent()
+        )
+    }
+
 }
