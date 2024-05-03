@@ -44,4 +44,12 @@ class ClashOfCodeTest {
         println("${100 / 60}h ${100 % 60}m")
         println("${30 / 60}h ${30 % 60}m")
     }
+
+    @Test
+    fun should_calculate_integration() {
+        val N = 2.toDouble()
+        val result = (N.pow(N + 1)) / (N + 1)
+        println(String.format("%.2f", result))
+    }
+
 }
