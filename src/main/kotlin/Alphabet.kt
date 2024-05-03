@@ -13,8 +13,10 @@ fun main() {
 }
 
 class Alphabet {
-    fun solve(maze: List<String>): String {
-        return maze.joinToString("\n")
+    fun solve(grid: List<String>): String {
+        val startingPoints = startingPoints(grid)
+        val paths = startingPoints.map { bfs(grid, it) }.filter { it.isNotEmpty() }
+        return renderPath(grid, paths[0])
     }
 
     fun startingPoints(grid: List<String>): List<Point2D> {
