@@ -41,7 +41,7 @@ class AlphabetTest {
     }
 
     @Test
-    fun should_find_all_occurrences_of_letter_when_maze_is_given() {
+    fun should_find_all_occurrences_of_letter_a_when_maze_is_given() {
 
         // act
         val startingPoints = Alphabet().startingPoints(test1)
@@ -55,13 +55,21 @@ class AlphabetTest {
 
     @Test
     fun should_find_b_after_a_when_test1_is_given() {
-        // arrange
 
         // act
-        val neighbor = Point2D(0, 1).neighbor(test1, 'a')
+        val neighbor = Point2D(0, 1).neighbor(test1, 'b')
 
         // assert
         assertThat(neighbor).isEqualTo(Point2D(1, 1))
+    }
 
+    @Test
+    fun should_find_whole_path_when_test1_with_correct_starting_point_is_given() {
+
+        // act
+        val path = Alphabet().bfs(test1, Point2D(0, 1))
+
+        // assert
+        assertThat(path).hasSize(26)
     }
 }

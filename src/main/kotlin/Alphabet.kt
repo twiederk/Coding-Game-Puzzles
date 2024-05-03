@@ -17,11 +17,11 @@ class Alphabet {
         return maze.joinToString("\n")
     }
 
-    fun startingPoints(test1: List<String>): List<Point2D> {
+    fun startingPoints(grid: List<String>): List<Point2D> {
         val startingPoints = mutableListOf<Point2D>()
-        for (y in test1.indices) {
-            for (x in test1[y].indices) {
-                if (test1[y][x] == 'a') {
+        for (y in grid.indices) {
+            for (x in grid[y].indices) {
+                if (grid[y][x] == 'a') {
                     startingPoints.add(Point2D(x, y))
                 }
             }
@@ -29,10 +29,48 @@ class Alphabet {
         return startingPoints
     }
 
+    fun bfs(grid: List<String>, start: Point2D): List<Point2D> {
+        val queue = LinkedList<Point2D>()
+        queue.add(start)
+        val visited = mutableSetOf<Point2D>()
+        visited.add(start)
+        var letter = 'a'
+        while (queue.isNotEmpty()) {
+            val current = queue.poll()
+            visited.add(current)
+            val neighbor = current.neighbor(grid, letter + 1)
+            if (neighbor != null) {
+                queue.add(neighbor)
+                visited.add(neighbor)
+            }
+            if (letter + 1 == 'z') {
+                return visited.toList()
+            }
+            letter++
+        }
+        return emptyList()
+    }
+
 
     data class Point2D(val x: Int, val y: Int) {
-        fun neighbor(test1: List<String>, letter: Char): Point2D? {
-            return Point2D(0, 0)
+        fun neighbor(grid: List<String>, letter: Char): Point2D? {
+            // top
+            if (y - 1 >= 0 && grid[y - 1][x] == letter) {
+                return Point2D(x, y - 1)
+            }
+            // bottom
+            if (y + 1 < grid.size && grid[y + 1][x] == letter) {
+                return Point2D(x, y + 1)
+            }
+            // left
+            if (x - 1 >= 0 && grid[y][x - 1] == letter) {
+                return Point2D(x - 1, y)
+            }
+            // right
+            if (x + 1 < grid[y].length && grid[y][x + 1] == letter) {
+                return Point2D(x + 1, y)
+            }
+            return null
         }
 
     }
