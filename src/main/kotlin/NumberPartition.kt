@@ -17,19 +17,34 @@ fun main() {
 
 class NumberPartition {
     fun solve(number: Int): List<String> {
-        return emptyList()
+        val solutions = dfs(number)
+        return solutions.map { it.number.toString() }
+    }
+
+    fun dfs(number: Int): List<Term> {
+        val terms = mutableListOf<Term>()
+        val stack = Stack<Term>()
+        stack.push(Term(number, number, 0))
+
+        while (stack.isNotEmpty()) {
+            val current = stack.pop()
+            terms.add(current)
+        }
+        return terms
     }
 
 
-    data class Solution(
-        val number: Int
+    data class Term(
+        val number: Int,
+        val summandA: Int = number,
+        val summandB: Int = 0
     ) {
-        fun partitions(): List<List<Int>> {
-            val partitions = mutableListOf<List<Int>>()
+        fun subTerms(): List<Term> {
+            val terms = mutableListOf<Term>()
             for (i in 1..number / 2) {
-                partitions.add(listOf(i, number - i))
+                terms.add(Term(number, i, number - i))
             }
-            return partitions
+            return terms
         }
     }
 }
