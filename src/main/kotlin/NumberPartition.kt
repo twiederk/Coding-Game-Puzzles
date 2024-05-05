@@ -16,7 +16,20 @@ fun main() {
 
 
 class NumberPartition {
-    fun solve(n: Int): String {
-        return n.toString()
+    fun solve(number: Int): List<String> {
+        return emptyList()
+    }
+
+
+    data class Solution(
+        val number: Int
+    ) {
+        fun partitions(): List<List<Int>> {
+            val partitions = mutableListOf<List<Int>>()
+            for (i in 1..number / 2) {
+                partitions.add(listOf(i, number - i))
+            }
+            return partitions
+        }
     }
 }
