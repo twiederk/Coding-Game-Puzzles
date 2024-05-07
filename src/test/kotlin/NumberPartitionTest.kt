@@ -4,6 +4,20 @@ import org.junit.jupiter.api.Test
 class NumberPartitionTest {
 
     @Test
+    fun should_solve_number_1() {
+
+        // act
+        val result = NumberPartition().solve(1)
+
+        // assert
+        assertThat(result).isEqualTo(
+            """
+            1
+            """.trimIndent()
+        )
+    }
+
+    @Test
     fun should_solve_number_2() {
 
         // act

@@ -17,11 +17,31 @@ fun main() {
 class NumberPartition {
 
     fun solve(number: Int): String {
-        val solution = hardCoded(number)
+        val solution = recursion(number)
         return solution.joinToString(separator = "\n")
     }
 
-    fun hardCoded(number: Int): List<String> = when (number) {
+    private fun recursion(number: Int): List<String> {
+        val solutions = mutableListOf<String>()
+        numberPartition(number, number, mutableListOf(), solutions)
+        return solutions
+    }
+
+    private fun numberPartition(
+        current: Int,
+        number: Int,
+        solution: MutableList<Int>,
+        solutions: MutableList<String>
+    ) {
+        solution.add(current)
+        if (current == 1) {
+            solutions.add(solution.joinToString(separator = " ") { it.toString() })
+            return
+        }
+        numberPartition(current - 1, number, solution, solutions)
+    }
+
+    private fun hardCoded(number: Int): List<String> = when (number) {
         1 -> listOf(number.toString())
         2 -> listOf("2", "1 1")
         3 -> listOf("3", "2 1", "1 1 1")
@@ -47,6 +67,7 @@ class NumberPartition {
             "5 1 1 1 1", "4 4 1", "4 3 1 1", "4 2 2 1", "4 2 1 1 1", "4 1 1 1 1 1", "3 3 3", "3 3 2 1", "3 3 1 1 1",
             "3 2 1 1 1 1", "3 1 1 1 1 1 1", "2 1 1 1 1 1 1 1", "1 1 1 1 1 1 1 1 1"
         )
+
         else -> emptyList()
     }
 
