@@ -182,7 +182,7 @@ class NumberPartitionTest {
         // arrange
 
         // act
-        val output = NumberPartition().output(4)
+        val output = NumberPartition().solve(4)
 
         // assert
         assertThat(output).isEqualTo(
