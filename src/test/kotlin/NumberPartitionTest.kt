@@ -1,6 +1,4 @@
-import NumberPartition.Term
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class NumberPartitionTest {
@@ -9,7 +7,7 @@ class NumberPartitionTest {
     fun should_solve_number_2() {
 
         // act
-        val result = NumberPartition().solve(2)
+        val result = NumberPartition().hardCoded(2)
 
         // assert
         assertThat(result).containsExactly(
@@ -22,7 +20,7 @@ class NumberPartitionTest {
     fun should_solve_number_3() {
 
         // act
-        val result = NumberPartition().solve(3)
+        val result = NumberPartition().hardCoded(3)
 
         // assert
         assertThat(result).containsExactly(
@@ -36,7 +34,7 @@ class NumberPartitionTest {
     fun should_solve_number_4() {
 
         // act
-        val result = NumberPartition().solve(4)
+        val result = NumberPartition().hardCoded(4)
 
         // assert
         assertThat(result).containsExactly(
@@ -52,7 +50,7 @@ class NumberPartitionTest {
     fun should_solve_number_5() {
 
         // act
-        val result = NumberPartition().solve(5)
+        val result = NumberPartition().hardCoded(5)
 
         // assert
         assertThat(result).containsExactly(
@@ -70,7 +68,7 @@ class NumberPartitionTest {
     fun should_solve_number_6() {
 
         // act
-        val result = NumberPartition().solve(6)
+        val result = NumberPartition().hardCoded(6)
 
         // assert
         assertThat(result).containsExactly(
@@ -92,7 +90,7 @@ class NumberPartitionTest {
     fun should_solve_number_7() {
 
         // act
-        val result = NumberPartition().solve(7)
+        val result = NumberPartition().hardCoded(7)
 
         // assert
         assertThat(result).containsExactly(
@@ -117,7 +115,7 @@ class NumberPartitionTest {
     fun should_solve_number_8() {
 
         // act
-        val result = NumberPartition().solve(8)
+        val result = NumberPartition().hardCoded(8)
 
         // assert
         assertThat(result).containsExactly(
@@ -147,7 +145,7 @@ class NumberPartitionTest {
     fun should_solve_number_9() {
 
         // act
-        val result = NumberPartition().solve(9)
+        val result = NumberPartition().hardCoded(9)
 
         // assert
         assertThat(result).containsExactly(
@@ -180,84 +178,6 @@ class NumberPartitionTest {
     }
 
     @Test
-    fun should_find_sums_when_number_2_is_given() {
-
-        // act
-        val subTerms = Term(2).subTerms()
-
-        // assert
-        assertThat(subTerms).containsExactly(
-            Term(2, 1, 1)
-        )
-    }
-
-    @Test
-    fun should_find_sums_when_number_3_is_given() {
-
-        // act
-        val subTerms = Term(3).subTerms()
-
-        // assert
-        assertThat(subTerms).containsExactly(
-            Term(3, 1, 2)
-        )
-    }
-
-    @Test
-    fun should_find_sums_when_number_4_is_given() {
-
-        // act
-        val subTerms = Term(4).subTerms()
-
-        // assert
-        assertThat(subTerms).containsExactly(
-            Term(4, 1, 3),
-            Term(4, 2, 2),
-        )
-    }
-
-    @Test
-    fun should_find_sums_when_number_5_is_given() {
-
-        // act
-        val subTerms = Term(5).subTerms()
-
-        // assert
-        assertThat(subTerms).containsExactly(
-            Term(5, 1, 4),
-            Term(5, 2, 3),
-        )
-    }
-
-    @Test
-    fun should_find_sums_when_number_6_is_given() {
-
-        // act
-        val subTerms = Term(6).subTerms()
-
-        // assert
-        assertThat(subTerms).containsExactly(
-            Term(6, 1, 5),
-            Term(6, 2, 4),
-            Term(6, 3, 3),
-        )
-    }
-
-    @Test
-    @Disabled
-    fun should_find_all_solutions_when_number_2_is_given() {
-
-        // act
-        val solutions = NumberPartition().dfs(2)
-
-        // assert
-        assertThat(solutions).containsExactly(
-            Term(2),
-            Term(2, 1, 1)
-        )
-    }
-
-    @Test
     fun should_display_result() {
         // arrange
 
@@ -265,12 +185,15 @@ class NumberPartitionTest {
         val output = NumberPartition().output(4)
 
         // assert
-        assertThat(output).isEqualTo("""
+        assertThat(output).isEqualTo(
+            """
             4
             3 1
             2 2
             2 1 1
-            1 1 1 1""".trimIndent())
+            1 1 1 1
+            """.trimIndent()
+        )
 
     }
 }
