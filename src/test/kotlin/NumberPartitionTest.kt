@@ -243,6 +243,16 @@ class NumberPartitionTest {
     }
 
     @Test
+    fun should_find_next_work_when_given_4_1_1() {
+
+        // act
+        val next = Work(listOf(4, 1, 1)).next(6)
+
+        // assert
+        assertThat(next).isEqualTo(Work(listOf(3, 3)))
+    }
+
+    @Test
     fun should_return_index_of_first_partition_which_is_larger_than_one_when_given_5_1() {
 
         // act

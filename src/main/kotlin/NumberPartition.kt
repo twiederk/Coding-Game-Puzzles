@@ -1,5 +1,4 @@
 import java.util.*
-import kotlin.math.min
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -45,55 +44,34 @@ class NumberPartition {
         numberPartition(current - 1, number, solution, solutions)
     }
 
-    private fun hardCoded(number: Int): List<String> = when (number) {
-        1 -> listOf(number.toString())
-        2 -> listOf("2", "1 1")
-        3 -> listOf("3", "2 1", "1 1 1")
-        4 -> listOf("4", "3 1", "2 2", "2 1 1", "1 1 1 1")
-        5 -> listOf("5", "4 1", "3 2", "3 1 1", "2 2 1", "2 1 1 1", "1 1 1 1 1")
-        6 -> listOf(
-            "6", "5 1", "4 2", "4 1 1", "3 3", "3 2 1", "3 1 1 1", "2 2 2", "2 2 1 1", "2 1 1 1 1",
-            "1 1 1 1 1 1"
-        )
-
-        7 -> listOf(
-            "7", "6 1", "5 2", "5 1 1", "4 3", "4 2 1", "4 1 1 1", "3 3 1", "3 2 1 1", "3 1 1 1 1", "2 2 2 1",
-            "2 2 1 1 1", "2 1 1 1 1 1", "1 1 1 1 1 1 1"
-        )
-
-        8 -> listOf(
-            "8", "7 1", "6 2", "6 1 1", "5 3", "5 2 1", "5 1 1 1", "4 4", "4 3 1", "4 2 2", "4 2 1 1", "3 3 2",
-            "3 3 1 1", "3 2 2 1 1", "2 2 2 2", "2 2 2 1 1", "2 2 1 1 1 1", "2 1 1 1 1 1 1", "1 1 1 1 1 1 1 1"
-        )
-
-        9 -> listOf(
-            "9", "8 1", "7 2", "7 1 1", "6 3", "6 2 1", "6 1 1 1", "5 4", "5 3 1", "5 2 2", "5 2 1 1",
-            "5 1 1 1 1", "4 4 1", "4 3 1 1", "4 2 2 1", "4 2 1 1 1", "4 1 1 1 1 1", "3 3 3", "3 3 2 1", "3 3 1 1 1",
-            "3 2 1 1 1 1", "3 1 1 1 1 1 1", "2 1 1 1 1 1 1 1", "1 1 1 1 1 1 1 1 1"
-        )
-
-        else -> emptyList()
-    }
-
     data class Work(
         val partition: List<Int>
     ) {
         fun next(number: Int): Work {
             val index = indexOfFirstPartitionLargerThanOne()
+            val newPartition = copyPartBeforeFirstPartitionLargerThanOne(index)
+            while (newPartition.sum() != number) {
+                newPartition.add(missingPartition(newPartition, number, partition[index] - 1))
+            }
+            return Work(newPartition)
+        }
+
+        private fun copyPartBeforeFirstPartitionLargerThanOne(index: Int): MutableList<Int> {
             val newPartition = mutableListOf<Int>()
             if (index > 0) {
                 newPartition.addAll(partition.subList(0, index))
             } else {
                 newPartition.add(partition[0] - 1)
             }
-            while (newPartition.sum() != number) {
-                newPartition.add(missingPartition(newPartition, number, index))
-            }
-            return Work(newPartition)
+            return newPartition
         }
 
-        private fun missingPartition(newPartition: List<Int>, number: Int, index: Int): Int {
-            return number - min(newPartition.sum(), partition[index] - 1)
+        private fun missingPartition(newPartition: List<Int>, number: Int, max: Int): Int {
+            var missingPartition = max
+            while (newPartition.sum() + missingPartition > number) {
+                missingPartition--
+            }
+            return missingPartition
         }
 
         fun indexOfFirstPartitionLargerThanOne(): Int {
