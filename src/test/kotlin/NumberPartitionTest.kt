@@ -205,7 +205,50 @@ class NumberPartitionTest {
             1 1 1 1 1 1 1 1 1
             """.trimIndent()
         )
-
     }
 
+    @Test
+    fun should_find_next_work_when_given_6() {
+
+        // act
+        val next = NumberPartition.Work(listOf(6)).next(6)
+
+        // assert
+        assertThat(next).isEqualTo(
+            NumberPartition.Work(listOf(5, 1))
+        )
+    }
+
+    @Test
+    fun should_find_next_work_when_given_5_1() {
+
+        // act
+        val next = NumberPartition.Work(listOf(5, 1)).next(6)
+
+        // assert
+        assertThat(next).isEqualTo(
+            NumberPartition.Work(listOf(4, 2))
+        )
+    }
+
+    @Test
+    fun should_find_next_work_when_given_4_2() {
+
+        // act
+        val next = NumberPartition.Work(listOf(4, 2)).next(6)
+
+        // assert
+        assertThat(next).isEqualTo(NumberPartition.Work(listOf(4, 1, 1)))
+    }
+
+    @Test
+    fun should_return_index_of_first_partition_which_is_larger_than_one_when_given_5_1() {
+
+        // act
+        val index = NumberPartition.Work(listOf(5, 1)).indexOfFirstPartitionLargerThanOne()
+
+        // assert
+        assertThat(index).isEqualTo(0)
+
+    }
 }

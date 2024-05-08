@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.math.min
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -38,6 +39,9 @@ class NumberPartition {
             solutions.add(solution.joinToString(separator = " ") { it.toString() })
             return
         }
+        if (current != number) {
+            solution
+        }
         numberPartition(current - 1, number, solution, solutions)
     }
 
@@ -69,6 +73,32 @@ class NumberPartition {
         )
 
         else -> emptyList()
+    }
+
+    data class Work(
+        val partition: List<Int>
+    ) {
+        fun next(number: Int): Work {
+            val index = indexOfFirstPartitionLargerThanOne()
+            val newPartition = mutableListOf<Int>()
+            if (index > 0) {
+                newPartition.addAll(partition.subList(0, index))
+            } else {
+                newPartition.add(partition[0] - 1)
+            }
+            while (newPartition.sum() != number) {
+                newPartition.add(missingPartition(newPartition, number, index))
+            }
+            return Work(newPartition)
+        }
+
+        private fun missingPartition(newPartition: List<Int>, number: Int, index: Int): Int {
+            return number - min(newPartition.sum(), partition[index] - 1)
+        }
+
+        fun indexOfFirstPartitionLargerThanOne(): Int {
+            return partition.indexOfLast { it > 1 }
+        }
     }
 
 }
