@@ -1,3 +1,4 @@
+import NumberPartition.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -211,11 +212,11 @@ class NumberPartitionTest {
     fun should_find_next_work_when_given_6() {
 
         // act
-        val next = NumberPartition.Work(listOf(6)).next(6)
+        val next = Work(listOf(6)).next(6)
 
         // assert
         assertThat(next).isEqualTo(
-            NumberPartition.Work(listOf(5, 1))
+            Work(listOf(5, 1))
         )
     }
 
@@ -223,11 +224,11 @@ class NumberPartitionTest {
     fun should_find_next_work_when_given_5_1() {
 
         // act
-        val next = NumberPartition.Work(listOf(5, 1)).next(6)
+        val next = Work(listOf(5, 1)).next(6)
 
         // assert
         assertThat(next).isEqualTo(
-            NumberPartition.Work(listOf(4, 2))
+            Work(listOf(4, 2))
         )
     }
 
@@ -235,17 +236,17 @@ class NumberPartitionTest {
     fun should_find_next_work_when_given_4_2() {
 
         // act
-        val next = NumberPartition.Work(listOf(4, 2)).next(6)
+        val next = Work(listOf(4, 2)).next(6)
 
         // assert
-        assertThat(next).isEqualTo(NumberPartition.Work(listOf(4, 1, 1)))
+        assertThat(next).isEqualTo(Work(listOf(4, 1, 1)))
     }
 
     @Test
     fun should_return_index_of_first_partition_which_is_larger_than_one_when_given_5_1() {
 
         // act
-        val index = NumberPartition.Work(listOf(5, 1)).indexOfFirstPartitionLargerThanOne()
+        val index = Work(listOf(5, 1)).indexOfFirstPartitionLargerThanOne()
 
         // assert
         assertThat(index).isEqualTo(0)
