@@ -10,6 +10,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [ALPHABET]                         | [Alphabet]                    | Puzzle          | Easy   |
 | [DUNGEONS AND MAPS]                | [DungeonsAndMaps]             | Puzzle          | Easy   |
 | [NUMBER PARTITION]                 | [NumberPartition]             | Puzzle          | Easy   |
+| [ORDER OF SUCCESSION]              | [OrderOfSuccession]           | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 2]          | [MarsLanderEpisode2]          | Puzzle          | Easy   |
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
@@ -83,6 +84,8 @@ To Dos
 [DungeonsAndMaps]: src/main/kotlin/DungeonsAndMaps.kt
 
 [NUMBER PARTITION]: https://www.codingame.com/training/easy/number-partition
-
 [NumberPartition]: src/main/kotlin/NumberPartition.kt
-```
+
+[ORDER OF SUCCESSION]: https://www.codingame.com/training/easy/order-of-succession
+
+[OrderOfSuccession]: src/main/kotlin/OrderOfSuccession.kt
