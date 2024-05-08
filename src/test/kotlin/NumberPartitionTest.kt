@@ -1,4 +1,4 @@
-import NumberPartition.*
+import NumberPartition.Work
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -129,6 +129,7 @@ class NumberPartitionTest {
             4 2 1
             4 1 1 1
             3 3 1
+            3 2 2
             3 2 1 1
             3 1 1 1 1
             2 2 2 1
@@ -159,9 +160,12 @@ class NumberPartitionTest {
             4 3 1
             4 2 2
             4 2 1 1
+            4 1 1 1 1
             3 3 2
             3 3 1 1
-            3 2 2 1 1
+            3 2 2 1
+            3 2 1 1 1
+            3 1 1 1 1 1
             2 2 2 2
             2 2 2 1 1
             2 2 1 1 1 1
@@ -193,6 +197,7 @@ class NumberPartitionTest {
             5 2 1 1
             5 1 1 1 1
             4 4 1
+            4 3 2
             4 3 1 1
             4 2 2 1
             4 2 1 1 1
@@ -200,8 +205,13 @@ class NumberPartitionTest {
             3 3 3
             3 3 2 1
             3 3 1 1 1
+            3 2 2 2
+            3 2 2 1 1
             3 2 1 1 1 1
             3 1 1 1 1 1 1
+            2 2 2 2 1
+            2 2 2 1 1 1
+            2 2 1 1 1 1 1
             2 1 1 1 1 1 1 1
             1 1 1 1 1 1 1 1 1
             """.trimIndent()
@@ -253,6 +263,16 @@ class NumberPartitionTest {
     }
 
     @Test
+    fun should_find_next_work_when_given_3_3() {
+
+        // act
+        val next = Work(listOf(3, 3)).next(6)
+
+        // assert
+        assertThat(next).isEqualTo(Work(listOf(3, 2, 1)))
+    }
+
+    @Test
     fun should_return_index_of_first_partition_which_is_larger_than_one_when_given_5_1() {
 
         // act
@@ -260,6 +280,15 @@ class NumberPartitionTest {
 
         // assert
         assertThat(index).isEqualTo(0)
+    }
 
+    @Test
+    fun should_return_string_when_partition_is_given() {
+
+        // act
+        val output = Work(listOf(5, 1)).toString()
+
+        // assert
+        assertThat(output).isEqualTo("5 1")
     }
 }

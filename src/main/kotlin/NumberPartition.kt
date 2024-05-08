@@ -17,31 +17,14 @@ fun main() {
 class NumberPartition {
 
     fun solve(number: Int): String {
-        val solution = recursion(number)
-        return solution.joinToString(separator = "\n")
-    }
-
-    private fun recursion(number: Int): List<String> {
-        val solutions = mutableListOf<String>()
-        numberPartition(number, number, mutableListOf(), solutions)
-        return solutions
-    }
-
-    private fun numberPartition(
-        current: Int,
-        number: Int,
-        solution: MutableList<Int>,
-        solutions: MutableList<String>
-    ) {
-        solution.add(current)
-        if (current == 1) {
-            solutions.add(solution.joinToString(separator = " ") { it.toString() })
-            return
+        val solutions = mutableListOf<Work>()
+        var work = Work(listOf(number))
+        solutions.add(work)
+        while (work.partition.first() != 1) {
+            work = work.next(number)
+            solutions.add(work)
         }
-        if (current != number) {
-            solution
-        }
-        numberPartition(current - 1, number, solution, solutions)
+        return solutions.joinToString("\n") { it.toString() }
     }
 
     data class Work(
@@ -76,6 +59,10 @@ class NumberPartition {
 
         fun indexOfFirstPartitionLargerThanOne(): Int {
             return partition.indexOfLast { it > 1 }
+        }
+
+        override fun toString(): String {
+            return partition.joinToString(" ")
         }
     }
 
