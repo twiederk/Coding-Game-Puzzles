@@ -15,7 +15,8 @@ class AlphabetTest {
         "hsgvoklcxy",
         "urdjusmbmz",
         "rchbcausnp",
-    )
+
+        )
 
     @Test
     fun should_solve_test1() {
