@@ -90,4 +90,63 @@ class OlymbitsTest {
         // assert
         assertThat(distanceToHurtle).isEqualTo(1)
     }
+
+    @Test
+    fun should_return_5_when_the_distance_to_the_hurtle_is_5() {
+        // arrange
+
+        // act
+        val distanceToHurtle = olymbits1.distanceToHurtle("......#", 0)
+
+        // assert
+        assertThat(distanceToHurtle).isEqualTo(5)
+    }
+
+    @Test
+    fun should_return_3_when_the_player_is_at_position_2_and_the_distance_from_the_start_to_the_hurtle_is_5() {
+        // arrange
+
+        // act
+        val distanceToHurtle = olymbits1.distanceToHurtle("......#", 2)
+
+        // assert
+        assertThat(distanceToHurtle).isEqualTo(3)
+    }
+
+    @Test
+    fun should_press_RIGHGT_when_hurtle_is_5_steps_away() {
+        // act
+        val keyCommand = olymbits1.keyCommand(5)
+
+        // assert
+        assertThat(keyCommand).isEqualTo("RIGHT")
+    }
+
+    @Test
+    fun should_press_DOWN_when_hurtle_is_2_steps_away() {
+        // act
+        val keyCommand = olymbits1.keyCommand(2)
+
+        // assert
+        assertThat(keyCommand).isEqualTo("DOWN")
+    }
+
+    @Test
+    fun should_press_LEFT_when_hurtle_is_1_steps_away() {
+        // act
+        val keyCommand = olymbits1.keyCommand(1)
+
+        // assert
+        assertThat(keyCommand).isEqualTo("LEFT")
+    }
+
+    @Test
+    fun should_press_UP_when_hurtle_is_0_steps_away() {
+        // act
+        val keyCommand = olymbits1.keyCommand(0)
+
+        // assert
+        assertThat(keyCommand).isEqualTo("UP")
+    }
+
 }

@@ -96,6 +96,14 @@ data class Olymbits(val raceData: RaceData) {
     }
 
     fun distanceToHurtle(raceTrack: String, position: Int): Int {
-        return raceTrack.indexOf("#") - 1
+        return raceTrack.substring(position).indexOf("#") - 1
+    }
+
+    fun keyCommand(steps: Int): String = when (steps) {
+        0 -> "UP"
+        1 -> "LEFT"
+        2 -> "DOWN"
+        else -> "RIGHT"
+
     }
 }
