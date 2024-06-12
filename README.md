@@ -21,6 +21,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [PAPER LABYRINTH]                  | [PaperLabyrinth]              | Puzzle          | Medium |
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
 | [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
+| [OLYMBITS]                         | [Olymbits]                    | Bot Programming |        | 
 | [FINDING SHERLOCK - THE APARTMENT] | [FindingSherlockTheApartment] | Escape          | Medium |
 | [CLASH OF CODE]                    | [ClashOfCode]                 | Clash of Code   |        |
 
@@ -87,5 +88,8 @@ To Dos
 [NumberPartition]: src/main/kotlin/NumberPartition.kt
 
 [ORDER OF SUCCESSION]: https://www.codingame.com/training/easy/order-of-succession
-
 [OrderOfSuccession]: src/main/kotlin/OrderOfSuccession.kt
+
+[OLYMBITS]: https://www.codingame.com/ide/challenge/summer-challenge-2024-olymbits
+
+[Olymbits]: src/main/kotlin/Olymbits.kt
