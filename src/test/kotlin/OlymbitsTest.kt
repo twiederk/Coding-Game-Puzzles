@@ -93,7 +93,6 @@ class OlymbitsTest {
 
     @Test
     fun should_return_5_when_the_distance_to_the_hurtle_is_5() {
-        // arrange
 
         // act
         val distanceToHurtle = olymbits1.distanceToHurtle("......#", 0)
@@ -147,6 +146,58 @@ class OlymbitsTest {
 
         // assert
         assertThat(keyCommand).isEqualTo("UP")
+    }
+
+    @Test
+    fun should_return_DOWN_when_the_hurtle_is_2_steps_apart() {
+        // arrange
+        val turnData = TurnData(
+            ScoreInfo("100 1 2 3"),
+            ScoreInfo("200 4 5 6"),
+            ScoreInfo("300 7 8 9"),
+        )
+        turnData.addGameData(GameData(
+            "...#...#....",
+            0,
+            6,
+            12,
+            0,
+            0,
+            0,
+            -1
+        ))
+
+        // act
+        val output = olymbits1.playTurn(turnData)
+
+        // assert
+        assertThat(output).isEqualTo("DOWN")
+    }
+
+    @Test
+    fun should_return_RIGHT_when_it_is_reset_time() {
+        // arrange
+        val turnData = TurnData(
+            ScoreInfo("100 1 2 3"),
+            ScoreInfo("200 4 5 6"),
+            ScoreInfo("300 7 8 9"),
+        )
+        turnData.addGameData(GameData(
+            "GAME_OVER",
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+        ))
+
+        // act
+        val output = olymbits1.playTurn(turnData)
+
+        // assert
+        assertThat(output).isEqualTo("RIGHT")
     }
 
 }

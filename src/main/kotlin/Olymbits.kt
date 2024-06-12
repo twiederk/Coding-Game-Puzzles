@@ -92,7 +92,14 @@ class ScoreInfo(line: String) {
 
 data class Olymbits(val raceData: RaceData) {
     fun playTurn(turnData: TurnData): String {
-        return "RIGHT"
+        System.err.println(turnData.games[raceData.playerIndex])
+        if (turnData.games[raceData.playerIndex].raceTrack == "GAME_OVER") {
+            return "RIGHT"
+        }
+        val raceTrack = turnData.games[raceData.playerIndex].raceTrack
+        val playerPosition = turnData.games[raceData.playerIndex].positionPlayer1
+        val distanceToHurtle = distanceToHurtle(raceTrack, playerPosition)
+        return keyCommand(distanceToHurtle)
     }
 
     fun distanceToHurtle(raceTrack: String, position: Int): Int {
