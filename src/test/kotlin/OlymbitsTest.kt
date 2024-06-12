@@ -3,6 +3,10 @@ import org.junit.jupiter.api.Test
 
 class OlymbitsTest {
 
+    private val olymbits1 = Olymbits(
+        RaceData(1, 0)
+    )
+
     @Test
     fun should_collect_game_data() {
         // arrange
@@ -63,7 +67,27 @@ class OlymbitsTest {
         assertThat(gameData.stunTimerPlayer1).isEqualTo(1)
         assertThat(gameData.stunTimerPlayer2).isEqualTo(0)
         assertThat(gameData.stunTimerPlayer3).isEqualTo(2)
+    }
 
+    @Test
+    fun should_return_0_when_the_distance_to_the_hurtle_is_0() {
+        // arrange
 
+        // act
+        val distanceToHurtle = olymbits1.distanceToHurtle(".#", 0)
+
+        // assert
+        assertThat(distanceToHurtle).isEqualTo(0)
+    }
+
+    @Test
+    fun should_return_1_when_the_distance_to_the_hurtle_is_1() {
+        // arrange
+
+        // act
+        val distanceToHurtle = olymbits1.distanceToHurtle("..#", 0)
+
+        // assert
+        assertThat(distanceToHurtle).isEqualTo(1)
     }
 }

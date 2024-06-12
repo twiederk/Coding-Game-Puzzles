@@ -94,4 +94,8 @@ data class Olymbits(val raceData: RaceData) {
     fun playTurn(turnData: TurnData): String {
         return "RIGHT"
     }
+
+    fun distanceToHurtle(raceTrack: String, position: Int): Int {
+        return raceTrack.indexOf("#") - 1
+    }
 }
