@@ -3,6 +3,16 @@ import org.junit.jupiter.api.Test
 
 class OlymbitsTest {
 
+//    mini_game_score = nb_silver_medals + nb_gold_medals * 3
+//    The scores for all four mini-games are multiplied together to determine the final score.
+//
+//    G S B
+//    0 6 0 => 6
+//    2 2 0 => 8
+//    1 1 2 => 4
+//    2 2 0 => 8
+//    => 1536
+
     private val olymbits1 = Olymbits(
         RaceData(1, 0)
     )
