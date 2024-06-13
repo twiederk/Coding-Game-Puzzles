@@ -70,6 +70,20 @@ data class TurnData(
     fun addGameData(gameData: GameData) {
         games.add(gameData)
     }
+
+    fun indexOfGameWithLeastMedals(playerIndex: Int): Int {
+        val medals = when (playerIndex) {
+            0 -> scoreInfoPlayer1.miniGames
+            1 -> scoreInfoPlayer2.miniGames
+            else -> scoreInfoPlayer3.miniGames
+        }
+        for (i in medals.indices) {
+            if (medals[i].total() == medals.minOf { it.total() }) {
+                return i
+            }
+        }
+        return 0
+    }
 }
 
 data class GameData(
@@ -84,20 +98,34 @@ data class GameData(
 )
 
 class ScoreInfo(line: String) {
-    val finalScore: Int = line.split(" ")[0].toInt()
-    val goldMedals: Int = line.split(" ")[1].toInt()
-    val silverMedals: Int = line.split(" ")[2].toInt()
-    val bronzeMedals: Int = line.split(" ")[3].toInt()
+    val miniGames  = mutableListOf<Medals>()
+    val finalScore: Int = line.substringBefore(" ").toInt()
+
+    init {
+        val medals = line.substringAfter(" ")
+        medals.split(" ").chunked(3).forEach {
+            miniGames.add(Medals(it[0].toInt(), it[1].toInt(), it[2].toInt()))
+        }
+    }
+}
+
+data class Medals(
+    val gold: Int,
+    val silver: Int,
+    val bronze: Int
+) {
+    fun total(): Int = gold + silver
 }
 
 data class Olymbits(val raceData: RaceData) {
     fun playTurn(turnData: TurnData): String {
         System.err.println(turnData.games[raceData.playerIndex])
-        if (turnData.games[raceData.playerIndex].raceTrack == "GAME_OVER") {
+        val gameWithLeastMedals = turnData.indexOfGameWithLeastMedals(raceData.playerIndex)
+        if (turnData.games[gameWithLeastMedals].raceTrack == "GAME_OVER") {
             return "RIGHT"
         }
-        val raceTrack = turnData.games[raceData.playerIndex].raceTrack
-        val playerPosition = turnData.games[raceData.playerIndex].positionPlayer1
+        val raceTrack = turnData.games[gameWithLeastMedals].raceTrack
+        val playerPosition = turnData.games[gameWithLeastMedals].positionPlayer1
         val distanceToHurtle = distanceToHurtle(raceTrack, playerPosition)
         return keyCommand(distanceToHurtle)
     }
@@ -113,4 +141,5 @@ data class Olymbits(val raceData: RaceData) {
         else -> "RIGHT"
 
     }
+
 }
