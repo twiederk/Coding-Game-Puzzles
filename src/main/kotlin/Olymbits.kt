@@ -58,7 +58,9 @@ fun main() {
 data class RaceData(
     val numberOfGames: Int,
     val playerIndex: Int
-)
+) {
+    var currentGame : Int = -1
+}
 
 data class TurnData(
     val scoreInfoPlayer1: ScoreInfo,
@@ -86,7 +88,8 @@ data class TurnData(
     }
 
     fun getIndexOfGameWithLeastHurdles(): Int {
-        return games.minBy { game -> game.countGameHurdles() }.let { game -> games.indexOf(game) }
+        return games.filter { game -> game.raceTrack != "GAME_OVER" }
+            .minBy { game -> game.countGameHurdles() }.let { game -> games.indexOf(game) }
     }
 }
 
@@ -136,15 +139,20 @@ data class Olymbits(val raceData: RaceData) {
     fun playTurn(turnData: TurnData): String {
         toError(turnData.games[raceData.playerIndex].toString())
 //        val gameWithLeastMedals = turnData.indexOfGameWithLeastMedals(raceData.playerIndex)
-        val gameToPlay = turnData.getIndexOfGameWithLeastHurdles()
-        toError("game to player: $gameToPlay")
-        if (turnData.games[gameToPlay].raceTrack == "GAME_OVER") {
-            return "RIGHT"
+        if(raceData.currentGame == -1 || turnData.games[raceData.currentGame].raceTrack == "GAME_OVER") {
+            raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
         }
-        val raceTrack = turnData.games[gameToPlay].raceTrack
-        val playerPosition = turnData.games[gameToPlay].getPlayerPosition(raceData.playerIndex)
+        toError("game to play: ${raceData.currentGame}")
+        val raceTrack = turnData.games[raceData.currentGame].raceTrack
+        val playerPosition = turnData.games[raceData.currentGame].getPlayerPosition(raceData.playerIndex)
         val distanceToHurtle = distanceToHurtle(raceTrack, playerPosition)
         return keyCommand(distanceToHurtle)
+    }
+
+    fun determineCurrentGame(raceTrack : String, turnData: TurnData) {
+        if(raceData.currentGame == -1 || raceTrack == "GAME_OVER") {
+            raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
+        }
     }
 
     fun distanceToHurtle(raceTrack: String, position: Int): Int {

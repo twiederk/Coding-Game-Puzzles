@@ -342,4 +342,45 @@ class OlymbitsTest {
         assertThat(indexOfGame).isEqualTo(0)
 
     }
+
+    @Test
+    fun should_stay_in_current_game_till_game_over() {
+        val olymbits = Olymbits(RaceData(2, 1))
+
+        val turnData = TurnData(
+            ScoreInfo("0 1 0 0 1 0 0 1 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+        )
+        turnData.addGameData(
+            GameData(
+                ".....#...#...#....",
+                0,
+                6,
+                12,
+                1,
+                0,
+                2,
+                -1
+            )
+        )
+        turnData.addGameData(
+            GameData(
+                "GAME_OVER",
+                0,
+                6,
+                12,
+                1,
+                0,
+                2,
+                -1
+            )
+        )
+
+        olymbits.determineCurrentGame("GAME_OVER", turnData)
+
+        assertThat(olymbits.raceData.currentGame).isEqualTo(0)
+
+
+    }
 }
