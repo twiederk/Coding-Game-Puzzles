@@ -159,6 +159,12 @@ data class Olymbits(val raceData: RaceData) {
             raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
         } else {
             determineCurrentGame(turnData.games[raceData.currentGame].raceTrack, turnData)
+            var game = turnData.games[raceData.currentGame]
+            if (game.getPlayerMedalPlacement(raceData.playerIndex) == 2) {
+                toError("We are in 3rd place")
+                raceData.currentGame = -1
+                return "UP"
+            }
         }
         toError("game to play: ${raceData.currentGame}")
         val raceTrack = turnData.games[raceData.currentGame].raceTrack
