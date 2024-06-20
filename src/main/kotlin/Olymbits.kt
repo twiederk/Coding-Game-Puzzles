@@ -95,7 +95,17 @@ data class GameData(
     val stunTimerPlayer2: Int,
     val stunTimerPlayer3: Int,
     val reg6: Int,
-)
+) {
+    fun countGameHurdles(): Int = raceTrack.count { it == '#' }
+
+    fun getPlayerPosition(i: Int): Int {
+        return when (i) {
+            0 -> positionPlayer1
+            1 -> positionPlayer2
+            else -> positionPlayer3
+        }
+    }
+}
 
 class ScoreInfo(line: String) {
     val miniGames  = mutableListOf<Medals>()
@@ -125,7 +135,7 @@ data class Olymbits(val raceData: RaceData) {
             return "RIGHT"
         }
         val raceTrack = turnData.games[gameWithLeastMedals].raceTrack
-        val playerPosition = turnData.games[gameWithLeastMedals].positionPlayer1
+        val playerPosition = turnData.games[gameWithLeastMedals].getPlayerPosition(raceData.playerIndex)
         val distanceToHurtle = distanceToHurtle(raceTrack, playerPosition)
         return keyCommand(distanceToHurtle)
     }

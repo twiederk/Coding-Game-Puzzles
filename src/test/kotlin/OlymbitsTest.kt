@@ -1,5 +1,6 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class OlymbitsTest {
 
@@ -254,4 +255,47 @@ class OlymbitsTest {
         // assert
         assertThat(index).isEqualTo(3)
     }
+
+
+    @Test
+    fun should_count_number_of_hurdles() {
+        // arrange
+        val gameData = GameData(
+            ".....#...#...#....",
+            0,
+            6,
+            12,
+            1,
+            0,
+            2,
+            -1
+        )
+        // act
+        val hurdles = gameData.countGameHurdles()
+
+        // assert
+        assertEquals(3, hurdles)
+    }
+
+    @Test
+    fun should_return_player_of_given_index() {
+        // arrange
+        val gameData = GameData(
+            ".....#...#...#....",
+            0,
+            6,
+            12,
+            1,
+            0,
+            2,
+            -1
+        )
+
+        // act
+        val playerPosition = gameData.getPlayerPosition(1)
+
+        // assert
+        assertThat(playerPosition).isEqualTo(6)
+    }
+
 }
