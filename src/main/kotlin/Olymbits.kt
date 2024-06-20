@@ -59,7 +59,7 @@ data class RaceData(
     val numberOfGames: Int,
     val playerIndex: Int
 ) {
-    var currentGame : Int = -1
+    var currentGame: Int = -1
 }
 
 data class TurnData(
@@ -115,7 +115,7 @@ data class GameData(
 }
 
 class ScoreInfo(line: String) {
-    val miniGames  = mutableListOf<Medals>()
+    val miniGames = mutableListOf<Medals>()
     val finalScore: Int = line.substringBefore(" ").toInt()
 
     init {
@@ -138,9 +138,10 @@ data class Olymbits(val raceData: RaceData) {
 
     fun playTurn(turnData: TurnData): String {
         toError(turnData.games[raceData.playerIndex].toString())
-//        val gameWithLeastMedals = turnData.indexOfGameWithLeastMedals(raceData.playerIndex)
-        if(raceData.currentGame == -1 || turnData.games[raceData.currentGame].raceTrack == "GAME_OVER") {
+        if (raceData.currentGame == -1) {
             raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
+        } else {
+            determineCurrentGame(turnData.games[raceData.currentGame].raceTrack, turnData)
         }
         toError("game to play: ${raceData.currentGame}")
         val raceTrack = turnData.games[raceData.currentGame].raceTrack
@@ -149,8 +150,8 @@ data class Olymbits(val raceData: RaceData) {
         return keyCommand(distanceToHurtle)
     }
 
-    fun determineCurrentGame(raceTrack : String, turnData: TurnData) {
-        if(raceData.currentGame == -1 || raceTrack == "GAME_OVER") {
+    fun determineCurrentGame(raceTrack: String, turnData: TurnData) {
+        if (raceTrack == "GAME_OVER") {
             raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
         }
     }
