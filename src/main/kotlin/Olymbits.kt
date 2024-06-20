@@ -96,6 +96,11 @@ data class TurnData(
         return games.filter { game -> game.raceTrack != "GAME_OVER" }
             .maxBy { game -> game.getPlayerPosition(playerIndex) }.let { game -> games.indexOf(game) }
     }
+
+    fun getGameWithBestMedalPosition(playerIndex: Int): Int {
+        return games.filter { game -> game.raceTrack != "GAME_OVER" }
+            .minBy { game -> game.getPlayerMedalPlacement(playerIndex) }.let { game -> games.indexOf(game) }
+    }
 }
 
 data class GameData(
@@ -117,6 +122,13 @@ data class GameData(
             else -> positionPlayer3
         }
     }
+
+    fun getPlayerMedalPlacement(playerIndex: Int): Int {
+        val allPosition = listOf(positionPlayer1, positionPlayer2, positionPlayer3).sortedDescending()
+        val positionOfPlayer = getPlayerPosition(playerIndex)
+        return allPosition.indexOf(positionOfPlayer)
+    }
+
 }
 
 class ScoreInfo(line: String) {
@@ -158,7 +170,8 @@ data class Olymbits(val raceData: RaceData) {
     fun determineCurrentGame(raceTrack: String, turnData: TurnData) {
         if (raceTrack == "GAME_OVER") {
 //            raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
-            raceData.currentGame = turnData.getGameWithBestPosition(raceData.playerIndex)
+//            raceData.currentGame = turnData.getGameWithBestPosition(raceData.playerIndex)
+            raceData.currentGame = turnData.getGameWithBestMedalPosition(raceData.playerIndex)
         }
     }
 

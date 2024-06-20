@@ -408,6 +408,122 @@ class OlymbitsTest {
 
         // assert
         assertThat(gameToPlay).isEqualTo(2)
+    }
+
+    @Test
+    fun should_return_game_with_best_medal_position() {
+        // arrange
+        val turnData = TurnData(
+            ScoreInfo("0 1 0 0 1 0 0 1 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+        )
+        turnData.addGameData(
+            GameData(
+                ".....#...#...#....",
+                8,
+                6,
+                5,
+                1,
+                0,
+                2,
+                -1
+            )
+        )
+        turnData.addGameData(
+            GameData(
+                "GAME_OVER",
+                30,
+                1,
+                0,
+                2,
+                -1,
+                2,
+                -1
+            )
+        )
+        turnData.addGameData(
+            GameData(
+                ".....#...#...#....",
+                25,
+                28,
+                28,
+                2,
+                -1,
+                2,
+                -1
+            )
+        )
+
+        // act
+        val gameToPlay = turnData.getGameWithBestMedalPosition(0)
+
+        // assert
+        assertThat(gameToPlay).isEqualTo(0)
 
     }
+
+    @Test
+    fun should_return_medal_placement_of_player_1() {
+        // arrange
+        val gameData = GameData(
+            ".....#...#...#....",
+            8,
+            6,
+            4,
+            1,
+            0,
+            2,
+            -1
+        )
+
+        // act
+        val medal = gameData.getPlayerMedalPlacement(0)
+
+        // assert
+        assertThat(medal).isEqualTo(0)
+    }
+
+    @Test
+    fun should_return_medal_placement_of_player_2() {
+        // arrange
+        val gameData = GameData(
+            ".....#...#...#....",
+            8,
+            6,
+            4,
+            1,
+            0,
+            2,
+            -1
+        )
+
+        // act
+        val medal = gameData.getPlayerMedalPlacement(1)
+
+        // assert
+        assertThat(medal).isEqualTo(1)
+    }
+
+    @Test
+    fun should_return_medal_placement_of_player_3() {
+        // arrange
+        val gameData = GameData(
+            ".....#...#...#....",
+            8,
+            6,
+            10,
+            1,
+            0,
+            2,
+            -1
+        )
+
+        // act
+        val medal = gameData.getPlayerMedalPlacement(2)
+
+        // assert
+        assertThat(medal).isEqualTo(0)
+    }
+
 }
