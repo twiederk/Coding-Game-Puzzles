@@ -128,9 +128,11 @@ data class Medals(
 }
 
 data class Olymbits(val raceData: RaceData) {
+
     fun playTurn(turnData: TurnData): String {
-        System.err.println(turnData.games[raceData.playerIndex])
+        error(turnData.games[raceData.playerIndex])
         val gameWithLeastMedals = turnData.indexOfGameWithLeastMedals(raceData.playerIndex)
+        error("game with least medals: $gameWithLeastMedals")
         if (turnData.games[gameWithLeastMedals].raceTrack == "GAME_OVER") {
             return "RIGHT"
         }
@@ -152,4 +154,8 @@ data class Olymbits(val raceData: RaceData) {
 
     }
 
+}
+
+fun error(str: String) {
+    System.err.println(str)
 }
