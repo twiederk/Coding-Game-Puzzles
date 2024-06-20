@@ -167,16 +167,18 @@ class OlymbitsTest {
             ScoreInfo("200 4 5 6"),
             ScoreInfo("300 7 8 9"),
         )
-        turnData.addGameData(GameData(
-            "...#...#....",
-            0,
-            6,
-            12,
-            0,
-            0,
-            0,
-            -1
-        ))
+        turnData.addGameData(
+            GameData(
+                "...#...#....",
+                0,
+                6,
+                12,
+                0,
+                0,
+                0,
+                -1
+            )
+        )
 
         // act
         val output = olymbits1.playTurn(turnData)
@@ -193,16 +195,18 @@ class OlymbitsTest {
             ScoreInfo("200 4 5 6"),
             ScoreInfo("300 7 8 9"),
         )
-        turnData.addGameData(GameData(
-            "GAME_OVER",
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1
-        ))
+        turnData.addGameData(
+            GameData(
+                "GAME_OVER",
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1
+            )
+        )
 
         // act
         val output = olymbits1.playTurn(turnData)
@@ -298,4 +302,44 @@ class OlymbitsTest {
         assertThat(playerPosition).isEqualTo(6)
     }
 
+    @Test
+    fun should_return_index_of_game_with_least_hurdles() {
+        // arrange
+        val turnData = TurnData(
+            ScoreInfo("0 1 0 0 1 0 0 1 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+        )
+        turnData.addGameData(
+            GameData(
+                ".....#...#...#....",
+                0,
+                6,
+                12,
+                1,
+                0,
+                2,
+                -1
+            )
+        )
+        turnData.addGameData(
+            GameData(
+                ".....#...###.#....",
+                0,
+                6,
+                12,
+                1,
+                0,
+                2,
+                -1
+            )
+        )
+
+        // act
+        var indexOfGame = turnData.getIndexOfGameWithLeastHurdles()
+
+        // assert
+        assertThat(indexOfGame).isEqualTo(0)
+
+    }
 }

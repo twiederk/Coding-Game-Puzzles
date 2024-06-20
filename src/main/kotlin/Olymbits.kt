@@ -84,6 +84,10 @@ data class TurnData(
         }
         return 0
     }
+
+    fun getIndexOfGameWithLeastHurdles(): Int {
+        return games.minBy { game -> game.countGameHurdles() }.let { game -> games.indexOf(game) }
+    }
 }
 
 data class GameData(
@@ -130,14 +134,15 @@ data class Medals(
 data class Olymbits(val raceData: RaceData) {
 
     fun playTurn(turnData: TurnData): String {
-        error(turnData.games[raceData.playerIndex])
-        val gameWithLeastMedals = turnData.indexOfGameWithLeastMedals(raceData.playerIndex)
-        error("game with least medals: $gameWithLeastMedals")
-        if (turnData.games[gameWithLeastMedals].raceTrack == "GAME_OVER") {
+        toError(turnData.games[raceData.playerIndex].toString())
+//        val gameWithLeastMedals = turnData.indexOfGameWithLeastMedals(raceData.playerIndex)
+        val gameToPlay = turnData.getIndexOfGameWithLeastHurdles()
+        toError("game to player: $gameToPlay")
+        if (turnData.games[gameToPlay].raceTrack == "GAME_OVER") {
             return "RIGHT"
         }
-        val raceTrack = turnData.games[gameWithLeastMedals].raceTrack
-        val playerPosition = turnData.games[gameWithLeastMedals].getPlayerPosition(raceData.playerIndex)
+        val raceTrack = turnData.games[gameToPlay].raceTrack
+        val playerPosition = turnData.games[gameToPlay].getPlayerPosition(raceData.playerIndex)
         val distanceToHurtle = distanceToHurtle(raceTrack, playerPosition)
         return keyCommand(distanceToHurtle)
     }
@@ -151,11 +156,15 @@ data class Olymbits(val raceData: RaceData) {
         1 -> "LEFT"
         2 -> "DOWN"
         else -> "RIGHT"
+    }
 
+    fun toError(message: String) {
+        System.err.println(message)
+    }
+
+    fun toError(message: Int) {
+        System.err.println(message)
     }
 
 }
 
-fun error(str: String) {
-    System.err.println(str)
-}
