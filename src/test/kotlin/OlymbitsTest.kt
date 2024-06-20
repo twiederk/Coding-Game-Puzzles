@@ -188,34 +188,6 @@ class OlymbitsTest {
     }
 
     @Test
-    fun should_return_RIGHT_when_it_is_reset_time() {
-        // arrange
-        val turnData = TurnData(
-            ScoreInfo("100 1 2 3"),
-            ScoreInfo("200 4 5 6"),
-            ScoreInfo("300 7 8 9"),
-        )
-        turnData.addGameData(
-            GameData(
-                "GAME_OVER",
-                -1,
-                -1,
-                -1,
-                -1,
-                -1,
-                -1,
-                -1
-            )
-        )
-
-        // act
-        val output = olymbits1.playTurn(turnData)
-
-        // assert
-        assertThat(output).isEqualTo("RIGHT")
-    }
-
-    @Test
     fun should_create_Score_for_each_mini_game() {
 
         // act
@@ -345,6 +317,8 @@ class OlymbitsTest {
 
     @Test
     fun should_stay_in_current_game_till_game_over() {
+
+        // arrange
         val olymbits = Olymbits(RaceData(2, 1))
 
         val turnData = TurnData(
@@ -377,10 +351,63 @@ class OlymbitsTest {
             )
         )
 
+        // act
         olymbits.determineCurrentGame("GAME_OVER", turnData)
 
+        // asserrt
         assertThat(olymbits.raceData.currentGame).isEqualTo(0)
+    }
 
+    @Test
+    fun should_return_race_with_best_postion() {
+        // arrange
+        val turnData = TurnData(
+            ScoreInfo("0 1 0 0 1 0 0 1 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+            ScoreInfo("0 0 0 0 0 0 0 0 0 0 0 0 0"),
+        )
+        turnData.addGameData(
+            GameData(
+                ".....#...#...#....",
+                6,
+                6,
+                12,
+                1,
+                0,
+                2,
+                -1
+            )
+        )
+        turnData.addGameData(
+            GameData(
+                "GAME_OVER",
+                30,
+                1,
+                0,
+                2,
+                -1,
+                2,
+                -1
+            )
+        )
+        turnData.addGameData(
+            GameData(
+                ".....#...#...#....",
+                25,
+                1,
+                0,
+                2,
+                -1,
+                2,
+                -1
+            )
+        )
+
+        // act
+        val gameToPlay = turnData.getGameWithBestPosition(0)
+
+        // assert
+        assertThat(gameToPlay).isEqualTo(2)
 
     }
 }

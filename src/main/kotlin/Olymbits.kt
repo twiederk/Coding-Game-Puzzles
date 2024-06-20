@@ -91,6 +91,11 @@ data class TurnData(
         return games.filter { game -> game.raceTrack != "GAME_OVER" }
             .minBy { game -> game.countGameHurdles() }.let { game -> games.indexOf(game) }
     }
+
+    fun getGameWithBestPosition(playerIndex: Int): Int {
+        return games.filter { game -> game.raceTrack != "GAME_OVER" }
+            .maxBy { game -> game.getPlayerPosition(playerIndex) }.let { game -> games.indexOf(game) }
+    }
 }
 
 data class GameData(
@@ -152,7 +157,8 @@ data class Olymbits(val raceData: RaceData) {
 
     fun determineCurrentGame(raceTrack: String, turnData: TurnData) {
         if (raceTrack == "GAME_OVER") {
-            raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
+//            raceData.currentGame = turnData.getIndexOfGameWithLeastHurdles()
+            raceData.currentGame = turnData.getGameWithBestPosition(raceData.playerIndex)
         }
     }
 
