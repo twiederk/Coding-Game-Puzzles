@@ -19,6 +19,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [THE LOST FILES]                   | [TheLostFiles]                | Puzzle          | Medium |  
 | [Binary Search Tree Traversal]     | [BinarySearchTreeTraversal]   | Puzzle          | Medium |
 | [PAPER LABYRINTH]                  | [PaperLabyrinth]              | Puzzle          | Medium |
+| [A-STAR EXERCISE]                  | [AStarExercise]               | Puzzle          | Medium |
 | [CODE VS ZOMBIES]                  | [CodeVsZombies]               | Optimization    |        |
 | [MAD POD RACING]                   | [MadPodRacing]                | Bot Programming |        | 
 | [OLYMBITS]                         | [Olymbits]                    | Bot Programming |        | 
@@ -91,5 +92,8 @@ To Dos
 [OrderOfSuccession]: src/main/kotlin/OrderOfSuccession.kt
 
 [OLYMBITS]: https://www.codingame.com/ide/challenge/summer-challenge-2024-olymbits
-
 [Olymbits]: src/main/kotlin/Olymbits.kt
+
+[A-STAR EXERCISE]: https://www.codingame.com/training/medium/a-star-exercise
+
+[AStarExercise]: src/main/kotlin/AStarExercise.kt
