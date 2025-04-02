@@ -11,6 +11,7 @@ Workplace for [CodingGame](https://www.codingame.com/) puzzles.
 | [DUNGEONS AND MAPS]                | [DungeonsAndMaps]             | Puzzle          | Easy   |
 | [NUMBER PARTITION]                 | [NumberPartition]             | Puzzle          | Easy   |
 | [ORDER OF SUCCESSION]              | [OrderOfSuccession]           | Puzzle          | Easy   |
+| [GHOST LEGS]                       | [GhostLegs]                   | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 1]          | [MarsLanderEpisode1]          | Puzzle          | Easy   |
 | [MARS LANDER - EPISODE 2]          | [MarsLanderEpisode2]          | Puzzle          | Easy   |
 | [DEATH FIRST SEARCH - EPISODE 1]   | [DeathFirstSearchEpisode1]    | Puzzle          | Medium |
@@ -93,6 +94,9 @@ To Dos
 
 [OLYMBITS]: https://www.codingame.com/ide/challenge/summer-challenge-2024-olymbits
 [Olymbits]: src/main/kotlin/Olymbits.kt
+
+[GHOSTLEGS]: https://www.codingame.com/training/easy/ghost-legs
+[GhostLegs]: src/main/kotlin/GhostLegs.java
 
 [A-STAR EXERCISE]: https://www.codingame.com/training/medium/a-star-exercise
 
